@@ -1,0 +1,37 @@
+.toolbar ul {
+	list-style: none;
+}
+
+.toolbar ul li {
+	list-style: none;
+	display: inline;
+}
+
+#board, .topic {
+	border: 1px solid black;
+	padding: 4px;
+}
+
+.topic {
+	border: 1px solid black;
+	padding: 4px;
+}
+
+.topic .meta .author,
+.topic .meta .time,
+.topic .meta .permalink {
+	border: 1px solid black;
+	padding: 4px;
+}
+
+.comment .meta .author,
+.comment .meta .time,
+.comment .meta .permalink {
+	border: 1px solid black;
+	padding: 4px;
+}
+
+.comment .text {
+}
+
+
