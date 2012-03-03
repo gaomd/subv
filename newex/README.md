@@ -2,9 +2,9 @@
 
 !!WORK IN PROGRESS!!
 
-turn v2ex.com into reddit/News.YC like style
+a new way to explore the v2ex.com
 
-##license
+##License
 (c) 2012 Md Gao
 
-MIT License
+MIT License, see /LICENSE file
