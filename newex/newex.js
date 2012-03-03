@@ -22,10 +22,10 @@ function updateBoard(pageNo) {
 					// very very unreliable, be careful
 					// TODO views: $meta.split('•')[3].split('次点击')[0].trim(),
 					// wont split the bullet?
-					//time: $meta.split('&bullet;').pop().split('ago')[0].trim()
+					// TODO time: $meta.split('&bullet;').pop().split('ago')[0].trim()
 				}
 			}).get();
-			console.log(topics[0]);
+			//console.log(topics[0]);
 			for (var i = 0; i < topics.length; i++) {
 				// update page
 				// needed? $('#board').empty();
@@ -40,22 +40,14 @@ function updateBoard(pageNo) {
 $(function() {
 	updateBoard(1);
 });
-/*
-for (var i = 0; i < urls.length; i++) {
-	
-// on the topic
-//
-// post
-var topic = function(id) {
-	$.get('http://www.v2ex.com/t/' + id);
-	return {
-		title: $('#Content .cell h1').text(),
-		author: $('#Content .cell small .dark').text(),
-		time: $('#Content .cell small.fade').text(),
+
+function expandTopic(id) {
+$.get('http://www.v2ex.com/t/' + id, function(html) {
+	// tmp solution, gonna parse img, swf, gist, etc later
+	html = html.replace(/<img\b[^>]*>/ig, '');
+	var topic = {
+		// mainained
 		content: $('#Content .topic_content').text(),
-		lastUpdated: $($('#Content .cell span.fade')[0]).text().split(' 直到 ')[1],
-		tag: $('#Content .box .cell .bigger a:nth-child(3)').text(),
-		tagPath: $('#Content .box .cell .bigger a:nth-child(3)').attr('href'),
 		comments: $('.reply table').map(function() {
 			var $r = $(this);
 			return {
@@ -66,6 +58,15 @@ var topic = function(id) {
 				content: $r.find('.reply_content').text()
 			};
 		}),
+		// not needed
+		//title: $('#Content .cell h1').text(),
+		//author: $('#Content .cell small .dark').text(),
+		//time: $('#Content .cell small.fade').text(),
+		//lastUpdated: $($('#Content .cell span.fade')[0]).text().split(' 直到 ')[1],
+		//tag: $('#Content .box .cell .bigger a:nth-child(3)').text(),
+		//tagPath: $('#Content .box .cell .bigger a:nth-child(3)').attr('href'),
 	}
+	$('#board #' + id + ' .commentarea').html($('#comment-template').render(topic));
+});
 }
-*/
+

@@ -28,14 +28,14 @@
 		<!-- clone and fill into #board -->
 		<script id="topic-template" type="text/x-jquery-tmpl">
 			<div class="topic by{{=authorId}}" id="{{=id}}">
-				<div class="title">
-					<a href="http://www.v2ex.com/t/{{=id}}#reply{{=comments}}">{{=title}}</a>
-					in
-					<a href="http://www.v2ex.com/go/{{=tagUnixName}}">{{=tagHumanName}}</a>
-					by
-					<a class="author" href="http://www.v2ex.com/member/{{=author}}">{{=author}}</a>
-					<a class="permalink" href="http://www.v2ex.com/t/{{=id}}">permalink</a>
+				<div class="title"><a href="http://www.v2ex.com/t/{{=id}}#reply{{=comments}}">{{=title}}</a></div>
+				<span class="category">(<a href="http://www.v2ex.com/go/{{=tagUnixName}}">{{=tagHumanName}}</a>)</span>
+				<br />
+				<div class="meta">
+					by <a class="author" href="http://www.v2ex.com/member/{{=author}}">{{=author}} ({{=authorId}})</a>
+					with <a class="comments" href="javascript:expandTopic({{=id}});return false;">{{=comments}} comments</a>
 				</div>
+				<!--<a class="permalink" href="http://www.v2ex.com/t/{{=id}}">permalink</a>-->
 				<div class="main">
 					<div class="meta">
 						<!--<span class="time">{{=time}} ago</span>-->

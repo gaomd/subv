@@ -1,5 +1,23 @@
+body {
+	font-size: 100%;
+	min-width: 576px;
+}
+
+a {
+	text-decoration: none;
+	/*color: black;*/
+}
+
+/*
+a:hover {
+	text-decoration: underline;
+}
+*/
+
 .toolbar ul {
 	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 .toolbar ul li {
@@ -8,30 +26,41 @@
 }
 
 #board, .topic {
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 	padding: 4px;
 }
 
 .topic {
-	border: 1px solid black;
+	/*border: 1px solid black;*/
+	/*border-top: 1px solid black;
+	border-bottom: 1px solid black;*/
 	padding: 4px;
+	margin: .5em 0;
 }
 
-.topic .meta .author,
-.topic .meta .time,
-.topic .meta .permalink {
-	border: 1px solid black;
-	padding: 4px;
+.topic .title {
+	display: inline;
 }
 
-.comment .meta .author,
-.comment .meta .time,
-.comment .meta .permalink {
-	border: 1px solid black;
-	padding: 4px;
+.topic .category,
+.topic .category a {
+	color: #888;
+	font-size: .6em;
 }
 
-.comment .text {
+.topic .category a:hover {
+	text-decoration: underline;
 }
 
+.topic .meta {
+	color: #888;
+	font-size: .6em;
+}
 
+.topic .meta a:hover {
+	text-decoration: underline;
+}
+
+.topic.expanded {
+	border: 1px dotted gray;
+}
