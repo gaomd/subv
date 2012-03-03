@@ -2,19 +2,23 @@
 <html>
 	<head>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-		<script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.js" type="text/javascript"></script>
+		<!--<script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.js" type="text/javascript"></script>-->
+		<script src="http://borismoore.github.com/jsrender/jsrender.js" type="text/javascript"></script>
 		<script type="text/javascript" src="newex.js"></script>
 		<link rel="stylesheet" type="text/css" href="newex.css">
-		<title>newex - the new way to explore the v2ex.com</title>
+		<title>newex - a new way to explore the v2ex.com</title>
 	</head>
 	<body>
 		<div class="toolbar">
 			<ul>
 				<li>
-					<a href="javascript:void(0)" onclick="update()">reload</a>
+				<a href="javascript:void(0);" onclick="update()">update</a>
 				</li>
 				<li>
-					<a id="original-link" href="javascript:void(0)">view original</a>
+				<a href="javascript:location.reload(true);">reload current page</a>
+				</li>
+				<li>
+				<a id="original-link" href="javascript:void(0);">view original</a>
 				</li>
 			</ul>
 		</div><!-- end of toolbar -->
@@ -25,13 +29,16 @@
 		<script id="topic-template" type="text/x-jquery-tmpl">
 			<div class="topic by{{=authorId}}" id="{{=id}}">
 				<div class="title">
-					<a href="/t/{{=id}}#reply{{=comments}}">{{=title}}</a> in <span class="subcat">{{=tagHumanName}}</span>
+					<a href="http://www.v2ex.com/t/{{=id}}#reply{{=comments}}">{{=title}}</a>
+					in
+					<a href="http://www.v2ex.com/go/{{=tagUnixName}}">{{=tagHumanName}}</a>
+					by
+					<a class="author" href="http://www.v2ex.com/member/{{=author}}">{{=author}}</a>
+					<a class="permalink" href="http://www.v2ex.com/t/{{=id}}">permalink</a>
 				</div>
 				<div class="main">
 					<div class="meta">
-						<a class="author" href="/member/{{=author}}">{{=author}}</a>
-						<span class="time">{{=time}} ago</span>
-						<a class="permalink" href="/t/{{=id}}">&infin;</a>
+						<!--<span class="time">{{=time}} ago</span>-->
 					</div><!-- end of meta -->
 					<div class="text"></div>
 				</div>
@@ -43,9 +50,9 @@
 		<script id="comment-template" type="text/x-jquery-tmpl">
 			<div class="comment" id="COMMENT_ID">
 				<div class="meta">
-					<a class="author" href="/member/AUTHOR">SOMEBODY</a>
+					<a class="author" href="http://www.v2ex.com/member/AUTHOR">SOMEBODY</a>
 					<span class="time">1 min ago</span>
-					<a class="permalink" href="/t/TOPICID#reply_COMMENTID_buttons">&infin;</a>
+					<a class="permalink" href="http://www.v2ex.com/t/TOPICID#reply_COMMENTID_buttons">&infin;</a>
 				</div><!-- end of meta -->
 				<div class="text">
 					<!-- COMMENT BODY -->

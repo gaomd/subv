@@ -1,41 +1,11 @@
-// ==UserScript==
-// @name	newex
-// @namespace	http://example.com/example
-// @description	the new way to explore the v2ex.com
-// @copyright	2012 Md Gao
-// @version	0
-// @license	MIT License
-// @include	http://v2ex.com/?newex
-// @include	http://www.v2ex.com/?newex
-// @include	http://v2ex.appspot.com/?newex
-// @exclude	http://example.com/*
-// ==/UserScript==
 
-function clearPage() {
-	document.body.innerHTML = "";
-	document.head.innerHTML = "";
-}
-
-function writeHtml() {
-	document.title = "newex - the new way to explore the v2ex.com";
-//	$('<div/>', {
-//		id: 'board',
-//		class: 'board',
-//	}).appendTo('body');
-}
-
-function writeCss() {
-
-}
-
-function writeScript() {
-}
-
-
-function update() {
+function updateBoard(pageNo) {
+	console.log("updating");
 	$.ajax({
-		url: "http://www.v2ex.com/changes?p=1",
+		url: "http://www.v2ex.com/changes?p=" + +pageNo,
 		success: function(html) {
+			// http://stackoverflow.com/a/6485092/753533 explains why do replace
+			html = html.replace(/<img\b[^>]*>/ig, '');
 			var topics = $(html).find('#Content #topics_index .cell table').map(function() {
 				var $p = $(this);
 				var $meta = $p.find('.created').text();
@@ -51,10 +21,11 @@ function update() {
 					lastCommentor: $meta.split(' ').pop(),
 					// very very unreliable, be careful
 					// TODO views: $meta.split('•')[3].split('次点击')[0].trim(),
-					time: $meta.split('•').pop().split('ago')[0].trim(),
+					// wont split the bullet?
+					//time: $meta.split('&bullet;').pop().split('ago')[0].trim()
 				}
 			}).get();
-			//console.log(topics[0]);
+			console.log(topics[0]);
 			for (var i = 0; i < topics.length; i++) {
 				// update page
 				// needed? $('#board').empty();
@@ -66,13 +37,9 @@ function update() {
 	});
 }
 
-
-(function() {
-	clearPage();
-	prepareBasicHtml();
-})();
-
-
+$(function() {
+	updateBoard(1);
+});
 /*
 for (var i = 0; i < urls.length; i++) {
 	

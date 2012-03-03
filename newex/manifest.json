@@ -1,0 +1,15 @@
+{
+	"name": "newex",
+	"version": "0.1",
+	"description": "A new way to explore the V2EX.com",
+	"browser_action": {
+		"default_icon": "images/icon.png",
+		"popup": "index.html"
+	},
+	"permissions": [
+		"http://www.v2ex.com/",
+		"https://www.v2ex.com/",
+		"http://v2ex.appspot.com/",
+		"https://v2ex.appspot.com/"
+	]
+}
