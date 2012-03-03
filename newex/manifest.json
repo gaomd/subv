@@ -3,7 +3,7 @@
 	"version": "0.1",
 	"description": "a new way to explore the v2ex.com",
 	"browser_action": {
-		"default_icon": "images/icon.png",
+		"default_icon": "images/icon7.png",
 		"popup": "index.html"
 	},
 	"permissions": [

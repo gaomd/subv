@@ -78,5 +78,7 @@ function expandTopic(id) {
 
 $(function() {
 	updateBoard(1);
+	chrome.browserAction.setBadgeText({ text: '111' });
+	chrome.browserAction.setBadgeBackgroundColor({ color: [150, 210, 100, 200] });
 });
 
