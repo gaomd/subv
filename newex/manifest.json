@@ -1,7 +1,7 @@
 {
 	"name": "newex",
 	"version": "0.1",
-	"description": "A new way to explore the V2EX.com",
+	"description": "a new way to explore the v2ex.com",
 	"browser_action": {
 		"default_icon": "images/icon.png",
 		"popup": "index.html"
