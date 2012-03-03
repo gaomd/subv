@@ -37,27 +37,25 @@ function updateBoard(pageNo) {
 	});
 }
 
-$(function() {
-	updateBoard(1);
-});
-
 function expandTopic(id) {
 	$.get('http://www.v2ex.com/t/' + id, function(html) {
 		// tmp solution, gonna parse img, swf, gist, etc later
 		html = html.replace(/<img\b[^>]*>/ig, '');
 		var topic = {
 			// mainained
-			content: $('#Content .topic_content').text(),
-			comments: $('.reply table').map(function() {
+			content: $(html).find('#Content .topic_content').text(),
+			comments: $(html).find('.reply table').map(function() {
 				var $r = $(this);
 				return {
+					tid: id,
+					id: undefined, // TODO
 					level: $r.find('.snow').text().split('-')[0].trim().substr(1),
-					time: $r.find('.snow').text().split('-')[1].split(' via ')[0].trim(),
+					time: $r.find('.snow').text().split('-')[1].split(' via ')[0].trim(), // TODO remove ago
 					device: $r.find('.snow').text().split('-')[1].split(' via ')[1] || "Desktop",
 					author: $r.find('strong .dark').text(),
 					content: $r.find('.reply_content').text()
 				};
-			}),
+			})
 			// not needed
 			//title: $('#Content .cell h1').text(),
 			//author: $('#Content .cell small .dark').text(),
@@ -66,7 +64,19 @@ function expandTopic(id) {
 			//tag: $('#Content .box .cell .bigger a:nth-child(3)').text(),
 			//tagPath: $('#Content .box .cell .bigger a:nth-child(3)').attr('href'),
 		}
-		$('#board #' + id + ' .commentarea').html($('#comment-template').render(topic));
+		console.log('appending comments');
+		console.log('id is: ' + id);
+		console.log('content is: ' + topic.content);
+		console.log('comments[0] is: ' + topic.comments[0]);
+		$('#board #' + id).addClass('expanded');
+		$('#board #' + id + ' > .content').html(topic.content);
+		for (var i = 0; i < topic.comments.length; i++) {
+			$($('#comment-template').render(topic.comments[i])).appendTo('#board #' + id + ' .commentarea');
+		}
 	});
 }
+
+$(function() {
+	updateBoard(1);
+});
 

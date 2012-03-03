@@ -1,6 +1,7 @@
 body {
 	font-size: 100%;
 	min-width: 576px;
+	max-width: 624px;
 }
 
 a {

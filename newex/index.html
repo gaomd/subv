@@ -33,30 +33,23 @@
 				<br />
 				<div class="meta">
 					by <a class="author" href="http://www.v2ex.com/member/{{=author}}">{{=author}} ({{=authorId}})</a>
-					with <a class="comments" href="javascript:expandTopic({{=id}});return false;">{{=comments}} comments</a>
+					with <a class="comments" href="javascript:void(0);" onclick="expandTopic({{=id}});return false;">{{=comments}} comments</a>
 				</div>
 				<!--<a class="permalink" href="http://www.v2ex.com/t/{{=id}}">permalink</a>-->
-				<div class="main">
-					<div class="meta">
-						<!--<span class="time">{{=time}} ago</span>-->
-					</div><!-- end of meta -->
-					<div class="text"></div>
-				</div>
+				<div class="content"></div>
 				<div class="commentarea"></div>
 			</div><!-- end of topic -->
 		</script>
 
 		<!-- clone and fill into .commentarea -->
 		<script id="comment-template" type="text/x-jquery-tmpl">
-			<div class="comment" id="COMMENT_ID">
+			<div class="comment" id="comment{{=id}}">
 				<div class="meta">
-					<a class="author" href="http://www.v2ex.com/member/AUTHOR">SOMEBODY</a>
-					<span class="time">1 min ago</span>
-					<a class="permalink" href="http://www.v2ex.com/t/TOPICID#reply_COMMENTID_buttons">&infin;</a>
+					<a class="author" href="http://www.v2ex.com/member/{{=author}}">{{=author}}</a>
+					<span class="time">{{=time}}</span>
+					<a class="permalink" href="http://www.v2ex.com/t/{{=tid}}#reply_{{=id}}_buttons">permalink</a>
 				</div><!-- end of meta -->
-				<div class="text">
-					<!-- COMMENT BODY -->
-				</div><!-- end of text -->
+				<div class="content">{{=content}}</div>
 			</div><!-- end of comment -->
 		</script>
 
