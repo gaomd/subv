@@ -1,4 +1,37 @@
-// at index
+// ==UserScript==
+// @name	newex
+// @namespace	http://example.com/example
+// @description	the new way to explore the v2ex.com
+// @copyright	2012 Md Gao
+// @version	0
+// @license	MIT License
+// @include	http://v2ex.com/?newex
+// @include	http://www.v2ex.com/?newex
+// @include	http://v2ex.appspot.com/?newex
+// @exclude	http://example.com/*
+// ==/UserScript==
+
+function clearPage() {
+	document.body.innerHTML = "";
+	document.head.innerHTML = "";
+}
+
+function writeHtml() {
+	document.title = "newex - the new way to explore the v2ex.com";
+//	$('<div/>', {
+//		id: 'board',
+//		class: 'board',
+//	}).appendTo('body');
+}
+
+function writeCss() {
+
+}
+
+function writeScript() {
+}
+
+
 function update() {
 	$.ajax({
 		url: "http://www.v2ex.com/changes?p=1",
@@ -17,7 +50,7 @@ function update() {
 					tagUnixName: $p.find('.created a.node').attr('href').substr(4),
 					lastCommentor: $meta.split(' ').pop(),
 					// very very unreliable, be careful
-					views: $meta.split('•')[3].split('次点击')[0].trim(),
+					// TODO views: $meta.split('•')[3].split('次点击')[0].trim(),
 					time: $meta.split('•').pop().split('ago')[0].trim(),
 				}
 			}).get();
@@ -32,6 +65,13 @@ function update() {
 		}
 	});
 }
+
+
+(function() {
+	clearPage();
+	prepareBasicHtml();
+})();
+
 
 /*
 for (var i = 0; i < urls.length; i++) {
