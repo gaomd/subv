@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript">
+			chrome.browserAction.onClicked.addListener(function() {
+				  chrome.tabs.create({'url': chrome.extension.getURL('index.html')});
+			});
+		</script>
+	</head>
+</html>
