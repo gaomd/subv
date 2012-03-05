@@ -29,7 +29,7 @@ a:hover {
 	display: inline;
 }
 
-#board, .topic {
+#toolbar, #board, .topic {
 	/*border: 1px solid black;*/
 	padding: 4px;
 }
@@ -68,3 +68,20 @@ a:hover {
 .topic.expanded {
 	border: 1px dotted gray;
 }
+
+.commentarea .comment {
+	border-left: 3px solid #fff;
+	padding: .2em 0 .2em .5em;
+	margin-top: .4em;
+	margin-left: .8em;
+}
+
+.topic:hover {
+	background-color: #eee;
+}
+
+/*
+.commentarea .comment:nth-child(odd) {
+	background-color: #eee;
+}
+*/

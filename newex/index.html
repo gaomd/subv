@@ -3,23 +3,29 @@
 	<head>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<!--<script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.js" type="text/javascript"></script>-->
+		<script type="text/javascript" src="https://raw.github.com/padolsey/jQuery-Plugins/master/cross-domain-ajax/jquery.xdomainajax.js"></script>
 		<script src="http://borismoore.github.com/jsrender/jsrender.js" type="text/javascript"></script>
 		<script type="text/javascript" src="newex.js"></script>
 		<link rel="stylesheet" type="text/css" href="newex.css">
 		<title>newex - a new way to explore the v2ex.com</title>
 	</head>
 	<body>
-		<div class="toolbar">
+		<div id="toolbar" class="toolbar">
 			<ul>
 				<li>
-				<a href="javascript:void(0);" onclick="update()">update</a>
+				<a href="javascript:void(0);" onclick="update()">⟳ refresh</a>
 				</li>
 				<li>
-				<a href="javascript:location.reload(true);">reload current page</a>
+				|
 				</li>
+				<li>
+				<a href="javascript:location.reload(true);">REDEPLOY</a>
+				</li>
+				<!--
 				<li>
 				<a id="original-link" href="javascript:void(0);">view original</a>
 				</li>
+				-->
 			</ul>
 		</div><!-- end of toolbar -->
 
@@ -49,7 +55,7 @@
 					<span class="time">{{=time}}</span>
 					<a class="permalink" href="http://www.v2ex.com/t/{{=tid}}#reply_{{=id}}_buttons">permalink</a>
 				</div><!-- end of meta -->
-				<div class="content">{{=content}}</div>
+				<div class="content">{{=content!}}</div>
 			</div><!-- end of comment -->
 		</script>
 

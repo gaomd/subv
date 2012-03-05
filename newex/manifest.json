@@ -2,11 +2,13 @@
 	"name": "newex",
 	"version": "0.1",
 	"description": "a new way to explore the v2ex.com",
+	"background_page": "background.html",
 	"browser_action": {
-		"default_icon": "images/icon7.png",
-		"popup": "index.html"
+		"default_icon": "images/icon9.png"
+		//"popup": "index.html"
 	},
 	"permissions": [
+		"tabs",
 		"http://www.v2ex.com/",
 		"https://www.v2ex.com/",
 		"http://v2ex.appspot.com/",
