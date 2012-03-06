@@ -12,6 +12,18 @@ a {
 	/*color: black;*/
 }
 
+p {
+	margin: 0;
+}
+
+.topic .content {
+	margin-top: .4em;
+}
+
+.topic {
+	width: 620px;
+}
+
 /*
 a:hover {
 	text-decoration: underline;
@@ -49,7 +61,7 @@ a:hover {
 .topic .category,
 .topic .category a {
 	color: #888;
-	font-size: .6em;
+	font-size: .7em;
 }
 
 .topic .category a:hover {
@@ -58,7 +70,7 @@ a:hover {
 
 .topic .meta {
 	color: #888;
-	font-size: .6em;
+	font-size: .7em;
 }
 
 .topic .meta a:hover {
@@ -76,9 +88,16 @@ a:hover {
 	margin-left: .8em;
 }
 
+.commentarea .comment .meta a.permalink {
+	color: #888;
+}
+
+/*
 .topic:hover {
 	background-color: #eee;
+	border-radius: .4em;
 }
+*/
 
 /*
 .commentarea .comment:nth-child(odd) {

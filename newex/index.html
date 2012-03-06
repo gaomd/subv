@@ -16,25 +16,17 @@
 				<a href="javascript:void(0);" onclick="updateBoard(1)">⟳ refresh</a>
 				</li>
 				<li>
-				|
-				</li>
-				<li>
 				<a href="javascript:location.reload(true);">REDEPLOY</a>
 				</li>
-				<!--
-				<li>
-				<a id="original-link" href="javascript:void(0);">view original</a>
-				</li>
-				-->
 			</ul>
 		</div><!-- end of toolbar -->
 
 		<div class="board" id="board"></div>
 
-		<!-- clone and fill into #board -->
+		<!-- render #board -->
 		<script id="topic-template" type="text/x-jquery-tmpl">
-			<div class="topic by{{=authorId}}" id="{{=id}}">
-				<div class="title"><a href="http://www.v2ex.com/t/{{=id}}#reply{{=comments}}">{{=title}}</a></div>
+			<div class="topic by{{=authorId}}" id="{{=id}}-{{=comments}}-{{=lastCommentor}}">
+				<div class="title"><a href="http://www.v2ex.com/t/{{=id}}#reply{{=comments}}" onclick="expandTopic({{=id}});return false;">{{=title}}</a></div>
 				<span class="category">(<a href="http://www.v2ex.com/go/{{=tagUnixName}}">{{=tagHumanName}}</a>)</span>
 				<br />
 				<div class="meta">
@@ -47,12 +39,12 @@
 			</div><!-- end of topic -->
 		</script>
 
-		<!-- clone and fill into .commentarea -->
+		<!-- render into #board .commentarea -->
 		<script id="comment-template" type="text/x-jquery-tmpl">
 			<div class="comment" id="comment{{=id}}">
 				<div class="meta">
 					<a class="author" href="http://www.v2ex.com/member/{{=author}}">{{=author}}</a>
-					<span class="time">{{=time}}</span>
+					<span class="time">{{=time}}</span>,
 					<a class="permalink" href="http://www.v2ex.com/t/{{=tid}}#reply_{{=id}}_buttons">permalink</a>
 				</div><!-- end of meta -->
 				<div class="content">{{=content!}}</div>
