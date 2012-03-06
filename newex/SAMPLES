@@ -1,0 +1,15 @@
+content parsed by v2ex:
+v2ex/templatetags/filters.py
+
+http://www.v2ex.com/t/27153
+<embed src="http://player.youku.com/player.php/sid/VIDEOID/v.swf" quality="high" width="638" height="420" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash"></embed>
+
+http://www.v2ex.com/t/10422
+<object width="480" height="385"><param name="movie" value="http://www.youtube.com/v/-dTpwF--4T4?fs=1&amp;hl=en_US"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/-dTpwF--4T4?fs=1&amp;hl=en_US" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="480" height="385"></embed></object>
+
+http://www.v2ex.com/t/28564
+<script src="http://gist.github.com/GISTID.js"></script>
+
+http://www.v2ex.com/t/28556
+<a href="http://ww2.sinaimg.cn/mw600/IMGID.jpg" target="_blank"><img src="http://ww2.sinaimg.cn/mw600/IMGID.jpg" class="imgly" border="0" /></a>
+
