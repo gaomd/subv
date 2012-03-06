@@ -37,6 +37,7 @@ function updateBoard(pageNo) {
 	console.log("updating");
 	console.log(new Date() + ": GETting");
 	$.get("http://www.v2ex.com/changes?p=" + +pageNo, function(data) {
+		console.log(new Date() + ": got, parsing");
 		// http://stackoverflow.com/a/6485092/753533 explains why do replace
 		var html = data.responseText.replace(/<img\b[^>]*>/ig, '');
 		var topics = $(html).find('#Content #topics_index .cell table').map(function() {
@@ -58,13 +59,14 @@ function updateBoard(pageNo) {
 				// TODO time: $meta.split('&bullet;').pop().split('ago')[0].trim()
 			}
 		}).get();
-		console.log(new Date() + ": got");
+		console.log(new Date() + ": parsed int JSON");
 		//console.log(topics[0]);
-		for (var i = 0; i < topics.length; i++) {
+		console.log("items count: " + topics.length);
+		for (var i = topics.length - 1; i >= 0; i--) {
 			// update page
 			// needed? $('#board').empty();
-			$('#board').html(
-				$('#topic-template').render(topics)
+			$('#board').append(
+				$('#topic-template').render(topics[i])
 			);
 		}
 		console.log(new Date() + ": rendered");
