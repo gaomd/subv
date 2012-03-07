@@ -21,8 +21,8 @@ function loadTopicList(pageNo) {
 }
 
 function loadTopic(id) {
-	$.get('http://www.v2ex.com/t/' + id, function(html) {
-		var topic = topicParse(html);
+	$.get('http://www.v2ex.com/t/' + id, function(data) {
+		var topic = topicParse(data);
 		debug(topic);
 		$('#board #' + id).addClass('expanded');
 		$('#board #' + id + ' > .content').html(topic.content);
@@ -49,24 +49,26 @@ function killImgTag(text) {
 }
 
 // the nasty part... extract HTML text into JSON
-function topicParse(html) {
+function topicParse(data) {
 	// tmp solution, gonna parse swf, gist, etc later
-	var html = killImgTag(extractResponseText(html));
+	var html = killImgTag(extractResponseText(data));
 	var $dom = $(html);
 	var topic = {
+		// TODO VARIOUS PARSING ERROR
+		//
 		// following is same as in topicList but more up-to-date
-		topicId: $dom.find('form[method="post"]').attr('action').replace('/t/', ''),
-		commentsCount: $dom.find('.bigger a').attr('href').substr(3).split('#')[1].replace('reply', ''),
+		topicId: html.replace(/.*?<link rel="canonical" href="(.*?)".*/, "$1").split('/').pop(),
+		commentsCount: $dom.find('#Content .box:nth-child(3) .cell > .fade').text().split(' ').shift(),
 		title: $dom.find('#Content .cell h1').text(),
 		author: $dom.find('#Content .cell small .dark').text(),
 		authorId: null, // TODO
-		tagId: $dom.find('#Content .box .cell .bigger a:nth-child(3)').attr('href'),
+		tagId: $dom.find('#Content .box .cell .bigger a:nth-child(3)').attr('href').split('/').pop(),
 		tagName: $dom.find('#Content .box .cell .bigger a:nth-child(3)').text(),
 		lastCommentor: null, // TODO
 		hasContent: false, // TODO
 		// unreliable because of caching
-		viewsCount: viewsCount,
-		timeAgo: $dom.find('#Content .cell small.fade').text(),
+		viewsCount: $dom.find('#Content .cell small.fade').text().replace(/(.*?)(\d+ hits)/, "$2").split(' ').shift(),
+		timeAgo: $dom.find('#Content .cell small.fade').text().split('at').pop().split(/,\ \d+ hits/).shift().trim(),
 		// same thing ends
 
 		// TODO lastActivity: $($('#Content .cell span.fade')[0]).text().split(' 直到 ')[1],
@@ -83,12 +85,13 @@ function topicParse(html) {
 				content: $this.find('.reply_content').html(),
 			};
 		}),
-	}
+	};
+	return topic;
 }
 
 // the nasty part... extract HTML text into JSON
-function topicListParse(html) {
-	var html = killImgTag(extractResponseText(html));
+function topicListParse(data) {
+	var html = killImgTag(extractResponseText(data));
 	var $dom = $(html);
 	var topicList = {};
 	topicList.page = $dom.find('.page_current').text();
@@ -107,6 +110,8 @@ function topicListParse(html) {
 		if (/个字符/.test(meta[0])) {
 			hasContent = true;
 			meta.shift();
+		} else {
+			hasContent = false;
 		}
 		viewsCount = meta.shift().split("次点击").shift().trim();
 		timeAgo = meta.shift().trim();
