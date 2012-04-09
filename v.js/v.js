@@ -66,7 +66,8 @@ function hideReadPosts() {
 // HARD CODE EVERYTHING, WTF...
 function rewriteContent() {
 	$("#TopMain > a").attr("href", "/changes");
-	$("#TopMain > a > img").css("margin-left", "0");
+	$("#TopMain > a > img").remove();
+	$("<span style=\"font-size: 1.6em; font-family: 'Arial Black'; float: left; line-height: 1.7em;\">V2EX</span>").appendTo("#TopMain > a");
 	$("#Rightbar").remove();
 	$("#Content").css("margin", "0 0 0 0");
 	$("#Content").css("padding", "12px 0 0 0");
@@ -74,6 +75,7 @@ function rewriteContent() {
 	// refactor the search box
 	$("#TopMain #Search > form > div > input").appendTo("#TopMain #Search > form");
 	$("#TopMain #Search > form > div").remove();
+	$("#TopMain #Search").css("padding-top", "8px"); // default is 6px
 
 	if (window.location.pathname.indexOf("/t/") !== -1) {
 		// remove 'By ' from OP
@@ -102,10 +104,15 @@ function rewriteContent() {
 		fav.prependTo("#Content .box:first-child .cell:first-child h1");
 	
 		favText = $("#Content .box:first-child .inner:last-child .fr");
+		var favNums;
 		if (favText.find("span").text().trim() === "") {
-			favText.parent().remove();
+			favNums = "0";
 		} else {
-			favText.text(favText.find("span").text().trim());
+			favNums = favText.find("span").text().trim().split(' ')[1];
+		}
+		favText.parent().remove();
+		if (favNums !== "0") {
+			$("#Content .box:first-child .cell:first-child h1 a").append(favNums);
 		}
 	}
 }
