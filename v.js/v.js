@@ -36,8 +36,10 @@ function jQueryReady() {
 
 function main() {
 	console.log($().jquery);
-	hideReadPosts();
-	hookClick();
+	if (window.location.pathname.indexOf("/changes") !== -1) {
+		hideReadPosts();
+		hookClick();
+	}
 	rewriteContent();
 }
 
@@ -53,11 +55,13 @@ function hookClick() {
 
 // now hide
 function hideReadPosts() {
+	$('<div class="sep20"></div>').appendTo("#Content > .box");
 	$.each($("#Content > .box .cell > table > tbody > tr span.bigger a"), function(index, value) {
 			if (isClicked($(this).attr("href"))) {
 				console.log("removing read post " + $(this).attr("href") + " :: " + $(this).text());
 				//console.log($(this));
-				$(this).closest(".cell").remove();
+				//$(this).closest(".cell").remove();
+				$(this).closest(".cell").appendTo("#Content > .box");
 			}
 		}
 	);
@@ -72,6 +76,13 @@ function rewriteContent() {
 	$("#Content").css("margin", "0 0 0 0");
 	$("#Content").css("padding", "12px 0 0 0");
 
+	// rip navigations
+	$("#Navigation ul li:nth-child(1)").hide(); // index
+	$("#Navigation ul li:nth-child(3)").hide(); // workspace
+	$("#Navigation ul li:nth-child(4)").hide(); // non-closed <a />
+	$("#Navigation ul li:nth-child(5)").hide(); // notepad
+	$("#Navigation ul li:nth-child(6)").hide(); // near me
+
 	// refactor the search box
 	$("#TopMain #Search > form > div > input").appendTo("#TopMain #Search > form");
 	$("#TopMain #Search > form > div").remove();
@@ -80,7 +91,7 @@ function rewriteContent() {
 	if (window.location.pathname.indexOf("/t/") !== -1) {
 		// remove 'By ' from OP
 		if (window.location.pathname.indexOf("/t/") !== -1) {
-			$("#Content > .box > .cell > small.fade").html($("#Content > .box > .cell > small.fade").html().split(/^By /).join(""));
+			$("#Content > .box small.fade").html($("#Content > .box small.fade").html().split(/^By /).join(""));
 		}
 
 		// remove everything around the comment box
@@ -91,6 +102,7 @@ function rewriteContent() {
 
 		// refactor the fav button
 		var fav = $($("#Content .box:first-child .inner:last-child a").get(0));
+		//var fav = $($($("#Content .box:first-child .inner").get(-1)).find("a").get(0));
 		if (fav.text() === "加入收藏") {
 			fav.html("&#9734;");
 		} else {
@@ -101,7 +113,7 @@ function rewriteContent() {
 		fav.css("font-size", "1em");
 		fav.css("font-family", "Arial");
 		fav.css("margin-right", ".5em");
-		fav.prependTo("#Content .box:first-child .cell:first-child h1");
+		fav.prependTo("#Content .box:first-child h1");
 	
 		favText = $("#Content .box:first-child .inner:last-child .fr");
 		var favNums;
@@ -112,7 +124,7 @@ function rewriteContent() {
 		}
 		favText.parent().remove();
 		if (favNums !== "0") {
-			$("#Content .box:first-child .cell:first-child h1 a").append(favNums);
+			$("#Content .box:first-child h1 a").append(favNums);
 		}
 	}
 }
