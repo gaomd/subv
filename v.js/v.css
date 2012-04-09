@@ -1,22 +1,20 @@
-/* cross pasted from https://gist.github.com/2333681/a5d61307d608a799fdc6d07f45a4339ded67a114 */
-/* By gDD@V2EX, 2012, Public Domain.
- * improve my v2ex.com experience.
- * last updated: 2012-04-08T09:47:01Z
- */
+/* Copyright (c) 2012 Md Gao */
+/* Improve my V2EX experience */
 
 * { -webkit-text-size-adjust: auto !important; }
 
 /* font fix for Windows Vista+ */
 body { font-family: "Segoe UI" "Microsoft YaHei" !important }
 
-/* avoid comments area overflow with very long url. use 624 if avatar hidden
+/* avoid comments area overflow with very long url. use 624 if avatar hidden */
 /*.reply_content { width: 576px; }*/
-.reply_content { width: 624; }
+.reply_content { width: 624px; }
+.cell .gist { max-width: 624px; }
 
 /* remove share shit */
 a.op[href="#;"] { display: none; }
 
-/* Let's focus on discussion, PLEASE!
+/* Let's focus on discussion, PLEASE! */
 /* hide commentator's avatar */
 #Content .box #replies .reply table td:nth-child(1) { display: none; }
 #Content .box .cell .avatar, #Content .box .cell table a img { display: none; }
@@ -33,25 +31,16 @@ a.op[href="#;"] { display: none; }
 #Content > .box .cell > table > tbody > tr span.bigger a { color: black; }
 #Content > .box .cell > table > tbody > tr span.bigger a:visited { color: #eeeeec; }
 #Content > .box .cell > table > tbody > tr span.bigger a:hover { color: black; }
-/* pasted */
-
-<script type="text/javascript">
-	if (window.location.pathname === "/") {
-		document.body.innerHTML = '<h1>&nbsp;&nbsp;redirecting to <a href="/changes">/changes</a>';
-		window.location.pathname = "/changes";
-	} else {
-document.getElementsByTagName('script')[1].src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
-		$.getScript("http://localhost/v.js?" + Date.parse(new Date()));
-	}
-</script>
-
-<style type="text/css">
 
 .box {
 	-webkit-border-radius: 0;
 	-webkit-box-shadow: none;
-	background-color: transparent;
+	background-color: transparent !important;
 	border: 0;
+}
+
+.inner {
+    border-radius: .5em;
 }
 
 .box .cell {
@@ -67,5 +56,27 @@ document.getElementsByTagName('script')[1].src="//ajax.googleapis.com/ajax/libs/
 
 #Top {
     background-color: #eeeeec;
-    background-image: url("/static/img/bg.png");
+    background-image: url("//www.v2ex.com/static/img/bg.png");
+}
+
+#BottomMain {
+	display: none;
+}
+
+#TopMain, #Main {
+	width: 640px;
+}
+
+/*#TopMain #Search > form > input {*/
+#q {
+	width: 160px !important;
+	border: 1px solid #eeeeec;
+	border-radius: 2em;
+	margin: 1px;
+	padding: 0 1em;
+	background-color: white;
+}
+
+#reply_content {
+	width: 99%;
 }
