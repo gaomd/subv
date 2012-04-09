@@ -1,3 +1,7 @@
+/* Copyright (c) 2012 Md Gao
+ * MIT /LICENSE
+ * Improve my V2EX experience
+ */
 
 function recordLinkClick(link) {
 	localStorage[link] = "true";
