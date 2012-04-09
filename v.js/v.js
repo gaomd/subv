@@ -43,6 +43,15 @@ function main() {
 	rewriteContent();
 }
 
+function markAllAsRead() {
+	$("#Content > .box .cell > table > tbody > tr span.bigger a").map(function() {
+		var link = $(this).attr("href");
+		console.log("mark as read " + link);
+		recordLinkClick(link);
+	});
+}
+
+
 // record post click on index, so we can hide read posts.
 function hookClick() {
 	// .on(...) is not available in older jQ
@@ -82,6 +91,8 @@ function rewriteContent() {
 	$("#Navigation ul li:nth-child(4)").hide(); // non-closed <a />
 	$("#Navigation ul li:nth-child(5)").hide(); // notepad
 	$("#Navigation ul li:nth-child(6)").hide(); // near me
+	// refactor my profile link
+	$("#Navigation ul li:nth-child(2) a").text("我");
 
 	// refactor the search box
 	$("#TopMain #Search > form > div > input").appendTo("#TopMain #Search > form");
