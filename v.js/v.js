@@ -167,11 +167,20 @@ function rewriteContent() {
 	$("#TopMain").empty();
 	$("#TopMain").empty();
 	$("#TopMain").html('\
-		<table> \
-		<tr><td id="logo-here"></td><td rowspan="2" id="ad-here"></td></tr> \
-		<tr><td id="search-here"></td></tr> \
-		</table>');
+		<div> \
+		<div id="logo-here"></div> \
+		<div id="meta-here"></div> \
+		</div> \
+		');
 	$("#TopMain #logo-here").append('<a id="new-logo" href="/changes">V2EX</a>');
-	$("#TopMain #search-here").append('<form onsubmit="return dispatch();"><input type="text" id="q"></form>');
+	$("#TopMain #meta-here").append('<a href="/member/gDD" class="top">我</a> &bullet; <a href="/settings" class="top">设置</a> &bullet; <a href="/signout" class="top">登出</a></li> &bullet; 搜索：<form onsubmit="return dispatch();"><input type="text" id="q"></form>');
+
+	// FINALLY, a nice roll out
+	setTimeout(function() {
+		$("body").animate({"scrollTop": $("#meta-here").offset().top - 20}, 'slow');
+	}, 1000);
+
+	$("body").css("background-image", $("#Wrapper").css("background-image"));
+	$("#Wrapper").css("background-image", "none").css("background-color", "transparent");
 }
 

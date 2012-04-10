@@ -6,7 +6,7 @@
 * { -webkit-text-size-adjust: auto !important; }
 
 /* font fix for Windows Vista+ */
-body { font-family: "Segoe UI" "Microsoft YaHei" !important }
+body { font-family: "Segoe UI", "Microsoft YaHei" !important }
 
 /* avoid comments area overflow with very long url. use 624 if avatar hidden */
 /*.reply_content { width: 576px; }*/
@@ -69,8 +69,8 @@ a.op[href="#;"] { display: none; }
 }
 
 #Top {
-    background-color: #eeeeec;
-    background-image: url("//www.v2ex.com/static/img/bg.png");
+    background-color: transparent;
+    background-image: none;
 }
 
 #BottomMain {
@@ -99,27 +99,51 @@ a.op[href="#;"] { display: none; }
 	/*border-radius: .2em;*/
 	line-height: 1em !important; /* imp must have currently */
 	font-size: 1em !important; /* imp must have currently */
-	font-family: arial !important;
+	font-family: Arial, "Microsoft YaHei", sans-serif !important;
 }
 
 #Top, #TopMain {
 	height: auto;
 }
 
-#TopMain {
-	text-align: left;
-}
-
 #TopMain table {
+	text-align: center;
 	width: 100%;
 }
 
+/*#logo-here {*/
+#Top {
+	background: -webkit-linear-gradient(top, rgba(85,87,83,0.42) 0%,rgba(0,0,0,0) 90%);
+	background: -moz-linear-gradient(top, rgba(85,87,83,0.42) 0%,rgba(0,0,0,0) 90%);
+}
+
 #new-logo {
-	font-size: 4em;
-	font-family: 'Arial Black' arial sans-serif;
-	font-weight: bolder;
-	line-height: 1.7em;
+	font-size: 12em;
+	font-family: "Arial Black", Arial, sans-serif;
+	font-weight: 900;
 	padding: 0;
+
+	/* cause text real area overflow div */
+	/*line-height: 1em;*/
+	text-decoration: none;
+	-webkit-transition: color 1s;
+	-moz-transition: color 1s;
+
+	/* for span */
+	cursor: pointer;
+	color: #ddd;
+}
+
+#new-logo:hover {
+	color: #555753;
+}
+
+#new-logo:active {
+	color: #2e3436;
+}
+
+#meta-here {
+	padding: .5em 0;
 }
 
 #q {
@@ -136,3 +160,14 @@ a.op[href="#;"] { display: none; }
 #Rightbar {
 	display: none;
 }
+
+/* align page numbers */
+.page_current,
+.page_normal {
+	width: 2em;
+	text-align: center
+}
+#topic_index > .inner {
+	text-align: left;
+}
+/* aligned */
