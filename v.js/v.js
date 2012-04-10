@@ -81,7 +81,7 @@ function rewriteContent() {
 	$("#TopMain > a").attr("href", "/changes");
 	$("#TopMain > a > img").remove();
 	$("<span style=\"font-size: 1.6em; font-family: 'Arial Black' arial sans-serif; font-weight: bolder; float: left; line-height: 1.7em;\">V2EX</span>").appendTo("#TopMain > a");
-	$("#Rightbar").remove();
+	//$("#Rightbar").remove();
 	$("#Content").css("margin", "0 0 0 0");
 	$("#Content").css("padding", "12px 0 0 0");
 
@@ -138,7 +138,7 @@ function rewriteContent() {
 		fav.css("border-radius", "1em");
 		fav.css("font-size", "1em");
 		fav.css("font-family", "Arial");
-		fav.css("margin-right", ".5em");
+		//fav.css("margin-right", ".5em"); since &bullet; got the job
 		fav.prependTo("#Content .box:first-child h1");
 	
 		favText = $("#Content .box:first-child .inner:last-child .fr");
@@ -160,7 +160,18 @@ function rewriteContent() {
 		$("#Content .box h1").css("padding", "0");
 		$("#Content .box h1").parent().css("min-height", "0");
 		// TODO: not robust
-		$("#Content .box h1 a").after(' <a href="' + tagPath + '" class="tag-in-title op">' + tagName + '</a> &bullet; ');
+		$("#Content .box h1 a").after(' &bullet; <a href="' + tagPath + '" class="tag-in-title op">' + tagName + '</a> &bullet; ');
 	}
+
+	// completely write the header
+	$("#TopMain").empty();
+	$("#TopMain").empty();
+	$("#TopMain").html('\
+		<table> \
+		<tr><td id="logo-here"></td><td rowspan="2" id="ad-here"></td></tr> \
+		<tr><td id="search-here"></td></tr> \
+		</table>');
+	$("#TopMain #logo-here").append('<a id="new-logo" href="/changes">V2EX</a>');
+	$("#TopMain #search-here").append('<form onsubmit="return dispatch();"><input type="text" id="q"></form>');
 }
 

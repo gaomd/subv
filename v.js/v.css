@@ -102,3 +102,37 @@ a.op[href="#;"] { display: none; }
 	font-family: arial !important;
 }
 
+#Top, #TopMain {
+	height: auto;
+}
+
+#TopMain {
+	text-align: left;
+}
+
+#TopMain table {
+	width: 100%;
+}
+
+#new-logo {
+	font-size: 4em;
+	font-family: 'Arial Black' arial sans-serif;
+	font-weight: bolder;
+	line-height: 1.7em;
+	padding: 0;
+}
+
+#q {
+	width: 100%;
+	border: 1px solid #eeeeec;
+	border-radius: 2em;
+	margin: 1px;
+	padding: 0 1em;
+	background-color: white;
+	height: 2.4em;
+	outline: none;
+}
+
+#Rightbar {
+	display: none;
+}
