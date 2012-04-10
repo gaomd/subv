@@ -23,10 +23,22 @@ a.op[href="#;"] { display: none; }
 /* improve visibility of commentator's name*/
 #Content .box #replies .reply table td:nth-child(3) > strong { font-size: 130%; }
 /* hide OP's avatar */
-#Content > .box > .cell > .fr.snow { display: none; }
+#Content > .box:nth-child(1) > .cell > .fr.snow { display: none; }
+#Content > .box:nth-child(1) > .cell > .fr.snow { display: none; }
 /* improve visibility of OP's name*/
-#Content > .box > .cell > small.fade { font-size: 100%; }
-#Content > .box > .cell > small.fade a { font-size: 130%; font-weight: bold; }
+/* deprecated since OP structure change
+#Content > .box:nth-child(1) > .cell > small.fade { font-size: 100%; }
+#Content > .box:nth-child(1) > .cell > small.fade a { font-size: 130%; font-weight: bold; }
+*/
+#Content > .box:nth-child(1) > .inner > .content.topic_content > small.fade {
+	display: block;
+	font-size: 70%;
+	font-weight: bolder;
+}
+#Content > .box:nth-child(1) > .inner > .content.topic_content > small.fade a {
+	/* dirty dirty hacks... */
+	font-size: 155%;
+}
 
 /* improve visibility of posts on index */
 #Content > .box .cell > table > tbody > tr span.bigger { font-size: 160% !important; }
@@ -42,13 +54,13 @@ a.op[href="#;"] { display: none; }
 }
 
 .inner {
-    border-radius: .5em;
+    border-radius: .3em;
 }
 
 .box .cell {
     background-color: white;
-    border-radius: .5em;
-    margin-bottom: 1em;
+    border-radius: .3em;
+    margin-bottom: .5em;
     border-bottom: none;
 }
 
@@ -82,3 +94,11 @@ a.op[href="#;"] { display: none; }
 #reply_content {
 	width: 99%;
 }
+
+.tag-in-title {
+	/*border-radius: .2em;*/
+	line-height: 1em !important; /* imp must have currently */
+	font-size: 1em !important; /* imp must have currently */
+	font-family: arial !important;
+}
+

@@ -80,7 +80,7 @@ function hideReadPosts() {
 function rewriteContent() {
 	$("#TopMain > a").attr("href", "/changes");
 	$("#TopMain > a > img").remove();
-	$("<span style=\"font-size: 1.6em; font-family: 'Arial Black'; float: left; line-height: 1.7em;\">V2EX</span>").appendTo("#TopMain > a");
+	$("<span style=\"font-size: 1.6em; font-family: 'Arial Black' arial sans-serif; font-weight: bolder; float: left; line-height: 1.7em;\">V2EX</span>").appendTo("#TopMain > a");
 	$("#Rightbar").remove();
 	$("#Content").css("margin", "0 0 0 0");
 	$("#Content").css("padding", "12px 0 0 0");
@@ -100,10 +100,25 @@ function rewriteContent() {
 	$("#TopMain #Search").css("padding-top", "8px"); // default is 6px
 
 	if (window.location.pathname.indexOf("/t/") !== -1) {
+		// FIX the OP structure
+		if ($("#Content > .box:first-child > .cell").length === 0) {
+			$("#Content > .box:first-child > .inner:first-child").addClass("cell").removeClass("inner");
+			var div = document.createElement("div");
+			div.className = "inner";
+			var div2 = document.createElement("div");
+			div2.className = "content topic_content";
+			div2.innerText = "/dev/null";
+			div.appendChild(div2);
+			$("#Content > .box:first-child > .cell:first-child").after(div);
+		}
+
 		// remove 'By ' from OP
 		if (window.location.pathname.indexOf("/t/") !== -1) {
 			$("#Content > .box small.fade").html($("#Content > .box small.fade").html().split(/^By /).join(""));
 		}
+		// then move meta info to post content area
+		$("#Content > .box:nth-child(1) > .cell > small.fade")
+			.prependTo("#Content > .box:nth-child(1) > .inner > .content.topic_content")
 
 		// remove everything around the comment box
 		if ($("#Content .box form").length) {
@@ -137,6 +152,15 @@ function rewriteContent() {
 		if (favNums !== "0") {
 			$("#Content .box:first-child h1 a").append(favNums);
 		}
+
+		// now refactor tag
+		var tagPath = $("#Content .box span.bigger a:last-child").attr("href");
+		var tagName = $("#Content .box span.bigger a:last-child").text();
+		$("#Content .box span.bigger").remove(); // not needed anymore
+		$("#Content .box h1").css("padding", "0");
+		$("#Content .box h1").parent().css("min-height", "0");
+		// TODO: not robust
+		$("#Content .box h1 a").after(' <a href="' + tagPath + '" class="tag-in-title op">' + tagName + '</a> &bullet; ');
 	}
 }
 
