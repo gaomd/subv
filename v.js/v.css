@@ -6,7 +6,7 @@
 * { -webkit-text-size-adjust: auto !important; }
 
 /* font fix for Windows Vista+ */
-body { font-family: "Segoe UI", "Microsoft YaHei" !important }
+body { font-family: "Arial", "Microsoft YaHei" !important }
 
 /* avoid comments area overflow with very long url. use 624 if avatar hidden */
 /*.reply_content { width: 576px; }*/
@@ -122,6 +122,7 @@ a.op[href="#;"] { display: none; }
 	font-family: "Arial Black", Arial, sans-serif;
 	font-weight: 900;
 	padding: 0;
+	text-shadow: 0px 0px 10px #eeeeec;
 
 	/* cause text real area overflow div */
 	/*line-height: 1em;*/
