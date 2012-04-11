@@ -44,7 +44,6 @@ function main() {
 	if (window.location.pathname.indexOf("/t/") !== -1) {
 		rewritePost();
 	}
-	//cleanDom();
 }
 
 function markAllAsRead() {
@@ -109,6 +108,7 @@ function rewriteCommon() {
 
 	// FINALLY, a nice roll out
 	setTimeout(function() {
+		// i don't know what im doing... so will fix later
 		var currOffset = window.pageYOffset;
 		var atLeastScroll = $("#meta-here").offset().top - 20;
 		var actualScroll;

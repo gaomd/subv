@@ -4,7 +4,7 @@
  */
 
 /*----------------------------*\
-/* COMMON
+ * COMMON
 \*----------------------------*/
 * { -webkit-text-size-adjust: auto !important; }
 
@@ -137,7 +137,7 @@ body {
 	/*border-radius: .2em;*/
 	line-height: 1em !important; /* imp must have currently */
 	font-size: 1em !important; /* imp must have currently */
-	font-family: Arial, "Microsoft YaHei", sans-serif !important;
+	font-family: "Arial", "Microsoft YaHei", sans-serif !important;
 }
 
 .fav-in-title {
