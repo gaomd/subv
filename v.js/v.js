@@ -164,6 +164,7 @@ function rewriteContent() {
 	}
 
 	// completely write the header
+	var memberPath = $("#Navigation ul li:nth-child(2) a").attr("href");
 	$("#TopMain").empty();
 	$("#TopMain").empty();
 	$("#TopMain").html('\
@@ -173,7 +174,24 @@ function rewriteContent() {
 		</div> \
 		');
 	$("#TopMain #logo-here").append('<a id="new-logo" href="/changes">V2EX</a>');
-	$("#TopMain #meta-here").append('<a href="/member/gDD" class="top">我</a> &bullet; <a href="/settings" class="top">设置</a> &bullet; <a href="/signout" class="top">登出</a></li> &bullet; 搜索：<form onsubmit="return dispatch();"><input type="text" id="q"></form>');
+	
+	// re-organize the header
+	var notifyPath = $("#Rightbar .box:first-child .inner a").attr("href");
+	var notifyCount = $("#Rightbar .box:first-child .inner a").text().split(' ')[0];
+	var favPath = $("#Rightbar .box:first-child .cell table:last-child td:nth-child(2) a").attr("href");
+	var favCount = $("#Rightbar .box:first-child .cell table:last-child td:nth-child(2) a span.bigger").text();
+	$("#TopMain #meta-here")
+		.append('<a href="' + memberPath + '" class="top">我</a>')
+		.append(' &bullet; ')
+		.append('<a href="' + notifyPath + '" class="top">消息' + (notifyCount == 0 ? "" : '（' + notifyCount + '）') + '</a>')
+		.append(' &bullet; ')
+		.append('<a href="' + favPath + '" class="top">收藏' + (favCount == 0 ? "" : '（' + favCount + '）') + '</a>')
+		.append(' &bullet; ')
+		.append('<a href="/settings" class="top">设置</a>')
+		.append(' &bullet; ')
+		.append('<a href="/signout" class="top">登出</a>')
+		.append(' &bullet; ')
+		.append('搜索：<form onsubmit="return dispatch();"><input type="text" id="q"></form>');
 
 	// FINALLY, a nice roll out
 	setTimeout(function() {
