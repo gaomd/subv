@@ -3,85 +3,45 @@
  * Improve my V2EX experience
  */
 
+/*----------------------------*\
+/* COMMON
+\*----------------------------*/
 * { -webkit-text-size-adjust: auto !important; }
 
 /* font fix for Windows Vista+ */
-body { font-family: "Arial", "Microsoft YaHei" !important }
-
-/* avoid comments area overflow with very long url. use 624 if avatar hidden */
-/*.reply_content { width: 576px; }*/
-.reply_content { width: 624px; }
-.cell .gist { max-width: 624px; }
-
-/* remove share shit */
-a.op[href="#;"] { display: none; }
-
-/* Let's focus on discussion, PLEASE! */
-/* hide commentator's avatar */
-#Content .box #replies .reply table td:nth-child(1) { display: none; }
-#Content .box .cell .avatar, #Content .box .cell table a img { display: none; }
-/* improve visibility of commentator's name*/
-#Content .box #replies .reply table td:nth-child(3) > strong { font-size: 130%; }
-/* hide OP's avatar */
-#Content > .box:nth-child(1) > .cell > .fr.snow { display: none; }
-#Content > .box:nth-child(1) > .cell > .fr.snow { display: none; }
-/* improve visibility of OP's name*/
-/* deprecated since OP structure change
-#Content > .box:nth-child(1) > .cell > small.fade { font-size: 100%; }
-#Content > .box:nth-child(1) > .cell > small.fade a { font-size: 130%; font-weight: bold; }
-*/
-#Content > .box:nth-child(1) > .inner > .content.topic_content > small.fade {
-	display: block;
-	font-size: 70%;
-	font-weight: bolder;
-}
-#Content > .box:nth-child(1) > .inner > .content.topic_content > small.fade a {
-	/* dirty dirty hacks... */
-	font-size: 155%;
+body {
+	font-family: "Arial", "Microsoft YaHei" !important;
 }
 
-/* improve visibility of posts on index */
-#Content > .box .cell > table > tbody > tr span.bigger { font-size: 160% !important; }
-#Content > .box .cell > table > tbody > tr span.bigger a { color: black; }
-#Content > .box .cell > table > tbody > tr span.bigger a:visited { color: #eeeeec; }
-#Content > .box .cell > table > tbody > tr span.bigger a:hover { color: black; }
-
-.box {
-	-webkit-border-radius: 0;
-	-webkit-box-shadow: none;
-	background-color: transparent !important;
-	border: 0;
-}
-
-.inner {
-    border-radius: .3em;
-}
-
-.box .cell {
-    background-color: white;
-    border-radius: .3em;
-    margin-bottom: .5em;
-    border-bottom: none;
-}
-
-.box .inner {
-    background-color: white;
+#Rightbar {
+	display: none;
 }
 
 #Top {
-    background-color: transparent;
-    background-image: none;
+	height: auto;
+	background-color: transparent;
+	background-image: none;
+	background: -webkit-linear-gradient(top, rgba(85,87,83,0.42) 0%,rgba(0,0,0,0) 90%);
+	background: -moz-linear-gradient(top, rgba(85,87,83,0.42) 0%,rgba(0,0,0,0) 90%);
 }
 
-#BottomMain {
-	display: none;
+#TopMain {
+	height: auto;
 }
 
 #TopMain, #Main {
 	width: 640px;
 }
 
-/*#TopMain #Search > form > input {*/
+#BottomMain {
+	display: none;
+}
+
+#Content {
+	margin: 0;
+	padding: 0;
+}
+
 #q {
 	width: 160px !important;
 	border: 1px solid #eeeeec;
@@ -91,52 +51,22 @@ a.op[href="#;"] { display: none; }
 	background-color: white;
 }
 
-#reply_content {
-	width: 99%;
-}
-
-.tag-in-title {
-	/*border-radius: .2em;*/
-	line-height: 1em !important; /* imp must have currently */
-	font-size: 1em !important; /* imp must have currently */
-	font-family: Arial, "Microsoft YaHei", sans-serif !important;
-}
-
-#Top, #TopMain {
-	height: auto;
-}
-
-#TopMain table {
-	text-align: center;
-	width: 100%;
-}
-
-/*#logo-here {*/
-#Top {
-	background: -webkit-linear-gradient(top, rgba(85,87,83,0.42) 0%,rgba(0,0,0,0) 90%);
-	background: -moz-linear-gradient(top, rgba(85,87,83,0.42) 0%,rgba(0,0,0,0) 90%);
-}
-
 #new-logo {
 	font-size: 12em;
 	font-family: "Arial Black", Arial, sans-serif;
 	font-weight: 900;
 	padding: 0;
-	text-shadow: 0px 0px 10px #eeeeec;
-
-	/* cause text real area overflow div */
-	/*line-height: 1em;*/
 	text-decoration: none;
-	-webkit-transition: color 1s;
-	-moz-transition: color 1s;
-
-	/* for span */
-	cursor: pointer;
+	text-shadow: 0px 0px 10px #eeeeec;
+	-webkit-transition: all 1s;
+	-moz-transition: all 1s;
 	color: #ddd;
+	/* TODO line-height: 1em; cause text real area overflow div */
 }
 
 #new-logo:hover {
 	color: #555753;
+	text-shadow: 0px 0px 10px black;
 }
 
 #new-logo:active {
@@ -158,10 +88,82 @@ a.op[href="#;"] { display: none; }
 	outline: none;
 }
 
-#Rightbar {
-	display: none;
+.box {
+	-webkit-border-radius: 0;
+	-webkit-box-shadow: none;
+	background-color: transparent !important;
+	border: 0;
 }
 
+.inner {
+	border-radius: .3em;
+}
+
+.box .cell {
+	background-color: white;
+	border-radius: .3em;
+	margin-bottom: .5em;
+	border-bottom: none;
+}
+
+.box .inner {
+	background-color: white;
+}
+
+
+/*----------------------------*\
+ * IN POST
+\*----------------------------*/
+
+/* hide commentator's avatar */
+#Content .box #replies .reply table td:nth-child(1) { display: none; }
+#Content .box .cell .avatar, #Content .box .cell table a img { display: none; }
+/* BIGGER commentator's name*/
+#Content .box #replies .reply table td:nth-child(3) > strong { font-size: 130%; }
+/* hide OP's avatar */
+#Content > .box:nth-child(1) > .cell > .fr.snow { display: none; }
+/* BIGGER OP's name*/
+#Content > .box:nth-child(1) > .inner > .content.topic_content > small.fade {
+	display: block;
+	font-size: 70%;
+	font-weight: bolder;
+}
+#Content > .box:nth-child(1) > .inner > .content.topic_content > small.fade a {
+	/* dirty dirty hacks... */
+	font-size: 155%;
+}
+
+.tag-in-title {
+	/*border-radius: .2em;*/
+	line-height: 1em !important; /* imp must have currently */
+	font-size: 1em !important; /* imp must have currently */
+	font-family: Arial, "Microsoft YaHei", sans-serif !important;
+}
+
+.fav-in-title {
+	border-radius: 1em !important;
+}
+
+/* avoid comments area overflow with very long url. use 624 if avatar hidden */
+/*.reply_content { width: 576px; }*/
+.reply_content { width: 624px; }
+.cell .gist { max-width: 624px; }
+
+/* comment submit box */
+#reply_content {
+	width: 99%;
+}
+
+
+/*----------------------------*\
+ * POST LIST
+\*----------------------------*/
+
+/* improve visibility of posts on index */
+#Content > .box .cell > table > tbody > tr span.bigger { font-size: 160% !important; }
+#Content > .box .cell > table > tbody > tr span.bigger a { color: black; }
+#Content > .box .cell > table > tbody > tr span.bigger a:visited { color: #eeeeec; }
+#Content > .box .cell > table > tbody > tr span.bigger a:hover { color: black; }
 /* align page numbers */
 .page_current,
 .page_normal {

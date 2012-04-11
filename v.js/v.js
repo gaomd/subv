@@ -40,7 +40,11 @@ function main() {
 		hideReadPosts();
 		hookClick();
 	}
-	rewriteContent();
+	rewriteCommon();
+	if (window.location.pathname.indexOf("/t/") !== -1) {
+		rewritePost();
+	}
+	//cleanDom();
 }
 
 function markAllAsRead() {
@@ -76,110 +80,16 @@ function hideReadPosts() {
 	);
 }
 
-// HARD CODE EVERYTHING, WTF...
-function rewriteContent() {
-	$("#TopMain > a").attr("href", "/changes");
-	$("#TopMain > a > img").remove();
-	$("<span style=\"font-size: 1.6em; font-family: 'Arial Black' arial sans-serif; font-weight: bolder; float: left; line-height: 1.7em;\">V2EX</span>").appendTo("#TopMain > a");
-	//$("#Rightbar").remove();
-	$("#Content").css("margin", "0 0 0 0");
-	$("#Content").css("padding", "12px 0 0 0");
-
-	// rip navigations
-	$("#Navigation ul li:nth-child(1)").hide(); // index
-	$("#Navigation ul li:nth-child(3)").hide(); // workspace
-	$("#Navigation ul li:nth-child(4)").hide(); // non-closed <a />
-	$("#Navigation ul li:nth-child(5)").hide(); // notepad
-	$("#Navigation ul li:nth-child(6)").hide(); // near me
-	// refactor my profile link
-	$("#Navigation ul li:nth-child(2) a").text("我");
-
-	// refactor the search box
-	$("#TopMain #Search > form > div > input").appendTo("#TopMain #Search > form");
-	$("#TopMain #Search > form > div").remove();
-	$("#TopMain #Search").css("padding-top", "8px"); // default is 6px
-
-	if (window.location.pathname.indexOf("/t/") !== -1) {
-		// FIX the OP structure
-		if ($("#Content > .box:first-child > .cell").length === 0) {
-			$("#Content > .box:first-child > .inner:first-child").addClass("cell").removeClass("inner");
-			var div = document.createElement("div");
-			div.className = "inner";
-			var div2 = document.createElement("div");
-			div2.className = "content topic_content";
-			div2.innerText = "/dev/null";
-			div.appendChild(div2);
-			$("#Content > .box:first-child > .cell:first-child").after(div);
-		}
-
-		// remove 'By ' from OP
-		if (window.location.pathname.indexOf("/t/") !== -1) {
-			$("#Content > .box small.fade").html($("#Content > .box small.fade").html().split(/^By /).join(""));
-		}
-		// then move meta info to post content area
-		$("#Content > .box:nth-child(1) > .cell > small.fade")
-			.prependTo("#Content > .box:nth-child(1) > .inner > .content.topic_content")
-
-		// remove everything around the comment box
-		if ($("#Content .box form").length) {
-			$("#Content .box:last-child .inner").remove();
-			$("#Content .box:last-child form .cell:first-child").remove();
-		}
-
-		// refactor the fav button
-		var fav = $($("#Content .box:first-child .inner:last-child a").get(0));
-		//var fav = $($($("#Content .box:first-child .inner").get(-1)).find("a").get(0));
-		if (fav.text() === "加入收藏") {
-			fav.html("&#9734;");
-		} else {
-			fav.html('<span style="color: yellow">&#9733;</span>');
-		}
-		fav.css("line-height", "1em");
-		fav.css("border-radius", "1em");
-		fav.css("font-size", "1em");
-		fav.css("font-family", "Arial");
-		//fav.css("margin-right", ".5em"); since &bullet; got the job
-		fav.prependTo("#Content .box:first-child h1");
-	
-		favText = $("#Content .box:first-child .inner:last-child .fr");
-		var favNums;
-		if (favText.find("span").text().trim() === "") {
-			favNums = "0";
-		} else {
-			favNums = favText.find("span").text().trim().split(' ')[1];
-		}
-		favText.parent().remove();
-		if (favNums !== "0") {
-			$("#Content .box:first-child h1 a").append(favNums);
-		}
-
-		// now refactor tag
-		var tagPath = $("#Content .box span.bigger a:last-child").attr("href");
-		var tagName = $("#Content .box span.bigger a:last-child").text();
-		$("#Content .box span.bigger").remove(); // not needed anymore
-		$("#Content .box h1").css("padding", "0");
-		$("#Content .box h1").parent().css("min-height", "0");
-		// TODO: not robust
-		$("#Content .box h1 a").after(' &bullet; <a href="' + tagPath + '" class="tag-in-title op">' + tagName + '</a> &bullet; ');
-	}
-
+function rewriteCommon() {
 	// completely write the header
-	var memberPath = $("#Navigation ul li:nth-child(2) a").attr("href");
-	$("#TopMain").empty();
-	$("#TopMain").empty();
-	$("#TopMain").html('\
-		<div> \
-		<div id="logo-here"></div> \
-		<div id="meta-here"></div> \
-		</div> \
-		');
-	$("#TopMain #logo-here").append('<a id="new-logo" href="/changes">V2EX</a>');
-	
-	// re-organize the header
 	var notifyPath = $("#Rightbar .box:first-child .inner a").attr("href");
 	var notifyCount = $("#Rightbar .box:first-child .inner a").text().split(' ')[0];
 	var favPath = $("#Rightbar .box:first-child .cell table:last-child td:nth-child(2) a").attr("href");
 	var favCount = $("#Rightbar .box:first-child .cell table:last-child td:nth-child(2) a span.bigger").text();
+	var memberPath = $("#Navigation ul li:nth-child(2) a").attr("href");
+
+	$("#TopMain").html('<div> <div id="logo-here"></div> <div id="meta-here"></div> </div>');
+	$("#TopMain #logo-here").append('<a id="new-logo" href="/changes">V2EX</a>');
 	$("#TopMain #meta-here")
 		.append('<a href="' + memberPath + '" class="top">我</a>')
 		.append(' &bullet; ')
@@ -193,12 +103,105 @@ function rewriteContent() {
 		.append(' &bullet; ')
 		.append('搜索：<form onsubmit="return dispatch();"><input type="text" id="q"></form>');
 
-	// FINALLY, a nice roll out
-	setTimeout(function() {
-		$("body").animate({"scrollTop": $("#meta-here").offset().top - 20}, 'slow');
-	}, 1000);
-
+	// use native background-image
 	$("body").css("background-image", $("#Wrapper").css("background-image"));
 	$("#Wrapper").css("background-image", "none").css("background-color", "transparent");
+
+	// FINALLY, a nice roll out
+	setTimeout(function() {
+		var currOffset = window.pageYOffset;
+		var atLeastScroll = $("#meta-here").offset().top - 20;
+		var actualScroll;
+		if ((currOffset - atLeastScroll) <= 0) {
+			actualScroll = atLeastScroll;
+		} else {
+			actualScroll = currOffset - atLeastScroll;
+		}
+		$("body").animate({"scrollTop": actualScroll}, 'slow');
+	}, 1000);
+}
+
+function rewritePost() {
+	// FIX the OP structure
+	if ($("#Content > .box:first-child > .cell").length === 0) {
+		$("#Content > .box:first-child > .inner:first-child").addClass("cell").removeClass("inner");
+		var div = document.createElement("div");
+		div.className = "inner";
+		var div2 = document.createElement("div");
+		div2.className = "content topic_content";
+		div2.innerText = "/dev/null";
+		div.appendChild(div2);
+		$("#Content > .box:first-child > .cell:first-child").after(div);
+	}
+
+	// remove 'By ' from OP
+	$("#Content > .box small.fade").html($("#Content > .box small.fade").html().split(/^By /).join(""));
+	// then move meta info to post content area
+	$("#Content > .box:nth-child(1) > .cell > small.fade")
+		.prependTo("#Content > .box:nth-child(1) > .inner > .content.topic_content")
+
+	// refactor the fav button
+	var fav = $($("#Content .box:first-child .inner:last-child a").get(0));
+	if (fav.text() === "加入收藏") {
+		fav.html("&#9734;");
+	} else {
+		fav.html('<span style="color: yellow">&#9733;</span>');
+	}
+	fav.css("line-height", "1em");
+	fav.css("border-radius", "1em");
+	fav.css("font-size", "1em");
+	fav.css("font-family", "Arial");
+	fav.prependTo("#Content .box:first-child h1");
+
+	favText = $("#Content .box:first-child .inner:last-child .fr");
+	var favNums;
+	if (favText.find("span").text().trim() === "") {
+		favNums = "0";
+	} else {
+		favNums = favText.find("span").text().trim().split(' ')[1];
+	}
+	favText.parent().remove();
+	if (favNums !== "0") {
+		$("#Content .box:first-child h1 a").append(favNums);
+	}
+
+	// now refactor tag
+	var tagPath = $("#Content .box span.bigger a:last-child").attr("href");
+	var tagName = $("#Content .box span.bigger a:last-child").text();
+	$("#Content .box span.bigger").remove(); // not needed anymore
+	$("#Content .box h1").css("padding", "0");
+	$("#Content .box h1").parent().css("min-height", "0");
+	// TODO: not robust
+	$("#Content .box h1 a").after(' &bullet; <a href="' + tagPath + '" class="tag-in-title op">' + tagName + '</a> &bullet; ');
+
+	// remove everything around the comment box
+	if ($("#Content .box form").length) {
+		$("#Content .box:last-child .inner").remove();
+		$("#Content .box:last-child form .cell:first-child").remove();
+	}
+
+	// refactor comments
+	// FIX the last comment
+	$("#replies > .inner").addClass("cell").removeClass("inner");
+	$("#replies .cell td:last-child").map(function() {
+		//console.log(this);
+		$(this).find("> div.fr img")
+			.insertBefore($(this).find("> strong"))
+			.css("width", "12px")
+			.css("margin-right", ".2em")
+			.css("opacity", ".4")
+			.css("-webkit-transform", "rotate(222deg)")
+			.hover(function() {
+				$(this).css("opacity", "1");
+			}, function() {
+				$(this).css("opacity", ".4");
+			});
+			//.css("-webkit-transform", "scaleY(-1) rotate(30deg)");
+		$(this).find("> div.fr")
+			.removeClass("fr")
+			.css("display", "inline")
+			.insertBefore($(this).find("> div.sep5"));
+		//console.log($(this).find("> div.fr"));
+	});
 }
 
