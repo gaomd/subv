@@ -115,7 +115,7 @@ function rewriteCommon() {
 	// higher footer
 	$("#Bottom").css({
 		"height": $(window).height() / 2,
-		"background-color": "transparent",
+		"background-color": "transparent"
 	});
 
 	// ad should be kept
@@ -125,7 +125,7 @@ function rewriteCommon() {
 		.css({
 			"position": "absolute",
 			"max-width": "272",
-			"display": "inline-block",
+			"display": "inline-block"
 		})
 		.hide()
 		.appendTo("body");
@@ -138,7 +138,7 @@ function rewriteCommon() {
 
 		$("#ad").css({
 			"top": y,
-			"left": x,
+			"left": x
 		}).fadeIn('slow').hover(function() {
 				clearTimeout(timerId);
 			}, function() {
@@ -234,7 +234,7 @@ function rewritePost() {
 		"min-width": "256px",
 		"min-height": "32px",
 		"max-width": "480px",
-		"box-shadow": "rgb(85, 87, 83) 0px 16px 32px",
+		"box-shadow": "rgb(85, 87, 83) 0px 16px 32px"
 	});
 	$("#tag-details").attr("style", 'background-color: white !important; ' + $("#tag-details").attr("style"));
 	$("#tag-details > .inner").css({ "background-color": "transparent" });
@@ -245,7 +245,7 @@ function rewritePost() {
 		var x = $(".tag-in-title").offset().left;
 		$("#tag-details").css({
 			"top": y,
-			"left": x,
+			"left": x
 		}).fadeIn().hover(function() {
 				clearTimeout(timerId);
 			}, function() {
