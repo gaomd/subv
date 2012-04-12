@@ -3,29 +3,19 @@
  * MIT /LICENSE
  * Improve my V2EX experience
  */
-
-* {
-	-webkit-transition: all .6s;
-	-moz-transition: all .6s;
-}
-
 	</style>
 
 <script type="text/javascript">
 
+function init() {
+	if (window.location.hash.indexOf("#noway") !== -1) {
+		console.log("#noway detected, quiting...");
+		return;
+	}
 	if (window.location.pathname === "/") {
 		document.body.innerHTML = '<h1>&nbsp;&nbsp;redirecting to <a href="/changes">/changes</a>';
 		window.location.pathname = "/changes";
 	} else {
-		// getScript started: 1334108158000_236
-		// getScript end: 1334108158000_262
-		// createElement started: 1334108158000_263
-		// createElement end: 1334108158000_265
-
-		// console.log("getScript started: " + Date.parse(new Date()) + "_" + new Date().getMilliseconds());
-		// $.getScript("http://localhost/v.js?" + Date.parse(new Date()));
-		// console.log("getScript end: " + Date.parse(new Date()) + "_" + new Date().getMilliseconds());
-
 		console.log("createElement started: " + Date.parse(new Date()) + "_" + new Date().getMilliseconds());
 		var js = document.createElement("script");
 		js.type = "text/javascript";
@@ -39,6 +29,8 @@
 		css.href = "http://localhost/v.css?" + Date.parse(new Date());
 		document.getElementsByTagName("head")[0].appendChild(css);
 	}
+}
+init();
 
 </script>
 

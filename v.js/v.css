@@ -6,7 +6,19 @@
 /*----------------------------*\
  * COMMON
 \*----------------------------*/
-* { -webkit-text-size-adjust: auto !important; }
+* {
+	-webkit-text-size-adjust: auto !important;
+}
+
+img.clickable {
+	-webkit-transition: opacity .6s;
+	-moz-transition: opacity .6s;
+}
+
+a, a:hover, a:link, a:active {
+	-webkit-transition: color .6s;
+	-moz-transition: color .6s;
+}
 
 /* font fix for Windows Vista+ */
 body {
@@ -75,6 +87,7 @@ body {
 
 #meta-here {
 	padding: .5em 0;
+	text-align: right;
 }
 
 #q {
