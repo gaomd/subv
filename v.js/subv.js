@@ -3,6 +3,8 @@
  * Improve my V2EX experience
  */
 
+"use strict";
+
 function recordLinkClick(link) {
 	localStorage[link] = "true";
 }
@@ -82,11 +84,15 @@ function rewriteCommon() {
 	// completely write the header
 	
 	// there is no sidebar for these in /member/*
+	var notifyPath;
+	var notifyCount;
+	var favPath;
+	var favCount;
 	if (!(window.location.pathname.indexOf("/member/") === 0)) {
-		var notifyPath = $("#Rightbar .box:first-child .inner a").attr("href");
-		var notifyCount = $("#Rightbar .box:first-child .inner a").text().split(' ')[0];
-		var favPath = $("#Rightbar .box:first-child .cell table:last-child td:nth-child(2) a").attr("href");
-		var favCount = $("#Rightbar .box:first-child .cell table:last-child td:nth-child(2) a span.bigger").text();
+		notifyPath = $("#Rightbar .box:first-child .inner a").attr("href");
+		notifyCount = $("#Rightbar .box:first-child .inner a").text().split(' ')[0];
+		favPath = $("#Rightbar .box:first-child .cell table:last-child td:nth-child(2) a").attr("href");
+		favCount = $("#Rightbar .box:first-child .cell table:last-child td:nth-child(2) a span.bigger").text();
 	}
 	var memberPath = $("#Navigation ul li:nth-child(2) a").attr("href");
 
@@ -97,10 +103,10 @@ function rewriteCommon() {
 		.append(' • ');
 	if (!(window.location.pathname.indexOf("/member/") === 0)) {
 		$("#TopMain #meta-here")
-			.append('<a href="' + notifyPath + '" class="top">消息' + (notifyCount == 0 ? "" : '（' + notifyCount + '）') + '</a>')
+			.append('<a href="' + notifyPath + '" class="top">消息' + (notifyCount === "0" ? "" : '（' + notifyCount + '）') + '</a>')
 			.append(' • ')
-			.append('<a href="' + favPath + '" class="top">收藏' + (favCount == 0 ? "" : '（' + favCount + '）') + '</a>')
-			.append(' • ')
+			.append('<a href="' + favPath + '" class="top">收藏' + (favCount === "0" ? "" : '（' + favCount + '）') + '</a>')
+			.append(' • ');
 	}
 	$("#TopMain #meta-here")
 		.append('<a href="/settings" class="top">设置</a>')
@@ -184,7 +190,7 @@ function rewritePost() {
 	$("#Content > .box small.fade").html($("#Content > .box small.fade").html().split(/^By /).join(""));
 	// then move meta info to post content area
 	$("#Content > .box:nth-child(1) > .cell > small.fade")
-		.prependTo("#Content > .box:nth-child(1) > .inner > .content.topic_content")
+		.prependTo("#Content > .box:nth-child(1) > .inner > .content.topic_content");
 
 	// refactor the fav button
 	var fav = $($("#Content .box:first-child .inner:last-child a").get(0));
@@ -199,7 +205,7 @@ function rewritePost() {
 	fav.css("font-family", "Arial");
 	fav.prependTo("#Content .box:first-child h1");
 
-	favText = $("#Content .box:first-child .inner:last-child .fr");
+	var favText = $("#Content .box:first-child .inner:last-child .fr");
 	var favNums;
 	if ($.trim(favText.find("span").text()) === "") {
 		favNums = "0";
@@ -256,7 +262,7 @@ function rewritePost() {
 		timerId = setTimeout(function() {
 			$("#tag-details").fadeOut();
 		}, 400);
-	})
+	});
 
 	// remove everything around the comment box
 	if ($("#Content .box form").length) {
