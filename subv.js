@@ -1,4 +1,4 @@
-/* Copyright (c) 2012 Md Gao
+/* Copyright (C) 2012 Md Gao
  * MIT /LICENSE
  * Improve my V2EX experience
  */
