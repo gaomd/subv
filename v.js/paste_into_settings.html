@@ -5,9 +5,17 @@
  */
 	</style>
 
+<!--[if lt IE 8]>
+<script type="text/javascript">window.unsupportedBrowser = true;</script>
+<![endif]-->
+
 <script type="text/javascript">
 
 function init() {
+	if (window.unsupportedBrowser) {
+		alert("Please upgrade to at least Internet Explorer 8 or use Google Chrome.");
+		return;
+	}
 	if (window.location.hash.indexOf("#noway") !== -1) {
 		console.log("#noway detected, quiting...");
 		return;
