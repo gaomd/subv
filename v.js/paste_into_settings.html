@@ -27,14 +27,14 @@ function init() {
 		console.log("createElement started: " + Date.parse(new Date()) + "_" + new Date().getMilliseconds());
 		var js = document.createElement("script");
 		js.type = "text/javascript";
-		js.src = "http://localhost/v.js?" + Date.parse(new Date());
+		js.src = "http://localhost/subv.js?_=" + Date.parse(new Date());
 		document.getElementsByTagName("head")[0].appendChild(js);
 		console.log("createElement end: " + Date.parse(new Date()) + "_" + new Date().getMilliseconds());
 	
 		var css = document.createElement("link");
 		css.rel = "stylesheet";
 		css.type = "text/css";
-		css.href = "http://localhost/v.css?" + Date.parse(new Date());
+		css.href = "http://localhost/subv.css?_=" + Date.parse(new Date());
 		document.getElementsByTagName("head")[0].appendChild(css);
 	}
 }
