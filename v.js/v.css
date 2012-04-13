@@ -130,19 +130,28 @@ body {
 \*----------------------------*/
 
 /* hide commentator's avatar */
-#Content .box #replies .reply table td:nth-child(1) { display: none; }
-#Content .box .cell .avatar, #Content .box .cell table a img { display: none; }
+#Content .box #replies .reply table td:first-child {
+	display: none;
+}
+#Content .box .cell .avatar,
+#Content .box .cell table a img {
+	display: none;
+}
 /* BIGGER commentator's name*/
-#Content .box #replies .reply table td:nth-child(3) > strong { font-size: 130%; }
+#Content .box #replies .reply table td+td+td > strong {
+	font-size: 130%;
+}
 /* hide OP's avatar */
-#Content > .box:nth-child(1) > .cell > .fr.snow { display: none; }
+#Content > .box:first-child > .cell > .fr.snow {
+	display: none;
+}
 /* BIGGER OP's name*/
-#Content > .box:nth-child(1) > .inner > .content.topic_content > small.fade {
+#Content > .box:first-child > .inner > .content.topic_content > small.fade {
 	display: block;
 	font-size: 70%;
 	font-weight: bolder;
 }
-#Content > .box:nth-child(1) > .inner > .content.topic_content > small.fade a {
+#Content > .box:first-child > .inner > .content.topic_content > small.fade a {
 	/* dirty dirty hacks... */
 	font-size: 155%;
 }

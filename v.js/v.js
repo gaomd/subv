@@ -36,6 +36,7 @@ function jQueryReady() {
 
 function main() {
 	console.log($().jquery);
+	$("html").attr("xmlns", "http://www.w3.org/1999/xhtml");
 	if (window.location.pathname.indexOf("/changes") !== -1) {
 		hideReadPosts();
 		hookClick();
