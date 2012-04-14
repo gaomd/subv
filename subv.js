@@ -44,6 +44,10 @@ function main() {
 		window.location.pathname = "/changes";
 		return;
 	}
+
+	// hide the restructure detail
+	$('<div id="o"></div>').appendTo("body");
+
 	if (window.location.pathname.indexOf("/changes") !== -1) {
 		hideReadPosts();
 		hookClick();
@@ -174,7 +178,7 @@ function rewriteCommon() {
 			actualScroll = currOffset - atLeastScroll;
 		}
 		$("body").animate({"scrollTop": actualScroll}, 'slow');
-		$("html").attr("id", "deluxe");
+		$("#o").fadeOut();
 	}, 1000);
 }
 
