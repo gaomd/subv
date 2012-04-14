@@ -13,31 +13,21 @@
 
 function init() {
 	"use strict";
-	if (window.unsupportedBrowser) {
-		alert("Please upgrade to at least Internet Explorer 8 or use Google Chrome.");
-		return;
-	}
-	if (window.location.hash.indexOf("#noway") !== -1) {
-		console.log("#noway detected, quiting...");
-		return;
-	}
-	if (window.location.pathname === "/") {
-		document.body.innerHTML = '<h1>&nbsp;&nbsp;redirecting to <a href="/changes">/changes</a>';
-		window.location.pathname = "/changes";
-	} else {
-		console.log("createElement started: " + Date.parse(new Date()) + "_" + new Date().getMilliseconds());
-		var js = document.createElement("script");
-		js.type = "text/javascript";
-		js.src = "http://localhost/subv.js?_=" + Date.parse(new Date());
-		document.getElementsByTagName("head")[0].appendChild(js);
-		console.log("createElement end: " + Date.parse(new Date()) + "_" + new Date().getMilliseconds());
-	
-		var css = document.createElement("link");
-		css.rel = "stylesheet";
-		css.type = "text/css";
-		css.href = "http://localhost/subv.css?_=" + Date.parse(new Date());
-		document.getElementsByTagName("head")[0].appendChild(css);
-	}
+	var urlPrefix = "//localhost";
+	if (!window.console) { window.console = {}; }
+	if (!window.console.log) { window.console.log = function() {}; }
+	if (window.unsupportedBrowser) { return alert("Internet Explorer 7 or below is not supported."); }
+	if (window.location.hash.indexOf("#noway") !== -1) { return console.log("#noway detected, quiting..."); }
+
+	var css = document.createElement("link");
+	css.rel = "stylesheet";
+	css.type = "text/css";
+	css.href = urlPrefix + "/subv.css";
+	document.getElementsByTagName("head")[0].appendChild(css);
+	var js = document.createElement("script");
+	js.type = "text/javascript";
+	js.src = urlPrefix + "/subv.js";
+	document.getElementsByTagName("head")[0].appendChild(js);
 }
 init();
 
