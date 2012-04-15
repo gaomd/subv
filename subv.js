@@ -46,7 +46,17 @@ function main() {
 	}
 
 	// hide the restructure detail
-	$('<div id="o"></div>').appendTo("body");
+	$("body").hide();
+	$('<div id="o"></div>').css({
+		"height": "100%",
+		"background-color": "#EEE",
+		"position": "fixed",
+		"top": "0px",
+		"left": "0px",
+		"width": "100%",
+		"z-index": "8888",
+		"display": "none"
+	}).appendTo("body");//.show();
 
 	if (window.location.pathname.indexOf("/changes") !== -1) {
 		hideReadPosts();
@@ -178,7 +188,8 @@ function rewriteCommon() {
 			actualScroll = currOffset - atLeastScroll;
 		}
 		$("body").animate({"scrollTop": actualScroll}, 'slow');
-		$("#o").fadeOut();
+		//$("#o").fadeOut();
+		$("body").fadeIn();
 	}, 1000);
 }
 
