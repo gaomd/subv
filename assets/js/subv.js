@@ -17,60 +17,8 @@ function isClicked(link) {
 	}
 }
 
-$(document).ready(function () {
-	console.log("starting v.js...");
-	/* use native jQuery for maximum performance on initial tasks
-	$.getScript("//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js", function() {
-		jQueryReady();
-	});*/
-	main();
-});
-
-// waiting for the newer jquery to be ready
-function jQueryReady() {
-	if ($().jquery.indexOf("1.7") !== -1) {
-		main();
-	} else {
-		console.log("waiting for the newer jquery to be ready");
-		setTimeout(jQueryReady, 10);
-	}
-}
-
-function main() {
-	console.log($().jquery);
-	$("html").attr("xmlns", "http://www.w3.org/1999/xhtml");
-	if (window.location.pathname === "/") {
-		document.body.innerHTML = '<h1>&nbsp;&nbsp;redirecting to <a href="/changes">/changes</a>';
-		window.location.pathname = "/changes";
-		return;
-	}
-
-	// hide the restructure detail
-	$("body").hide();
-	$('<div id="o"></div>').css({
-		"height": "100%",
-		"background-color": "#EEE",
-		"position": "fixed",
-		"top": "0px",
-		"left": "0px",
-		"width": "100%",
-		"z-index": "8888",
-		"display": "none"
-	}).appendTo("body");//.show();
-
-	if (window.location.pathname.indexOf("/changes") !== -1) {
-		hideReadPosts();
-		hookClick();
-		rewritePostsList();
-	}
-	rewriteCommon();
-	if (window.location.pathname.indexOf("/t/") !== -1) {
-		rewritePost();
-	}
-}
-
 function markAllAsRead() {
-	$("#Content > .box .cell > table > tbody > tr span.bigger a").map(function() {
+	$("#list .item .heading .title").map(function() {
 		var link = $(this).attr("href");
 		console.log("mark as read " + link);
 		recordLinkClick(link);
@@ -81,7 +29,7 @@ function markAllAsRead() {
 // record post click on index, so we can hide read posts.
 function hookClick() {
 	// .on(...) is not available in older jQ
-	$("#Content > .box .cell > table > tbody > tr span.bigger a").click(function() {
+	$("#list .item .heading .title").click(function() {
 		var link = $(this).attr("href");
 		console.log("clicked " + link);
 		recordLinkClick(link);
@@ -107,8 +55,6 @@ function hideReadPosts() {
 }
 
 function rewriteCommon() {
-	// completely write the header
-	
 	// there is no sidebar for these in /member/*
 	var notifyPath;
 	var notifyCount;
@@ -121,29 +67,6 @@ function rewriteCommon() {
 		favCount = $("#Rightbar .box:first-child .cell table:last-child td:nth-child(2) a span.bigger").text();
 	}
 	var memberPath = $("#Navigation ul li:nth-child(2) a").attr("href");
-
-	$("#TopMain").html('<div> <div id="logo-here"></div> <div id="meta-here"></div> </div>');
-	$("#TopMain #logo-here").append('<a id="new-logo" href="/changes">V2EX</a>');
-	$("#TopMain #meta-here")
-		.append('<a href="' + memberPath + '" class="top">我</a>')
-		.append(' • ');
-	if (!(window.location.pathname.indexOf("/member/") === 0)) {
-		$("#TopMain #meta-here")
-			.append('<a href="' + notifyPath + '" class="top">消息' + (notifyCount === "0" ? "" : '（' + notifyCount + '）') + '</a>')
-			.append(' • ')
-			.append('<a href="' + favPath + '" class="top">收藏' + (favCount === "0" ? "" : '（' + favCount + '）') + '</a>')
-			.append(' • ');
-	}
-	$("#TopMain #meta-here")
-		.append('<a href="/settings" class="top">设置</a>')
-		.append(' • ')
-		.append('<a href="/signout" class="top">登出</a>')
-		.append(' • ')
-		.append('搜索：<form onsubmit="return dispatch();"><input type="text" id="q"></form>');
-
-	// use native background-image
-	$("body").css("background-image", $("#Wrapper").css("background-image"));
-	$("#Wrapper").css("background-image", "none").css("background-color", "transparent");
 
 	// higher footer
 	$("#Bottom").css({
@@ -163,25 +86,6 @@ function rewriteCommon() {
 		.hide()
 		.appendTo("body");
 
-
-	var timerId;
-	$("#reply_content").closest(".box").hover(function() {
-		var y = $("#reply_content").offset().top;
-		var x = $("#reply_content").offset().left + $("#reply_content").outerWidth() + 32;
-
-		$("#ad").css({
-			"top": y,
-			"left": x
-		}).fadeIn('slow').hover(function() {
-				clearTimeout(timerId);
-			}, function() {
-				$("#ad").fadeOut();
-			});
-	}, function() {
-		timerId = setTimeout(function() {
-			$("#ad").fadeOut();
-		}, 800);
-	});
 
 	// FINALLY, a nice roll out
 	setTimeout(function() {
@@ -213,7 +117,6 @@ function rewritePost() {
 		$("#Content > .box:first-child > .cell:first-child").after(div);
 	}
 
-	// remove 'By ' from OP
 	$("#Content > .box small.fade").html($("#Content > .box small.fade").html().split(/^By /).join(""));
 	// then move meta info to post content area
 	$("#Content > .box:nth-child(1) > .cell > small.fade")
@@ -323,6 +226,4 @@ function rewritePost() {
 }
 
 function rewritePostsList() {
-	$("#Content > .box > .cell:first-child").removeClass("cell").html("<h1>Last Activity:</h1>");
-	$("#Content > .box > .inner").before('<div id="pages-desc"><h1>Pages:</h1></div>');
 }

@@ -1,17 +1,15 @@
 {
-	"name": "newex",
+	"name": "Subv",
 	"version": "0.1",
-	"description": "a new way to explore the v2ex.com",
+	"description": "Subv redesigns V2EX",
 	"background_page": "background.html",
 	"browser_action": {
-		"default_icon": "images/icon9.png"
+		"default_icon": "assets/images/icon9.png"
 		//"popup": "index.html"
 	},
 	"permissions": [
 		"tabs",
 		"http://www.v2ex.com/",
 		"https://www.v2ex.com/",
-		"http://v2ex.appspot.com/",
-		"https://v2ex.appspot.com/"
 	]
 }
