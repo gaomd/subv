@@ -20,7 +20,7 @@
 }
 
 .item {
-	border-bottom: 1px dotted black;
+	/*border-bottom: 1px dotted black;*/
 	padding: .8em .6em;
 	position: relative;
 }
