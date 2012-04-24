@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="assets/css/bootstrap.css" />
+	<link rel="stylesheet" href="assets/css/bootstrap-responsive.css" />
+	<link rel="stylesheet" href="http://fortawesome.github.com/Font-Awesome/assets/css/font-awesome.css" />
+	<link rel="stylesheet" href="assets/css/subv.css" />
+	<script type="text/javascript" src="assets/js/jquery.js"></script>	
+	<script type="text/javascript" src="assets/js/bootstrap.js"></script>	
+	<script type="text/javascript" src="https://raw.github.com/olado/doT/master/benchmarks/templating/doT.js"></script>	
+	<title>Subv</title>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="navbar">
+				<div class="navbar-inner">
+					<div class="container">
+						<a href="/" class="brand">V2EX</a>
+						<div class="nav-null-class">
+							<ul class="nav">
+								<li><a href="#">profile</a></li>
+								<li><a href="#">replies</a></li>
+								<li><a href="#">favs</a></li>
+							</ul><!-- .nav -->
+							<ul class="nav pull-right">
+								<li><a href="#">prefs</a></li>
+								<li><a href="#">logout</a></li>
+							</ul>
+							<form class="navbar-search">
+								<input type="text" class="search-query span2"></input>
+							</form>
+						</div><!-- .nav-null-class -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="" id="list-container">
+				<div id="list">
+					<!-- .item's here -->
+				</div><!-- #list -->
+			</div>
+		</div><!-- .row -->
+	</div>
+
+	<script type="text/template" id="item">
+
+					<div class="item" id="item{{=it.topic.id}}">
+						<div class="heading">
+							<h2>
+								<a class="label label-info label-tag" href="{{=it.tag.path}}">{{=it.tag.name}}</a>
+								<span> / </span>
+								<a class="title" href="{{=it.topic.path}}">{{=it.topic.title}}</a>
+							</h2>
+						</div>
+						<div class="meta">
+							<span>
+								<button class="btn btn-large btn-counts">
+									<span class="comments-count">{{=it.commentsCount}}</span> <i class="icon-comment"></i>
+									<span> &bullet; </span>
+									<span class="views-count">{{=it.viewsCount}}</span> <i class="icon-eye-open"></i>
+								</button>
+							</span>
+							<div class="last-by pull-right">
+								<span title="{{=it.timeIso}}">{{=it.timeAgo}}</span>
+								<span> by </span>
+								<a href="{{=it.lastUpdaterPath}}">{{=it.lastUpdaterName}} ({{=it.lastUpdaterId}})</a>
+							</div>
+						</div>
+					</div><!-- .item -->
+
+	</script>
+
+	<script >
+		(function() {
+			$("#list").append( (doT.template($("#item").text()))(itSrc) );
+		})();
+
+	</script>
+</body>

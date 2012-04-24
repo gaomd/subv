@@ -1,0 +1,39 @@
+#list-container {
+	width: 720px;
+	margin: auto;
+}
+
+.brand {
+	font-family: "Arial Black", arial, sans-serif;
+	/*font-weight: 900;*/
+	/*font-size: 2em !important;*/
+}
+
+#post {
+	border: 1px solid black;
+	height: 200px;
+}
+
+.item {
+	border-bottom: 1px dotted black;
+	padding: .8em 0;
+}
+
+.item .meta {
+	padding-top: .5em;
+}
+
+.label-tag {
+	padding: 2px;
+	font-size: 1em;
+	vertical-align: baseline; /* clear bs's middle */
+}
+
+.btn-counts {
+	padding: 4px 8px;
+	font-size: 1em;
+	vertical-align: baseline; /* clear bs's middle */
+	min-width: 8em;
+}
+
+
