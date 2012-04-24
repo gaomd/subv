@@ -5,8 +5,8 @@
 			chrome.browserAction.onClicked.addListener(function() {
 				  chrome.tabs.create({'url': chrome.extension.getURL('index.html')});
 			});
-			chrome.browserAction.setBadgeText({ text: '42' });
 			chrome.browserAction.setBadgeBackgroundColor({ color: [150, 210, 100, 200] });
+			//chrome.browserAction.setBadgeText({ text: '42' });
 		</script>
 	</head>
 </html>

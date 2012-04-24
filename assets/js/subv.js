@@ -4,6 +4,21 @@
 
 "use strict";
 
+$(function() {
+	window.Subv = {
+		"current_page": 1
+	};
+	$(document).on("click", ".item-checker", function() {
+		$(this).addClass("item-checker-checked");
+		$(this).find("i").attr("class", "icon-ok-sign");
+	});
+	$("#more").on("click", function() {
+		Subv.current_page++;
+		appendItems(Subv.current_page);
+	});
+	appendItems(Subv.current_page);
+});
+
 function appendItems(pageNo) {
 	$.ajax({
 		"url": "http://www.v2ex.com/recent?p=" + pageNo,

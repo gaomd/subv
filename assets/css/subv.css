@@ -1,10 +1,11 @@
 * {
 	font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft YaHei", sans-serif;
+	-webkit-transition: .5s;
 }
 
 #list-container {
 	/*width: 720px;*/
-	margin: auto;
+	/*margin: auto;*/
 }
 
 .brand {
@@ -20,7 +21,8 @@
 
 .item {
 	border-bottom: 1px dotted black;
-	padding: .8em 0;
+	padding: .8em .6em;
+	position: relative;
 }
 
 .item .meta {
@@ -40,7 +42,8 @@
 	min-width: 8em;
 }
 
-#footer {
+#toolbar-container {
+	margin-top: 2em;
 	height: 128px;
 	text-align: center;
 }
@@ -48,3 +51,31 @@
 #more {
 	width: 100%;
 }
+
+.item-checker {
+	position: absolute;
+	left: -4em;
+	opacity: .2;
+}
+
+.item-checker p {
+	font-size: 4em;
+	margin-top: .1em;
+	cursor: pointer;
+}
+
+.item-checker-checked {
+	color: green;
+	opacity: 1;
+}
+
+.item:hover {
+	background-color: #f0f0f0;
+	-webkit-transition: .2s;
+}
+
+.item:hover .item-checker,
+.item-checker:hover {
+	opacity: 1;
+}
+
