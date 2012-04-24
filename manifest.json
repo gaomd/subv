@@ -9,6 +9,7 @@
 	},
 	"permissions": [
 		"tabs",
+		"http://localhost/", // for local debug
 		"http://www.v2ex.com/",
 		"https://www.v2ex.com/"
 	]

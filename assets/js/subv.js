@@ -12,6 +12,16 @@ $(function() {
 		$(this).addClass("item-checker-checked");
 		$(this).find("i").attr("class", "icon-ok-sign");
 	});
+	$(document).on("click", ".title", function(event) {
+		var id = $(this).closest(".item").attr("id").substring(4);
+		console.log(id);
+		showTopic(id);
+		return false;
+	});
+
+	$("#overlay").on("click", function() {
+		hideTopic();
+	});
 	$("#more").on("click", function() {
 		Subv.current_page++;
 		appendItems(Subv.current_page);
@@ -19,9 +29,22 @@ $(function() {
 	appendItems(Subv.current_page);
 });
 
+function showTopic() {
+	$("#overlay").fadeIn();
+	$("#topic").fadeIn().css({
+		"left": $("#list").outerWidth() + $("#list").offset().left - $("#topic").outerWidth() - 40
+	});
+}
+
+function hideTopic() {
+	$("#overlay").hide();
+	$("#topic").text("").hide();
+}
+
 function appendItems(pageNo) {
 	$.ajax({
-		"url": "http://www.v2ex.com/recent?p=" + pageNo,
+		//"url": "http://www.v2ex.com/recent?p=" + pageNo,
+		"url": "http://localhost/recent_" + pageNo,
 		"success": function(html) {
 			var list = parseList(html);
 			//console.log(list);
@@ -35,7 +58,8 @@ function appendItems(pageNo) {
 
 function loadTopic(id) {
 	$.ajax({
-		"url": "http://www.v2ex.com/t/" + id,
+		//"url": "http://www.v2ex.com/t/" + id,
+		"url": "http://localhost/" + id,
 		"success": function(html) {
 			var topic = parseTopic(html);
 			console.log(topic);
