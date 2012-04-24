@@ -201,12 +201,38 @@ body {
 #Content > .box .cell > table > tbody > tr span.bigger a:visited { color: #eeeeec; }
 #Content > .box .cell > table > tbody > tr span.bigger a:hover { color: black; }
 /* align page numbers */
-.page_current,
+/*.page_current,
 .page_normal {
 	width: 2em;
 	text-align: center
 }
 #topics_index > .inner {
 	text-align: left;
-}
+}*/
 /* aligned */
+/* the new horizontally scrolling page numbers */
+.page_current,
+.page_normal {
+	width: 2em;
+	/*text-align: center*/
+}
+.page_current {
+	background-color: orange;
+}
+#topics_index > .inner {
+	overflow-x: scroll;
+	white-space: nowrap;
+}
+
+#pages-desc {
+	margin-top: 1em;
+}
+
+#read-items-desc {
+	margin-top: 1em;
+}
+#read-items {
+	/*height: 640px;
+	overflow-y: auto;*/
+	display: none;
+}

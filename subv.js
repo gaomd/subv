@@ -90,11 +90,18 @@ function hookClick() {
 
 // now hide
 function hideReadPosts() {
-	$('<div class="sep20"></div>').appendTo("#Content > .box");
+	$("#Content > .box")
+		.append('<div id="read-items-desc"><h1>Read Items:</h1><button id="show-read-items">show</button></div>')
+		.append('<div id="read-items"></div>');
+	$("#show-read-items").click(function() {
+		$("#read-items").slideDown();
+		$(this).remove();
+	});
+
 	$("#Content > .box .cell > table > tbody > tr span.bigger a").map(function() {
 		if (isClicked($(this).attr("href"))) {
 			console.log("moving read post " + $(this).attr("href") + " :: " + $(this).text());
-			$(this).closest(".cell").appendTo("#Content > .box");
+			$(this).closest(".cell").appendTo("#read-items");
 		}
 	});
 }
@@ -215,9 +222,9 @@ function rewritePost() {
 	// refactor the fav button
 	var fav = $($("#Content .box:first-child .inner:last-child a").get(0));
 	if (fav.text() === "加入收藏") {
-		fav.html("&#9734;");
+		fav.html('<i class="icon-star-empty"></i>');
 	} else {
-		fav.html('<span style="color: yellow">&#9733;</span>');
+		fav.html('<span style="color: black"><i class="icon-star"></i></span>');
 	}
 	fav.css("line-height", "1em");
 	fav.css("border-radius", "1em");
@@ -316,4 +323,6 @@ function rewritePost() {
 }
 
 function rewritePostsList() {
+	$("#Content > .box > .cell:first-child").removeClass("cell").html("<h1>Last Activity:</h1>");
+	$("#Content > .box > .inner").before('<div id="pages-desc"><h1>Pages:</h1></div>');
 }
