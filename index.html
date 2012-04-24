@@ -10,11 +10,15 @@
 	<script type="text/javascript" src="assets/js/jquery.js"></script>	
 	<script type="text/javascript" src="assets/js/doT.js"></script>	
 	<script type="text/javascript" src="assets/js/bootstrap.js"></script>	
+	<script type="text/javascript" src="assets/js/subv.js"></script>	
+	<script type="text/javascript" src="assets/js/subv-expose-json.js"></script>	
 	<title>Subv</title>
 </head>
 <body>
+
 	<div class="container">
 		<div class="row">
+
 			<div class="navbar">
 				<div class="navbar-inner">
 					<div class="container">
@@ -36,16 +40,20 @@
 					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="row">
-			<div class="" id="list-container">
+			<div class="span12" id="list-container">
 				<div id="list">
 					<!-- .item's here -->
-				</div><!-- #list -->
+				</div>
 			</div>
-		</div><!-- .row -->
-	</div>
+
+			<div class="span4">&nbsp;</div>
+			<div class="span4">
+				<button class="btn btn-large" id="more">more</button>
+			</div>
+			<div class="span4">&nbsp;</div>
+		</div>
+	</div><!-- .container -->
 
 <script type="text/template" id="item">
 
@@ -53,33 +61,39 @@
 		<div class="heading">
 			<h2>
 				<a class="label label-info label-tag" href="{{=it.tag.path}}">{{=it.tag.name}}</a>
-				<span> / </span>
+				<span> </span>
 				<a class="title" href="{{=it.topic.path}}">{{=it.topic.title}}</a>
 			</h2>
 		</div>
 		<div class="meta">
 			<span>
 				<button class="btn btn-large btn-counts">
-					<span class="comments-count">{{=it.commentsCount}}</span> <i class="icon-comment"></i>
+					<span class="comments-count">{{=it.topic.comments}}</span> <i class="icon-comment"></i>
 					<span> &bullet; </span>
-					<span class="views-count">{{=it.viewsCount}}</span> <i class="icon-eye-open"></i>
+					<span class="views-count">{{=it.topic.views}}</span> <i class="icon-eye-open"></i>
 				</button>
 			</span>
 			<div class="last-by pull-right">
-				<span title="{{=it.timeIso}}">{{=it.timeAgo}}</span>
+				<span title="{{=it.comments[1].timeIso}}">{{=it.comments[1].timeAgo}}</span>
 				<span> by </span>
-				<a href="{{=it.lastUpdaterPath}}">{{=it.lastUpdaterName}} ({{=it.lastUpdaterId}})</a>
+				<a href="{{=it.comments[1].user.path}}">{{=it.comments[1].user.name}}</a>
 			</div>
 		</div>
 	</div><!-- .item -->
 
 </script>
-
 <script type="text/javascript">
 
-	(function() {
-		$("#list").append( (doT.template($("#item").text()))(itSrc) );
-	})();
+	window.Subv = {
+		"current_page": 1
+	};
+	$(function() {
+			$("#more").on("click", function() {
+				Subv.current_page++;
+				appendItems(Subv.current_page);
+			});
+			appendItems(Subv.current_page);
+	});
 
 </script>
 </body>

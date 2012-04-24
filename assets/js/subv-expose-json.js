@@ -1,3 +1,6 @@
+/* Copyright (C) 2012 Md Gao
+ * MIT /LICENSE
+ */
 
 // for consistency on YQL/XHR
 function extractResponseText(o) {
@@ -9,6 +12,7 @@ function extractResponseText(o) {
 
 // Parse HTML into Topic JSON
 function parseTopic(html) {
+	var prefix = "http://www.v2ex.com";
 	var $j = $(html);
 	var comments = $j.find(".no").closest("table").map(function() {
 		$this = $(this);
@@ -20,26 +24,26 @@ function parseTopic(html) {
 			"user": {
 				"id": null,
 				"name": $this.find("td:last-child > strong a").text(),
-				"path": $this.find("td:last-child > strong a").attr("herf")
+				"path": prefix + $this.find("td:last-child > strong a").attr("herf")
 			}
 		}
 	}).get();
 	var op = {
 		"id": "0", // NOPE
-		"contentHtml": $this.find(".topic_contont").html(),
-		"timeAgo": $this.find(".header small.gray").text().split(" at ").pop().split("前").shift() + "前",
+		"contentHtml": $j.find(".topic_content").html(),
+		"timeAgo": $j.find(".header small.gray").text().split(" at ").pop().split("前").shift() + "前",
 		"timeIso": null,
 		"user": {
 			"id": null,
 			"name": $j.find(".header small.gray a").text(),
-			"path": $j.find(".header small.gray a").attr("href")
+			"path": prefix + $j.find(".header small.gray a").attr("href")
 		}
 	};
 	comments.unshift(op);
 	var topic = {
 		"tag": {
 			"name": $j.find(".header > a").eq(1).text(),
-			"path": $j.find(".header > a").eq(1).attr("href"),
+			"path": prefix + $j.find(".header > a").eq(1).attr("href"),
 			"infoHtml": "<strong>Content</strong>"
 		},
 
@@ -59,20 +63,21 @@ function parseTopic(html) {
 
 // Parse HTML into Items List JSON
 function parseList(html) {
+	var prefix = "http://www.v2ex.com";
 	return $(html).find(".item").map(function() {
 		var $this = $(this);
 		return {
 			"tag": {
 				"name": $this.find(".node").text(),
-				"path": $this.find(".node").attr("href"),
+				"path": prefix + $this.find(".node").attr("href"),
 				"infoHtml": null
 			},
 
 			"topic": {
 				"id": $this.find(".item_title a").attr("href").substring(3).split("#").shift(),
-				"path": $this.find(".item_title a").attr("href"),
+				"path": prefix + $this.find(".item_title a").attr("href"),
 				"title": $this.find(".item_title a").text(),
-				"views": "12306",
+				"views": "0", // TODO
 				"comments": $this.find(".count_livid").text(),
 				"created": "0000-00-00T00:00:00Z"
 			},
@@ -83,7 +88,7 @@ function parseList(html) {
 				{
 					"user": {
 						"name": $this.find(".small.fade a").eq(1).text(),
-						"path": $this.find(".small.fade a").eq(1).attr("href")
+						"path": prefix + $this.find(".small.fade a").eq(1).attr("href")
 					}
 				},
 				{
@@ -91,7 +96,7 @@ function parseList(html) {
 					"timeIso": null,
 					"user": {
 						"name": $this.find(".small.fade a").eq(2).text(),
-						"path": $this.find(".small.fade a").eq(2).attr("href")
+						"path": prefix + $this.find(".small.fade a").eq(2).attr("href")
 					}
 				}
 			]

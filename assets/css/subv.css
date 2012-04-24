@@ -1,5 +1,9 @@
+* {
+	font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft YaHei", sans-serif;
+}
+
 #list-container {
-	width: 720px;
+	/*width: 720px;*/
 	margin: auto;
 }
 
@@ -36,4 +40,11 @@
 	min-width: 8em;
 }
 
+#footer {
+	height: 128px;
+	text-align: center;
+}
 
+#more {
+	width: 100%;
+}

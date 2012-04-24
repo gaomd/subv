@@ -1,9 +1,32 @@
 /* Copyright (C) 2012 Md Gao
  * MIT /LICENSE
- * Improve my V2EX experience
  */
 
 "use strict";
+
+function appendItems(pageNo) {
+	$.ajax({
+		"url": "http://www.v2ex.com/recent?p=" + pageNo,
+		"success": function(html) {
+			var list = parseList(html);
+			//console.log(list);
+			for (var i = 0; i < list.length; i++) {
+				var t = (doT.template($("#item").text()))(list[i]);
+				$("#list").append(t);
+			}
+		}
+	});
+}
+
+function loadTopic(id) {
+	$.ajax({
+		"url": "http://www.v2ex.com/t/" + id,
+		"success": function(html) {
+			var topic = parseTopic(html);
+			console.log(topic);
+		}
+	});
+}
 
 function recordLinkClick(link) {
 	localStorage[link] = "true";
@@ -26,7 +49,7 @@ function markAllAsRead() {
 }
 
 
-// record post click on index, so we can hide read posts.
+// bind onclick to link.
 function hookClick() {
 	// .on(...) is not available in older jQ
 	$("#list .item .heading .title").click(function() {
@@ -225,5 +248,3 @@ function rewritePost() {
 	});
 }
 
-function rewritePostsList() {
-}
