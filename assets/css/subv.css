@@ -20,10 +20,9 @@
 }
 
 .item {
-	/*border-bottom: 1px dotted black;*/
-	padding: .8em .6em;
+	border-bottom: 1px dotted black; /* use without .well */
+	padding: 1.2em .6em;
 	position: relative;
-	margin-bottom: .8em;
 }
 
 .item .meta {
@@ -101,6 +100,10 @@
 	display: none;
 }
 
+.comments-container {
+	margin-left: 100px;
+}
+
 .comment .content {
 	font-size: 1.5em;
 	line-height: 1.55em;
@@ -112,8 +115,16 @@
 	width: 100%;
 }
 
+.comment {
+	margin-bottom: .4em;
+	border-top: 1px dotted black;
+	padding: .6em;
+}
+
 .comment:first-child {
-	margin-bottom: 2em;
+	border-top: none;
+	margin-top: 2em;
+	margin-bottom: 2.5em;
 	background-color: #fce94f;
 }
 
@@ -123,6 +134,10 @@
 
 .comment .author {
 	font-size: 1.4em;
+}
+
+.comment a.author {
+	color: black;
 }
 
 .comment .time {

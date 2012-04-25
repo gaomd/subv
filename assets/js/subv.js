@@ -30,16 +30,20 @@ $(function() {
 });
 
 function showTopic(id) {
-	$("#overlay").fadeIn();
-	$("#topic").fadeIn().css({
-		"left": $("#list").outerWidth() + $("#list").offset().left - $("#topic").outerWidth() - 40
+	$.ajax({
+		"url": "http://www.v2ex.com/t/" + id,
+		//"url": "http://localhost/" + id,
+		"success": function(html) {
+			var topic = parseTopic(html);
+			console.log(topic);
+			//$("#topic").text(JSON.stringify(topic));
+			for (var i = 0; i < topic.comments.length; i++) {
+				var template = $("#comment-item").text();
+				var t = ( doT.template(template) )(topic.comments[i]);
+				$("#item" + id + " .comments-container").append(t);
+			}
+		}
 	});
-	loadTopic(id);
-}
-
-function hideTopic() {
-	$("#overlay").hide();
-	$("#topic").text("").hide();
 }
 
 function appendItems(pageNo) {
@@ -52,23 +56,6 @@ function appendItems(pageNo) {
 			for (var i = 0; i < list.length; i++) {
 				var t = (doT.template($("#item").text()))(list[i]);
 				$("#list").append(t);
-			}
-		}
-	});
-}
-
-function loadTopic(id) {
-	$.ajax({
-		"url": "http://www.v2ex.com/t/" + id,
-		//"url": "http://localhost/" + id,
-		"success": function(html) {
-			var topic = parseTopic(html);
-			console.log(topic);
-			//$("#topic").text(JSON.stringify(topic));
-			for (var i = 0; i < topic.comments.length; i++) {
-				var template = $("#comment-item").text();
-				var t = ( doT.template(template) )(topic.comments[i]);
-				$("#topic").append(t);
 			}
 		}
 	});

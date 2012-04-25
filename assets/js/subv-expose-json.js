@@ -30,7 +30,7 @@ function parseTopic(html) {
 	}).get();
 	var op = {
 		"id": "0", // NOPE
-		"contentHtml": $j.find(".topic_content").html(),
+		"contentHtml": $j.find(".topic_content").html() || "RT",
 		"timeAgo": $j.find(".header small.gray").text().split(" at ").pop().split("前").shift() + "前",
 		"timeIso": null,
 		"user": {
