@@ -22,7 +22,7 @@
 				<div class="navbar">
 					<div class="navbar-inner">
 						<div class="container">
-							<a href="/" class="brand">V2EX</a>
+							<a href="/" class="brand" id="logo">V2EX</a>
 							<div class="nav-null-class">
 								<ul class="nav">
 									<li><a href="#">profile</a></li>
@@ -77,7 +77,6 @@
 		<div class="heading">
 			<h2>
 				<a class="label label-info label-tag" href="{{=it.tag.path}}">{{=it.tag.name}}</a>
-				<span> </span>
 				<a class="title" href="{{=it.topic.path}}">{{=it.topic.title}}</a>
 			</h2>
 		</div>
@@ -85,13 +84,13 @@
 			<span>
 				<button class="btn btn-large btn-counts">
 					<span class="comments-count">{{=it.topic.comments}}</span> <i class="icon-comment"></i>
-					<span> &bullet; </span>
+					&bullet;
 					<span class="views-count">{{=it.topic.views}}</span> <i class="icon-eye-open"></i>
 				</button>
 			</span>
 			<div class="last-by pull-right">
 				<span title="{{=it.comments[1].timeIso}}">{{=it.comments[1].timeAgo}}</span>
-				<span> by </span>
+				by
 				<a href="{{=it.comments[1].user.path}}">{{=it.comments[1].user.name}}</a>
 			</div>
 		</div>

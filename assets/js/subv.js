@@ -6,8 +6,9 @@
 
 $(function() {
 	window.Subv = {
-		"current_page": 1
+		"current_page": 0
 	};
+	window.doT.templateSettings.strip = false;
 	$(document).on("click", ".item-checker", function() {
 		$(this).addClass("item-checker-checked");
 		$(this).find("i").attr("class", "icon-ok-sign");
@@ -16,6 +17,11 @@ $(function() {
 		var id = $(this).closest(".item").attr("id").substring(4);
 		console.log(id);
 		showTopic(id);
+		return false;
+	});
+	$("#logo").on("click", function() {
+		$("#list").html("");
+		appendItems(0);
 		return false;
 	});
 
@@ -49,8 +55,14 @@ function showTopic(id) {
 }
 
 function appendItems(pageNo) {
+	var url;
+	if (pageNo === 0) {
+		url = "/";
+	} else {
+		url = "/recent?p=" + pageNo;
+	}
 	$.ajax({
-		"url": "http://www.v2ex.com/recent?p=" + pageNo,
+		"url": "http://www.v2ex.com" + url,
 		//"url": "http://localhost/recent_" + pageNo,
 		"success": function(html) {
 			var list = parseList(html);

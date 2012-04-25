@@ -70,7 +70,7 @@
 }
 
 .item:hover {
-	background-color: #f0f0f0;
+	background-color: #fffff0;
 	-webkit-transition: .2s;
 }
 
@@ -134,10 +134,11 @@
 
 .comment .author {
 	font-size: 1.4em;
+	font-weight: 900;
 }
 
 .comment a.author {
-	color: black;
+	color: #444;
 }
 
 .comment .time {

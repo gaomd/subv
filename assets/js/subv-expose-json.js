@@ -10,6 +10,39 @@ function extractResponseText(o) {
 	}
 }
 
+function extractMeta(html) {
+	var prefix = "http://www.v2ex.com";
+	var $j = $(html);
+	var meta = {
+		  "isLoggedIn": true
+		, "my": {
+			  "name": ""
+			, "path": ""
+			, "id": ""
+		}
+		, "notifications": {
+			  "count": 0
+			, "path": prefix + "/notifications"
+		}
+		, "favs": {
+			  "count": 0
+			, "path": prefix + "/my/topics"
+		}
+		, "signOut": {
+			  "path": prefix + "/logout"
+		}
+	}
+	var meta = {
+		  "isLoggedIn": false
+		, "signIn": {
+			  "path": prefix + "/signin"
+		}
+		, "signUp": {
+			  "path": prefix + "/signup"
+		}
+	}
+}
+
 // Parse HTML into Topic JSON
 function parseTopic(html) {
 	var prefix = "http://www.v2ex.com";
@@ -17,7 +50,7 @@ function parseTopic(html) {
 	var comments = $j.find(".no").closest("table").map(function() {
 		$this = $(this);
 		return {
-			"id": $this.find(".thank_area").attr("id").split("_").pop(),
+			"id": ($this.find(".thank_area").attr("id") || "").split("_").pop(),
 			"contentHtml": $this.find("td:last-child > .reply_content").html(),
 			"timeAgo": $this.find("td:last-child > .fade.small").text(),
 			"timeIso": null,
