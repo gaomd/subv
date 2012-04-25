@@ -13,12 +13,17 @@ $(function() {
 		$(this).addClass("item-checker-checked");
 		$(this).find("i").attr("class", "icon-ok-sign");
 	});
-	$(document).on("click", ".title", function(event) {
+	$(document).on("click", ".title", function() {
 		var id = $(this).closest(".item").attr("id").substring(4);
 		console.log(id);
 		showTopic(id);
 		return false;
 	});
+	$(document).on("click", ".item", function() {
+		var id = $(this).attr("id").substring(4);
+		showTopic(id);
+	});
+
 	$("#logo").on("click", function() {
 		$("#list").html("");
 		appendItems(0);
@@ -36,7 +41,12 @@ $(function() {
 });
 
 function showTopic(id) {
-	$("#item" + id + " .comments-container").hide();
+	if (Subv["clicked" + id] === "true") {
+		return;
+	} else {
+		Subv["clicked" + id] = "true";
+	}
+	$("#item" + id + " .comments-container").html("").append('<h3 class="pagination-right">Loading...</h3>');
 	$.ajax({
 		"url": "http://www.v2ex.com/t/" + id,
 		//"url": "http://localhost/" + id,
@@ -44,6 +54,7 @@ function showTopic(id) {
 			var topic = parseTopic(html);
 			console.log(topic);
 			//$("#topic").text(JSON.stringify(topic));
+			$("#item" + id + " .comments-container").html("");
 			for (var i = 0; i < topic.comments.length; i++) {
 				var template = $("#comment-item").text();
 				var t = ( doT.template(template) )(topic.comments[i]);

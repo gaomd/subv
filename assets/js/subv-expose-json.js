@@ -57,7 +57,7 @@ function parseTopic(html) {
 			"user": {
 				"id": null,
 				"name": $this.find("td:last-child > strong a").text(),
-				"path": prefix + $this.find("td:last-child > strong a").attr("herf")
+				"path": prefix + $this.find("td:last-child > strong a").attr("href")
 			}
 		}
 	}).get();
