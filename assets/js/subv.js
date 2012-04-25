@@ -30,6 +30,7 @@ $(function() {
 });
 
 function showTopic(id) {
+	$("#item" + id + " .comments-container").hide();
 	$.ajax({
 		"url": "http://www.v2ex.com/t/" + id,
 		//"url": "http://localhost/" + id,
@@ -42,6 +43,7 @@ function showTopic(id) {
 				var t = ( doT.template(template) )(topic.comments[i]);
 				$("#item" + id + " .comments-container").append(t);
 			}
+			$("#item" + id + " .comments-container").slideDown();
 		}
 	});
 }
