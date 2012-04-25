@@ -1,7 +1,7 @@
 {
 	"name": "Subv",
 	"version": "0.1",
-	"description": "Subv redesigns V2EX",
+	"description": "Subv redesigns V2EX.com",
 	"background_page": "background.html",
 	"browser_action": {
 		"default_icon": "assets/image/icon9.png"
