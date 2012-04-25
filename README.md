@@ -1,4 +1,4 @@
 Subv
 ====
 
-Subv redesigns v2ex.com
+Subv redesigns V2EX.com
