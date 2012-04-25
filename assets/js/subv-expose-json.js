@@ -101,6 +101,6 @@ function parseList(html) {
 				}
 			]
 		};
-	});
+	}).get();
 }
 

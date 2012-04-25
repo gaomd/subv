@@ -101,3 +101,30 @@
 	display: none;
 }
 
+.comment .content {
+	font-size: 1.5em;
+	line-height: 1.55em;
+	overflow-x: auto;
+	word-wrap: break-word;
+}
+
+.comment .content img {
+	width: 100%;
+}
+
+.comment:first-child {
+	margin-bottom: 2em;
+	background-color: #fce94f;
+}
+
+.comment .meta {
+	margin-bottom: 1em;
+}
+
+.comment .author {
+	font-size: 1.4em;
+}
+
+.comment .time {
+	float: right;
+}

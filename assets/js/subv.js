@@ -29,11 +29,12 @@ $(function() {
 	appendItems(Subv.current_page);
 });
 
-function showTopic() {
+function showTopic(id) {
 	$("#overlay").fadeIn();
 	$("#topic").fadeIn().css({
 		"left": $("#list").outerWidth() + $("#list").offset().left - $("#topic").outerWidth() - 40
 	});
+	loadTopic(id);
 }
 
 function hideTopic() {
@@ -43,8 +44,8 @@ function hideTopic() {
 
 function appendItems(pageNo) {
 	$.ajax({
-		//"url": "http://www.v2ex.com/recent?p=" + pageNo,
-		"url": "http://localhost/recent_" + pageNo,
+		"url": "http://www.v2ex.com/recent?p=" + pageNo,
+		//"url": "http://localhost/recent_" + pageNo,
 		"success": function(html) {
 			var list = parseList(html);
 			//console.log(list);
@@ -58,11 +59,17 @@ function appendItems(pageNo) {
 
 function loadTopic(id) {
 	$.ajax({
-		//"url": "http://www.v2ex.com/t/" + id,
-		"url": "http://localhost/" + id,
+		"url": "http://www.v2ex.com/t/" + id,
+		//"url": "http://localhost/" + id,
 		"success": function(html) {
 			var topic = parseTopic(html);
 			console.log(topic);
+			//$("#topic").text(JSON.stringify(topic));
+			for (var i = 0; i < topic.comments.length; i++) {
+				var template = $("#comment-item").text();
+				var t = ( doT.template(template) )(topic.comments[i]);
+				$("#topic").append(t);
+			}
 		}
 	});
 }
