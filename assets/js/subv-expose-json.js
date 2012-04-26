@@ -64,7 +64,7 @@ function parseTopic(html) {
 	}).get();
 	var op = {
 		"number": 0..toString(),
-		"id": "0", // NOPE
+		"id": Math.random().toString().substr(3,8), // avoid id collision
 		"contentHtml": $j.find(".topic_content").html() || "RT",
 		"timeAgo": $j.find(".header small.gray").text().split(" at ").pop().split("前").shift() + "前",
 		"timeIso": null,

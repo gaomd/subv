@@ -18,7 +18,8 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="span12">
+			<div class="span2">&nbsp;</div>
+			<div class="span8">
 				<div class="navbar">
 					<div class="navbar-inner">
 						<div class="container">
@@ -44,23 +45,23 @@
 		</div>
 
 		<div class="row">
-			<div class="span1">&nbsp;</div>
-			<div class="span11" id="list-container">
+			<div class="span2">&nbsp;</div>
+			<div class="span8" id="list-container">
 				<div id="list">
 					<!-- .item's here -->
 				</div>
 			</div>
+			<div class="span2">&nbsp;</div>
 		</div>
 
 		<div class="row" id="toolbar-container">
-			<div class="span1">
+			<div class="span2">
 				<button class="btn btn-large btn-primary">Apply</button>
 			</div>
-			<div class="span3">&nbsp;</div>
-			<div class="span4">
+			<div class="span8">
 				<button class="btn btn-large" id="more">more</button>
 			</div>
-			<div class="span4">&nbsp;</div>
+			<div class="span2">&nbsp;</div>
 		</div>
 	</div><!-- .container -->
 
@@ -75,10 +76,10 @@
 			<p><i class="icon-remove-sign"></i></p>
 		</div>
 		<div class="heading">
-			<h2>
+			<h3>
 				<a class="label label-info label-tag" href="{{=it.tag.path}}">{{=it.tag.name}}</a>
 				<a class="title" href="{{=it.topic.path}}">{{=it.topic.title}}</a>
-			</h2>
+			</h3>
 		</div>
 		<div class="meta">
 			<span>
@@ -96,7 +97,13 @@
 		</div>
 		<div class="comments-container">
 		</div>
-	</div><!-- .item -->
+		<div class="control-bar">
+			<p><i class="icon-star-empty"></i></p>
+			<p><i class="icon-eye-open"></i></p>
+			<p><i class="icon-ok"></i></p>
+			<p><i class="icon-chevron-up"></i></p>
+		</div>
+	</div>
 
 </script>
 

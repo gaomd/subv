@@ -46,6 +46,9 @@ function showTopic(id) {
 	} else {
 		Subv["clicked" + id] = "true";
 	}
+
+	var controlBar = $("#item" + id + " .comments-container .control-bar");
+
 	$("#item" + id + " .comments-container").html("").append('<h3 class="pagination-right">Loading...</h3>');
 	$("#item" + id).addClass("active");
 	$.ajax({
@@ -56,6 +59,7 @@ function showTopic(id) {
 			console.log(topic);
 			//$("#topic").text(JSON.stringify(topic));
 			$("#item" + id + " .comments-container").html("");
+			$("#item" + id + " .comments-container").append(controlBar);
 			for (var i = 0; i < topic.comments.length; i++) {
 				var template = $("#comment-item").text();
 				var t = ( doT.template(template) )(topic.comments[i]);
