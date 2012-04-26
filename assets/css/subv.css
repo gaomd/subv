@@ -1,6 +1,7 @@
 * {
 	font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft YaHei", sans-serif;
 	/*-webkit-transition: .5s;*/
+	box-sizing: border-box;
 }
 
 #list-container {
@@ -20,9 +21,26 @@
 }
 
 .item {
-	border-bottom: 1px dotted black; /* use without .well */
+	/*border-bottom: 1px dotted black;*/ /* use without .well */
 	padding: 1.2em .6em;
 	position: relative;
+
+	/* use with .btn */
+	text-align: left;
+	width: 100%;
+	/*border-top: 0;*/
+	border-radius: 0;
+}
+
+.item.active {
+	margin-bottom: 1em;
+	cursor: auto;
+}
+
+.item:first-child {
+	/*
+	border: 1px solid #cccccc;
+	*/
 }
 
 .item .meta {
@@ -70,8 +88,8 @@
 }
 
 .item:hover {
-	background-color: #fffff0;
-	-webkit-transition: .2s;
+	/*background-color: #fffff0;*/ /* use without .btn */
+	/*-webkit-transition: .2s; */
 }
 
 /*.item:hover .item-checker,*/

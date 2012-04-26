@@ -70,7 +70,7 @@
 
 <script type="text/template" id="item">
 
-	<div class="item" id="item{{=it.topic.id}}">
+	<div class="item btn" id="item{{=it.topic.id}}">
 		<div class="item-checker">
 			<p><i class="icon-remove-sign"></i></p>
 		</div>
@@ -107,6 +107,7 @@
 		<div class="meta">
 			<a class="author" href="{{=it.user.path}}">{{=it.user.name}}</a>
 			<span class="time" title="{{=it.timeIso}}">{{=it.timeAgo}}</span>
+			<span class="no">{{=it.number}}</span>
 		</div>
 		<div class="content">
 			{{=it.contentHtml}}

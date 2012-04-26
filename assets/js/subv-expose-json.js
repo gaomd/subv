@@ -47,9 +47,10 @@ function extractMeta(html) {
 function parseTopic(html) {
 	var prefix = "http://www.v2ex.com";
 	var $j = $(html);
-	var comments = $j.find(".no").closest("table").map(function() {
+	var comments = $j.find(".no").closest("table").map(function(i) {
 		$this = $(this);
 		return {
+			"number": (i+1).toString(),
 			"id": ($this.find(".thank_area").attr("id") || "").split("_").pop(),
 			"contentHtml": $this.find("td:last-child > .reply_content").html(),
 			"timeAgo": $this.find("td:last-child > .fade.small").text(),
@@ -62,6 +63,7 @@ function parseTopic(html) {
 		}
 	}).get();
 	var op = {
+		"number": 0..toString(),
 		"id": "0", // NOPE
 		"contentHtml": $j.find(".topic_content").html() || "RT",
 		"timeAgo": $j.find(".header small.gray").text().split(" at ").pop().split("前").shift() + "前",

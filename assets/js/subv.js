@@ -47,6 +47,7 @@ function showTopic(id) {
 		Subv["clicked" + id] = "true";
 	}
 	$("#item" + id + " .comments-container").html("").append('<h3 class="pagination-right">Loading...</h3>');
+	$("#item" + id).addClass("active");
 	$.ajax({
 		"url": "http://www.v2ex.com/t/" + id,
 		//"url": "http://localhost/" + id,
