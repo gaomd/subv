@@ -81,17 +81,13 @@
 			</h3>
 		</div>
 		<div class="meta">
-			<span>
-				<button class="btn btn-large btn-counts">
-					<span class="comments-count">{{=it.topic.comments}}</span> <i class="icon-comment"></i>
-					&bullet;
-					<span class="views-count">{{=it.topic.views}}</span> <i class="icon-eye-open"></i>
-				</button>
-			</span>
-			<div class="last-by pull-right">
-				<span title="{{=it.comments[1].timeIso}}">{{=it.comments[1].timeAgo}}</span>
-				by
-				<a href="{{=it.comments[1].user.path}}">{{=it.comments[1].user.name}}</a>
+			<span class="comments-count"><i class="icon-comment"></i>{{=it.topic.comments}}</span>
+			&bullet;
+			<span class="views-count"><i class="icon-eye-open"></i>{{=it.topic.views}}</span>
+			<div class="pull-right">
+				<a href="{{=it.comments[0].user.path}}">{{=it.comments[0].user.name}}</a>
+				&bullet;
+				<span title="{{=it.topic.lastUpdatedTimeIso}}">{{=it.topic.lastUpdatedTimeAgo}}</span>
 			</div>
 		</div>
 		<div class="comments-container">

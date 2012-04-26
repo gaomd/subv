@@ -62,7 +62,6 @@ body {
 }
 
 .item .meta {
-	padding-top: .5em;
 }
 
 .label-tag {
@@ -186,6 +185,11 @@ body {
 }
 
 .comment:first-child .main {
+	-webkit-transition: all 1s;
+	border: 1px dashed black;
+}
+
+.op-comment-bg {
 	background-color: #e9b96e;
 }
 
@@ -253,3 +257,22 @@ a.title:hover {
 	color: #0088cc;
 }
 
+.heading {
+	margin-bottom: .5em;
+}
+
+.icon-comment::before {
+	-webkit-transform: scaleX(-1);
+}
+
+.views-count,
+.comments-count {
+	color: #888;
+	font-size: 1.4em;
+}
+
+.views-count i,
+.comments-count i {
+	vertical-align: super;
+	font-size: 80%;
+}

@@ -73,6 +73,12 @@ function showTopic(id) {
 			$item.find(".control-bar").css({
 				"top": controlBarOffsetY
 			});
+			$commentsContainer.find(".comment:first-child .main").addClass("op-comment-bg");
+			setTimeout(function() {
+				$commentsContainer
+					.find(".comment:first-child .main")
+					.removeClass("op-comment-bg");
+			}, 1000);
 		}
 	});
 }
