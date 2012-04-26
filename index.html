@@ -104,13 +104,17 @@
 <script type="text/template" id="comment-item">
 
 	<div class="comment" id="comment{{=it.id}}">
-		<div class="meta">
-			<a class="author" href="{{=it.user.path}}">{{=it.user.name}}</a>
-			<span class="time" title="{{=it.timeIso}}">{{=it.timeAgo}}</span>
-			<span class="no">{{=it.number}}</span>
+		<div class="no">
+			<p class="no-number">{{=it.number}}</p>
 		</div>
-		<div class="content">
-			{{=it.contentHtml}}
+		<div class="main well well-small">
+			<div class="meta">
+				<a class="author" href="{{=it.user.path}}">{{=it.user.name}}</a>
+				<span class="time" title="{{=it.timeIso}}">{{=it.timeAgo}}</span>
+			</div>
+			<div class="content">
+				{{=it.contentHtml}}
+			</div>
 		</div>
 	</div>
 

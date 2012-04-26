@@ -1,7 +1,11 @@
 * {
-	font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft YaHei", sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, "Droid Sans Fallback", "Microsoft YaHei", sans-serif;
 	/*-webkit-transition: .5s;*/
 	box-sizing: border-box;
+}
+
+body {
+	overflow-y: scroll;
 }
 
 #list-container {
@@ -21,7 +25,6 @@
 }
 
 .item {
-	/*border-bottom: 1px dotted black;*/ /* use without .well */
 	padding: 1.2em .6em;
 	position: relative;
 
@@ -30,17 +33,22 @@
 	width: 100%;
 	/*border-top: 0;*/
 	border-radius: 0;
+	border-bottom: 0;
 }
 
 .item.active {
 	margin-bottom: 1em;
 	cursor: auto;
+	background-color: #fafafa;
 }
 
-.item:first-child {
-	/*
+.item.active > .meta {
+	display: none;
+}
+
+.item.active,
+.item:last-child {
 	border: 1px solid #cccccc;
-	*/
 }
 
 .item .meta {
@@ -118,9 +126,11 @@
 	display: none;
 }
 
+/*
 .comments-container {
 	margin-left: 100px;
 }
+*/
 
 .comment .content {
 	font-size: 1.5em;
@@ -135,15 +145,12 @@
 
 .comment {
 	margin-bottom: .4em;
-	border-top: 1px dotted black;
-	padding: .6em;
+	overflow: auto;
 }
 
 .comment:first-child {
-	border-top: none;
 	margin-top: 2em;
 	margin-bottom: 2.5em;
-	background-color: #fce94f;
 }
 
 .comment .meta {
@@ -162,3 +169,37 @@
 .comment .time {
 	float: right;
 }
+
+.comment .main {
+	margin-left: 100px;
+	margin-bottom: .4em;
+}
+
+.comment:first-child .main {
+	background-color: #fce94f;
+}
+
+.comment .no {
+	max-width: 96px;
+	width: 96px;
+	float: left;
+	padding: .6em;
+	text-align: right;
+}
+
+.comment .no p {
+	line-height: .8em;
+	margin: 0;
+	color: #888;
+}
+
+.comment .no p.no-number {
+	font-size: 3em;
+}
+
+.comment .no p.no-number:before {
+	font-size: 80%;
+	content: "#";
+	vertical-align: super;
+}
+
