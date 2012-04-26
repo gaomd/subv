@@ -3,7 +3,7 @@ Subv
 
 Subv redesigns V2EX.com.
 
-It's currently designed/developed as an extension to Google Chrome, later I will add UserScript option.
+It's currently designed/developed as an extension to Google Chrome, maybe later I will add UserScript option.
 
 Use
 ---
@@ -19,7 +19,5 @@ And you're done, click the icon besides the wrench icon to start Subv.
 
 License
 -------
-Copyright (C) 2012 Md Gao
-
-Subv is MIT licensed. See LICENSE file for more infomation.
+Licensed under the MIT Licensed.
 
