@@ -70,24 +70,24 @@
 
 <script type="text/template" id="item">
 
-	<div class="item btn" id="item{{=it.topic.id}}">
+	<div class="item btn" id="item{{=it.id}}">
 		<div class="item-checker">
 			<p><i class="icon-remove-sign"></i></p>
 		</div>
 		<div class="heading">
 			<h3>
 				<a class="label label-info label-tag" href="{{=it.tag.path}}">{{=it.tag.name}}</a>
-				<a class="title clickpass" href="{{=it.topic.path}}">{{=it.topic.title}}</a>
+				<a class="title clickpass" href="{{=it.path}}">{{=it.title}}</a>
 			</h3>
 		</div>
 		<div class="meta">
-			<span class="comments-count"><!--<i class="icon-comment"></i>-->{{=it.topic.comments}} comments</span>
+			<span class="comments-count"><!--<i class="icon-comment"></i>-->{{=it.comments_count}} comments</span>
 			&bullet;
-			<span class="views-count"><!--<i class="icon-eye-open"></i>-->{{=it.topic.views}} views</span>
+			<span class="views-count"><!--<i class="icon-eye-open"></i>-->{{=it.views_count}} views</span>
 			<div class="pull-right">
-				<a href="{{=it.comments[0].user.path}}">{{=it.comments[0].user.name}}</a>
+				<a class="author" href="{{=it.comments[0].user.path}}">{{=it.comments[0].user.name}}</a>
 				&bullet;
-				<span title="{{=it.topic.lastUpdatedTimeIso}}">{{=it.topic.lastUpdatedTimeAgo}}</span>
+				<time class="time" title="{{=it.last_updated_time_iso}}">{{=it.last_updated_time_ago}}</time>
 			</div>
 		</div>
 		<div class="comments-container">
@@ -96,6 +96,7 @@
 			<p><i class="icon-star-empty"></i></p>
 			<p><i class="icon-eye-open"></i></p>
 			<p><i class="icon-ok"></i></p>
+			<p><i class="icon-remove"></i></p>
 			<p><i class="icon-chevron-up"></i></p>
 		</div>
 	</div>
@@ -107,15 +108,15 @@
 
 	<div class="comment" id="comment{{=it.id}}">
 		<div class="no">
-			<p class="no-number">{{=it.number}}</p>
+			<p class="no-number">{{=it.no}}</p>
 		</div>
 		<div class="main well well-small">
 			<div class="meta">
 				<a class="author" href="{{=it.user.path}}">{{=it.user.name}}</a>
-				<span class="time" title="{{=it.timeIso}}">{{=it.timeAgo}}</span>
+				<span class="time" title="{{=it.time_iso}}">{{=it.time_ago}}</span>
 			</div>
 			<div class="content">
-				{{=it.contentHtml}}
+				{{=it.content_html}}
 			</div>
 		</div>
 	</div>

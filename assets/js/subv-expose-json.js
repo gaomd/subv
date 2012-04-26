@@ -47,14 +47,22 @@ function extractMeta(html) {
 function parseTopic(html) {
 	var prefix = "http://www.v2ex.com";
 	var $j = $(html);
+
+	var topic;
+	topic.pages = Math.floor(topic.commentsCount / 100) + 1;
+	topic.current_page = Number($j.find("span.page_current").text());
+	if (topic.current_page === 0) {
+		topic.current_page = 1;
+	}
+
 	var comments = $j.find(".no").closest("table").map(function(i) {
 		$this = $(this);
 		return {
-			"number": (i+1).toString(),
 			"id": ($this.find(".thank_area").attr("id") || "").split("_").pop(),
-			"contentHtml": $this.find("td:last-child > .reply_content").html(),
-			"timeAgo": $this.find("td:last-child > .fade.small").text().split("前").shift() + "前",
-			"timeIso": null,
+			"no": (current_page - 1) * 100 + (i+1).toString(),
+			"content_html": $this.find("td:last-child > .reply_content").html(),
+			"time_ago": $this.find("td:last-child > .fade.small").text().split("前").shift() + "前",
+			"time_iso": null,
 			"user": {
 				"id": null,
 				"name": $this.find("td:last-child > strong a").text(),
@@ -63,11 +71,11 @@ function parseTopic(html) {
 		}
 	}).get();
 	var op = {
-		"number": 0..toString(),
-		"id": Math.random().toString().substr(3,8), // avoid id collision
-		"contentHtml": $j.find(".topic_content").html() || "",
-		"timeAgo": $j.find(".header small.gray").text().split(" at ").pop().split("前").shift() + "前",
-		"timeIso": null,
+		"id": Math.random().toString().substr(3,8), // avoid id collision, normal is 6 length
+		"no": 0..toString(),
+		"content_html": $j.find(".topic_content").html() || "",
+		"time_ago": $j.find(".header small.gray").text().split(" at ").pop().split("前").shift() + "前",
+		"time_iso": null,
 		"user": {
 			"id": null,
 			"name": $j.find(".header small.gray a").text(),
@@ -75,22 +83,20 @@ function parseTopic(html) {
 		}
 	};
 	comments.unshift(op);
-	var topic = {
+	topic = {
+		"id": "0", // TODO
+		"path": "/t/0", // TODO
+		"title": $j.find(".header h1").text(),
+		"views_count": $j.find(".header small.gray").text().trim().replace(/.*?(\d+) 次点击.*/, "$1"),
+		"comments_count": Number($j.find("#Main > .box > .cell > .gray").text().split(" ")[0]),
+		"last_updated_time_ago": null, // nope
+		//"pages": null, // fill later
+		//"current_page": null, // fill later
 		"tag": {
 			"name": $j.find(".header > a").eq(1).text(),
 			"path": prefix + $j.find(".header > a").eq(1).attr("href"),
-			"infoHtml": "<strong>Content</strong>"
+			"info_html": "<strong>Content</strong>"
 		},
-
-		"topic": {
-			"id": "0", // TODO
-			"path": "/t/0", // TODO
-			"title": $j.find(".header h1").text(),
-			"views": "0", // TODO
-			"comments": comments.length - 1,
-			"lastUpdatedTimeAgo": null
-		},
-
 		"comments": comments
 	};
 	if (topic.comments[0].contentHtml === "") {
@@ -106,8 +112,8 @@ function parseList(html) {
 		var $this = $(this);
 
 		// possible meta format
-		// ["tag", "op", "chars", "views", "TIME_AGO", "LAST_COMMENTATOR"]
-		// ["tag", "op", "chars", "views", "TIME_AGO"]
+		// ["tag", "op", "chars", "views", "time_ago", "last_commentator"]
+		// ["tag", "op", "chars", "views", "time_ago"]
 		var meta = $this.find(".item_title ~ .small.fade").text().split("•");
 		meta.shift();
 		meta.shift();
@@ -116,23 +122,21 @@ function parseList(html) {
 		var timeAgo = meta[2].trim();
 
 		return {
+			"id": $this.find(".item_title a").attr("href").substring(3).split("#").shift(),
+			"path": prefix + $this.find(".item_title a").attr("href"),
+			"title": $this.find(".item_title a").text(),
+			"views_count": viewsCount,
+			"comments_count": $this.find(".count_livid").text() || $this.find(".count_orange").text() || 0,
+			"last_updated_time_ago": timeAgo,
+			"pages": null, // placeholder
+			"current_page": null, // placeholder
 			"tag": {
 				"name": $this.find(".node").text(),
 				"path": prefix + $this.find(".node").attr("href"),
-				"infoHtml": null
+				"info_html": null
 			},
 
-			"topic": {
-				"id": $this.find(".item_title a").attr("href").substring(3).split("#").shift(),
-				"path": prefix + $this.find(".item_title a").attr("href"),
-				"title": $this.find(".item_title a").text(),
-				"views": viewsCount,
-				"comments": $this.find(".count_livid").text() || $this.find(".count_orange").text() || 0,
-				"lastUpdatedTimeAgo": timeAgo
-			},
-
-			// if this json is an item of the topic list, then comments[0] is op info and comments[1] is last updater
-			// if this json is topic, then comments[0] is op full info and others is comments.
+			// comments[0] is op & comments[1] is the last commentator
 			"comments": [
 				{
 					"user": {

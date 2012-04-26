@@ -12,6 +12,12 @@ body {
 	overflow-y: scroll;
 }
 
+#logo:before {
+	content: "Subv";
+	vertical-align: super;
+	font-size: 80%;
+}
+
 #list-container {
 	/*width: 720px;*/
 	/*margin: auto;*/
@@ -91,7 +97,7 @@ body {
 
 	position: absolute;
 	left: -4em;
-	opacity: .2;
+	opacity: .1;
 }
 
 .item-checker p {
@@ -145,6 +151,7 @@ body {
 	line-height: 1.55em;
 	overflow-x: auto;
 	word-wrap: break-word;
+	color: black;
 }
 
 .comment .content img,
@@ -228,7 +235,7 @@ body {
 	top: 200px;
 	background-color: #d3d7cf;
 	opacity: .2;
-	border-radius: 24px;
+	border-radius: 2em;
 	-webkit-transition: all .4s;
 	padding: .5em;
 }
@@ -236,10 +243,12 @@ body {
 .control-bar:hover {
 	opacity: 1;
 	-webkit-transition: all .4s;
+	box-shadow: 0 0 .6em black;
 }
 
 .control-bar p {
-	font-size: 48px;
+	font-size: 3em;
+	line-height: 1em;
 	text-align: center;
 	margin: 0;
 	-webkit-transition: all .4s;
@@ -247,9 +256,8 @@ body {
 }
 
 .control-bar p:hover {
-	background-color: yellow;
-	border-radius: 30px;
 	-webkit-transition: all .4s;
+	text-shadow: 0 0 .4em black;
 }
 
 a.title:hover {
@@ -276,3 +284,13 @@ a.title:hover {
 	vertical-align: super;
 	font-size: 80%;
 }
+
+.item > .meta .author,
+.item > .meta .time {
+	color: #888;
+}
+
+.item > .meta .author {
+	font-weight: 900;
+}
+
