@@ -281,3 +281,7 @@ body {
 	box-sizing: content-box;
 }
 
+.dropdown-menu-no-caret:after {
+	content: none !important;
+}
+
