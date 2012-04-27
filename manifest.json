@@ -1,6 +1,6 @@
 {
 	"name": "Subv",
-	"version": "0.1",
+	"version": "VERSION",
 	"description": "Subv redesigns V2EX.com",
 	"background_page": "background.html",
 	"browser_action": {
