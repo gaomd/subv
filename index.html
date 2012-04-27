@@ -64,40 +64,47 @@
 		</div>
 	</div><!-- .container -->
 
-	<div class="overlay" id="overlay"></div>
-	<div class="span9 well well-small" id="topic">
-	</div>
-
 <script type="text/template" id="item">
 
 	<div class="item btn" id="item{{=it.id}}">
 		<div class="item-checker">
 			<p><i class="icon-remove-sign"></i></p>
 		</div>
-		<div class="heading">
+		<div class="item-heading">
 			<h3>
 				<a class="label label-info label-tag" href="{{=it.tag.path}}">{{=it.tag.name}}</a>
 				<a class="title clickpass" href="{{=it.path}}">{{=it.title}}</a>
 			</h3>
 		</div>
-		<div class="meta">
-			<span class="comments-count"><!--<i class="icon-comment"></i>-->{{=it.comments_count}} comments</span>
+		<div class="item-meta">
+			<span class="comments-count">{{=it.comments_count}} comments</span>
 			&bullet;
-			<span class="views-count"><!--<i class="icon-eye-open"></i>-->{{=it.views_count}} views</span>
-			<div class="pull-right">
+			<span class="views-count">{{=it.views_count}} views</span>
+			<span class="pull-right">
 				<a class="author" href="{{=it.comments[0].user.path}}">{{=it.comments[0].user.name}}</a>
 				&bullet;
 				<time class="time" title="{{=it.last_updated_time_iso}}">{{=it.last_updated_time_ago}}</time>
-			</div>
+			</span>
 		</div>
-		<div class="comments-container">
+		<div class="item-comments">
+			<div class="loading-indicator"></div>
+			<div class="page-1"></div>
+			<div class="page-2"></div>
+			<div class="page-3"></div>
+			<div class="page-4"></div>
+			<div class="page-5"></div>
+			<div class="page-6"></div>
+			<div class="page-7"></div>
+			<div class="page-8"></div>
+			<div class="page-9"></div>
+			<div class="page-10"></div>
 		</div>
 		<div class="control-bar">
-			<p><i class="icon-star-empty"></i></p>
-			<p><i class="icon-eye-open"></i></p>
-			<p><i class="icon-ok"></i></p>
-			<p><i class="icon-remove"></i></p>
-			<p><i class="icon-chevron-up"></i></p>
+			<p id="item-fav"><i class="icon-star-empty"></i></p>
+			<p id="item-watch"><i class="icon-eye-open"></i></p>
+			<p id="item-watchplus"><i class="icon-ok"></i></p>
+			<p id="item-ban"><i class="icon-remove"></i></p>
+			<p id="item-collapse"><i class="icon-chevron-up"></i></p>
 		</div>
 	</div>
 
@@ -106,16 +113,16 @@
 
 <script type="text/template" id="comment-item">
 
-	<div class="comment" id="comment{{=it.id}}">
-		<div class="no">
-			<p class="no-number">{{=it.no}}</p>
+	<div class="comment-item" id="comment{{=it.id}}">
+		<div class="comment-no">
+			<p>{{=it.no}}</p>
 		</div>
-		<div class="main well well-small">
-			<div class="meta">
-				<a class="author" href="{{=it.user.path}}">{{=it.user.name}}</a>
-				<span class="time" title="{{=it.time_iso}}">{{=it.time_ago}}</span>
+		<div class="comment-main well well-small">
+			<div class="comment-meta">
+				<a class="comment-author" href="{{=it.user.path}}">{{=it.user.name}}</a>
+				<span class="comment-time" title="{{=it.time_iso}}">{{=it.time_ago}}</span>
 			</div>
-			<div class="content">
+			<div class="comment-content">
 				{{=it.content_html}}
 			</div>
 		</div>

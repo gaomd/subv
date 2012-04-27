@@ -48,7 +48,7 @@ function parseTopic(html) {
 	var prefix = "http://www.v2ex.com";
 	var $j = $(html);
 
-	var topic;
+	var topic = {};
 	topic.pages = Math.floor(topic.commentsCount / 100) + 1;
 	topic.current_page = Number($j.find("span.page_current").text());
 	if (topic.current_page === 0) {
@@ -90,8 +90,8 @@ function parseTopic(html) {
 		"views_count": $j.find(".header small.gray").text().trim().replace(/.*?(\d+) 次点击.*/, "$1"),
 		"comments_count": Number($j.find("#Main > .box > .cell > .gray").text().split(" ")[0]),
 		"last_updated_time_ago": null, // nope
-		//"pages": null, // fill later
-		//"current_page": null, // fill later
+		"pages": topic.pages,
+		"current_page": topic.current_pages,
 		"tag": {
 			"name": $j.find(".header > a").eq(1).text(),
 			"path": prefix + $j.find(".header > a").eq(1).attr("href"),

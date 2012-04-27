@@ -29,7 +29,9 @@ $(function() {
 		var id = $(this).attr("id").substring(4);
 		showTopic(id);
 	});
-
+	$("#item-collapse").on("click", function() {
+		$(this).closest(".item").removeClass("active");
+	}
 	$("#logo").on("click", function() {
 		$("#list").html("");
 		appendItems(0);
