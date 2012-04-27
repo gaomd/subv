@@ -191,27 +191,24 @@ body {
 	overflow: auto;
 }
 
-/*
-.comment-item:first-child {
+.comment-item .comment-main {
+	-webkit-transition: all 1s;
+	margin-left: 75px;
+	margin-bottom: .4em;
+}
+
+.comment-item-op {
 	margin-top: 2em;
 	margin-bottom: 2.5em;
 }
 
-.comment-item:first-child .comment-main {
-	-webkit-transition: all 1s;
+.comment-item-op .comment-main {
 	border: 1px dashed black;
-}
-*/
-
-.comment-item .comment-main {
-	margin-left: 75px;
-	margin-bottom: .4em;
 }
 
 .comment-item .comment-main-flashlight {
 	background-color: #e9b96e;
 }
-
 
 .comment-item .comment-meta {
 	margin-bottom: 1em;

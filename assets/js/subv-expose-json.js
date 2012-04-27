@@ -10,6 +10,14 @@ function extractResponseText(o) {
 	}
 }
 
+function stripAvatar(html) {
+	// kill avatar img tag
+	html = html.replace(/src="[^"]*?v2ex\.com\/avatar\/[^"]*?"/g, "");
+	// kill src="/static/..." img and script tag
+	html = html.replace(/src="\/static\/[^"]*?"/g, "");
+	return html;
+}
+
 function extractMeta(html) {
 	var prefix = "http://www.v2ex.com";
 	var $j = $(html);
@@ -46,6 +54,7 @@ function extractMeta(html) {
 // Parse HTML into Topic JSON
 function parseTopic(html) {
 	var prefix = "http://www.v2ex.com";
+	html = stripAvatar(html);
 	var $j = $(html);
 
 	var topic = {};
@@ -108,6 +117,7 @@ function parseTopic(html) {
 // Parse HTML into Items List JSON
 function parseList(html) {
 	var prefix = "http://www.v2ex.com";
+	html = stripAvatar(html);
 	return $(html).find(".item").map(function() {
 		var $this = $(this);
 

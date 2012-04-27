@@ -14,17 +14,14 @@ $(function() {
 	// load page 0
 	appendItemsList(Subv.current_page);
 
-	$(document).on("click", "a", function() {
-		if ( $(this).hasClass("clickpass") ) {
-			return true;
-		}
-		return false;
+	$(document).on("click", "a", function(e) {
+		e.preventDefault();
 	});
 
 	bindExpandItem();
 	bindCollapseItem();
 
-	$("#logo").on("click", function(e) {
+	$("#logo, #reload").on("click", function(e) {
 		e.preventDefault;
 		reloadItemsList();
 	});
@@ -36,17 +33,21 @@ $(function() {
 	});
 });
 
+function log(info) {
+	console.log("LOG: " + info);
+}
+
 function bindExpandItem() {
 	// TODO, click pass on title
 	$(document).on("click", ".item .heading .title", function(e) {
 		e.preventDefault();
 		var id = $(this).closest(".item").attr("id").split("-").pop();
-		console.log("Clicked id: " + id);
+		log("Clicked id: " + id);
 		expandItem(id);
 	});
 	$(document).on("click", ".item", function(e) {
 		var id = $(this).attr("id").split("-").pop();
-		console.log("Clicked id: " + id);
+		log("Clicked id: " + id);
 		expandItem(id);
 	});
 }
@@ -58,7 +59,7 @@ function bindCollapseItem() {
 }
 
 function collapseItem(itemId) {
-	console.log("Collapse id: " + itemId);
+	log("Collapse id: " + itemId);
 
 	var $item = $("#item-" + itemId);
 	$item.removeClass("active");
@@ -68,19 +69,19 @@ function collapseItem(itemId) {
 }
 
 function expandItem(itemId) {
-	console.log("expandItem(" + itemId + ")");
+	log("expandItem(" + itemId + ")");
 
 	var $item = $("#item-" + itemId);
 	// expand item directly if it's expanded once
 	if ($item.hasClass("avoid-expand-again")) {
-		console.log("avoid-expand-again, detected, return");
+		log("avoid-expand-again, detected, return");
 		return;
 	} else if ($item.hasClass("cached")) {
-		console.log("cached, expand directly");
+		log("cached, expand directly");
 		$item.addClass("active avoid-expand-again");
 		return;
 	} else {
-		console.log("loading...");
+		log("loading...");
 		$item.addClass("cached avoid-expand-again");
 	}
 	var $commentsContainer = $item.find(".item-comments");
@@ -97,22 +98,23 @@ function expandItem(itemId) {
 				var t = ( doT.template(template) )(topic.comments[i]);
 				$commentsContainer.append(t);
 			}
+			$commentsContainer.find(".comment-item").eq(0).addClass("comment-item-op");
 			$commentsContainer.slideDown();
 			var controlBarOffsetY = $commentsContainer.eq(0).offset().top - $commentsContainer.eq(0).closest(".item").offset().top;
 			$item.find(".control-bar").css({
 				"top": controlBarOffsetY
 			});
-			$commentsContainer.find(".comment:first-child .main").addClass("op-comment-bg");
+			$commentsContainer.find(".comment-item").eq(0).find(".comment-main").addClass("comment-main-flashlight");
 			setTimeout(function() {
 				$commentsContainer
-					.find(".comment:first-child .main")
-					.removeClass("op-comment-bg");
+					.find(".comment-item").eq(0).find(".comment-main")
+					.removeClass("comment-main-flashlight");
 			}, 1000);
 		}
 	});
 }
 
-function reloadItemList() {
+function reloadItemsList() {
 	$("#list").html("");
 	Subv.current_page = 0;
 	appendItemsList(0);
@@ -130,7 +132,7 @@ function appendItemsList(pageNo) {
 		//"url": "http://localhost/recent_" + pageNo,
 		"success": function(html) {
 			var list = parseList(html);
-			//console.log(list);
+			//log(list);
 			for (var i = 0; i < list.length; i++) {
 				var t = (doT.template($("#item").text()))(list[i]);
 				$("#list").append(t);
@@ -154,7 +156,7 @@ function isClicked(link) {
 function markAllAsRead() {
 	$("#list .item .heading .title").map(function() {
 		var link = $(this).attr("href");
-		console.log("mark as read " + link);
+		log("mark as read " + link);
 		recordLinkClick(link);
 	});
 }
@@ -165,7 +167,7 @@ function hookClick() {
 	// .on(...) is not available in older jQ
 	$("#list .item .heading .title").click(function() {
 		var link = $(this).attr("href");
-		console.log("clicked " + link);
+		log("clicked " + link);
 		recordLinkClick(link);
 	});
 }
@@ -182,7 +184,7 @@ function hideReadPosts() {
 
 	$("#Content > .box .cell > table > tbody > tr span.bigger a").map(function() {
 		if (isClicked($(this).attr("href"))) {
-			console.log("moving read post " + $(this).attr("href") + " :: " + $(this).text());
+			log("moving read post " + $(this).attr("href") + " :: " + $(this).text());
 			$(this).closest(".cell").appendTo("#read-items");
 		}
 	});
