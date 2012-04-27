@@ -74,7 +74,7 @@ body {
 /* ^ helper classes */
 
 .item .item-heading {
-	margin-bottom: .5em;
+	margin-bottom: .8em;
 }
 
 .item-heading .label-tag {
@@ -134,7 +134,7 @@ body {
 	position: absolute;
 	top: 200px;
 	background-color: #d3d7cf;
-	opacity: .2;
+	opacity: 0;
 	border-radius: 2em;
 	-webkit-transition: all .4s;
 	padding: .5em;
@@ -204,7 +204,7 @@ body {
 */
 
 .comment-item .comment-main {
-	margin-left: 100px;
+	margin-left: 75px;
 	margin-bottom: .4em;
 }
 
@@ -232,13 +232,14 @@ body {
 }
 
 .comment-item .comment-content img,
-.comment-item .comment-content embed {
+.comment-item .comment-content embed,
+.comment-item .comment-content .gist {
 	width: 100%;
+	max-width: 100% !important;
 }
 
 .comment-item .comment-no {
-	max-width: 96px;
-	width: 96px;
+	width: 64px;
 	float: left;
 	padding: .6em;
 	text-align: right;
