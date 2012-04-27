@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="assets/third/css/bootstrap.css" />
+	<script type="text/javascript" src="assets/third/js/jquery.js"></script>
+	<script type="text/javascript">
+		function callback(data) {
+			console.log("callbacked");
+			console.log("version_latest: " + data.version_latest);
+			$("#download").attr("href", "//raw.github.com/gDD/subv-build/master/subv-" + data.version_latest + ".crx");
+		}
+	</script>
+	<title>Get Subv</title>
+</head>
+<body>
+	<div class="container" style="width: 640px;">
+		<div class="row">
+			<div class="span8">
+				<div style="height: 100px">&nbsp;</div>
+				<h1 style="margin-bottom: 1em">Subv is a Google Chrome extension.</h1>
+				<a class="btn btn-large btn-primary" style="font-size: 2em;" href="#" id="download">Install Subv</a>
+				<a class="btn btn-large" style="font-size: 2em; margin-left: 1em;" href="//github.com/gDD/subv">Fork me on GitHub</a>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="//raw.github.com/gDD/subv-build/master/subv-latest.jsonp"></script>
+</body>
+</html>
+<!-- EOF -->
