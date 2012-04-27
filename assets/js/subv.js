@@ -1,5 +1,7 @@
-/* Copyright (C) 2012 Md Gao
- * MIT /LICENSE
+/*
+ * Subv: //github.com/gdd/subv
+ * Copyright (C) 2012 Md Gao
+ * Licensed under the MIT License
  */
 
 "use strict";
@@ -9,58 +11,83 @@ $(function() {
 		"current_page": 0
 	};
 	window.doT.templateSettings.strip = false;
-	$(document).on("click", ".item-checker", function() {
-		$(this).addClass("item-checker-checked");
-		$(this).find("i").attr("class", "icon-ok-sign");
-	});
-	$(document).on("click", ".title", function(e) {
-		e.preventDefault();
-		var id = $(this).closest(".item").attr("id").substring(4);
-		console.log(id);
-		showTopic(id);
-	});
+	// load page 0
+	appendItemsList(Subv.current_page);
+
 	$(document).on("click", "a", function() {
 		if ( $(this).hasClass("clickpass") ) {
 			return true;
 		}
 		return false;
 	});
-	$(document).on("click", ".item", function() {
-		var id = $(this).attr("id").substring(4);
-		showTopic(id);
-	});
-	$(document).on("click", "#item-collapse", function() {
-		$(this).closest(".item").removeClass("active");
-	});
-	$("#logo").on("click", function() {
-		$("#list").html("");
-		appendItems(0);
-		return false;
+
+	bindExpandItem();
+	bindCollapseItem();
+
+	$("#logo").on("click", function(e) {
+		e.preventDefault;
+		reloadItemsList();
 	});
 
-	$("#overlay").on("click", function() {
-		hideTopic();
-	});
+	// load next page
 	$("#more").on("click", function() {
 		Subv.current_page++;
-		appendItems(Subv.current_page);
+		appendItemsList(Subv.current_page);
 	});
-	appendItems(Subv.current_page);
 });
 
-function showTopic(id) {
-	if (Subv["clicked" + id] === "true") {
+function bindExpandItem() {
+	// TODO, click pass on title
+	$(document).on("click", ".item .heading .title", function(e) {
+		e.preventDefault();
+		var id = $(this).closest(".item").attr("id").split("-").pop();
+		console.log("Clicked id: " + id);
+		expandItem(id);
+	});
+	$(document).on("click", ".item", function(e) {
+		var id = $(this).attr("id").split("-").pop();
+		console.log("Clicked id: " + id);
+		expandItem(id);
+	});
+}
+
+function bindCollapseItem() {
+	$(document).on("click", "#item-collapse", function(e) {
+		collapseItem($(this).closest(".item").attr("id").split("-").pop());
+	});
+}
+
+function collapseItem(itemId) {
+	console.log("Collapse id: " + itemId);
+
+	var $item = $("#item-" + itemId);
+	$item.removeClass("active");
+	setTimeout(function() {
+		$item.removeClass("avoid-expand-again");
+	}, 1000);
+}
+
+function expandItem(itemId) {
+	console.log("expandItem(" + itemId + ")");
+
+	var $item = $("#item-" + itemId);
+	// expand item directly if it's expanded once
+	if ($item.hasClass("avoid-expand-again")) {
+		console.log("avoid-expand-again, detected, return");
+		return;
+	} else if ($item.hasClass("cached")) {
+		console.log("cached, expand directly");
+		$item.addClass("active avoid-expand-again");
 		return;
 	} else {
-		Subv["clicked" + id] = "true";
+		console.log("loading...");
+		$item.addClass("cached avoid-expand-again");
 	}
-
-	var $item = $("#item" + id);
 	var $commentsContainer = $item.find(".item-comments");
 	$commentsContainer.html("").append('<h3 class="pagination-right">Loading...</h3>');
 	$item.addClass("active");
 	$.ajax({
-		"url": "http://www.v2ex.com/t/" + id,
+		"url": "http://www.v2ex.com/t/" + itemId,
 		//"url": "http://localhost/" + id,
 		"success": function(html) {
 			var topic = parseTopic(html);
@@ -85,7 +112,13 @@ function showTopic(id) {
 	});
 }
 
-function appendItems(pageNo) {
+function reloadItemList() {
+	$("#list").html("");
+	Subv.current_page = 0;
+	appendItemsList(0);
+}
+
+function appendItemsList(pageNo) {
 	var url;
 	if (pageNo === 0) {
 		url = "/";
@@ -153,55 +186,5 @@ function hideReadPosts() {
 			$(this).closest(".cell").appendTo("#read-items");
 		}
 	});
-}
-
-function rewriteCommon() {
-	// there is no sidebar for these in /member/*
-	var notifyPath;
-	var notifyCount;
-	var favPath;
-	var favCount;
-	if (!(window.location.pathname.indexOf("/member/") === 0)) {
-		notifyPath = $("#Rightbar .box:first-child .inner a").attr("href");
-		notifyCount = $("#Rightbar .box:first-child .inner a").text().split(' ')[0];
-		favPath = $("#Rightbar .box:first-child .cell table:last-child td:nth-child(2) a").attr("href");
-		favCount = $("#Rightbar .box:first-child .cell table:last-child td:nth-child(2) a span.bigger").text();
-	}
-	var memberPath = $("#Navigation ul li:nth-child(2) a").attr("href");
-
-	// higher footer
-	$("#Bottom").css({
-		"height": $(window).height() / 2,
-		"background-color": "transparent"
-	});
-
-	// ad should be kept
-	$("#Rightbar > .box:last-child")
-		.clone()
-		.attr("id", "ad")
-		.css({
-			"position": "absolute",
-			"max-width": "272",
-			"display": "inline-block"
-		})
-		.hide()
-		.appendTo("body");
-
-
-	// FINALLY, a nice roll out
-	setTimeout(function() {
-		// i don't know what im doing... so will fix later
-		var currOffset = window.pageYOffset;
-		var atLeastScroll = $("#meta-here").offset().top - 20;
-		var actualScroll;
-		if ((currOffset - atLeastScroll) <= 0) {
-			actualScroll = atLeastScroll;
-		} else {
-			actualScroll = currOffset - atLeastScroll;
-		}
-		$("body").animate({"scrollTop": actualScroll}, 'slow');
-		//$("#o").fadeOut();
-		$("body").fadeIn();
-	}, 1000);
 }
 
