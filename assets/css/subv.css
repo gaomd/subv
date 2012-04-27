@@ -2,9 +2,8 @@
  * GLOBAL
  * -------------------------- */
 * {
-	font-family: "Helvetica Neue", Helvetica, Arial, STHeiti, "Microsoft YaHei", "Droid Sans Fallback", "WenQuanYi Micro Hei", "WenQuanYi Zen Hei", sans-serif;
-	/*-webkit-transition: .5s;*/
 	box-sizing: border-box;
+	font-family: "Helvetica Neue", Helvetica, Arial, STHeiti, "Microsoft YaHei", "Droid Sans Fallback", "WenQuanYi Micro Hei", "WenQuanYi Zen Hei", sans-serif;
 }
 
 body {
@@ -12,8 +11,7 @@ body {
 }
 
 .container {
-	/* span8 + 20px */
-	width: 640px;
+	width: 640px; /* that is span8 + 20px */
 }
 
 /* -------------------------- *
@@ -21,36 +19,32 @@ body {
  * -------------------------- */
 #logo:before {
 	content: "Subv";
-	vertical-align: super;
 	font-size: 80%;
+	vertical-align: super;
 }
 .brand {
 	font-family: "Arial Black", arial, sans-serif;
 	font-weight: 900;
-	/*font-size: 2em !important;*/
 }
 
 /* -------------------------- *
  * ITEM
  * -------------------------- */
 .item {
+	border-bottom: 0;
+	border-radius: 0;
 	padding: 1.2em .6em;
 	position: relative;
-
-	/* use with .btn */
 	text-align: left;
 	width: 100%;
-	/*border-top: 0;*/
-	border-radius: 0;
-	border-bottom: 0;
 }
 
 .item.active {
-	margin-bottom: 1em;
-	cursor: auto;
 	background-color: #fafafa;
 	border-left: 0;
 	border-right: 0;
+	cursor: auto;
+	margin-bottom: 1em;
 }
 
 /* helper classes */
@@ -70,12 +64,6 @@ body {
 .item.active .item-comments {
 	display: block;
 }
-/*
-.item:hover {
-	background-color: #fffff0;
-	-webkit-transition: .2s;
-}
-*/
 /* ^ helper classes */
 
 .item .item-heading {
@@ -83,15 +71,14 @@ body {
 }
 
 .item-heading .label-tag {
-	padding: 2px;
 	font-size: 1em;
+	padding: 2px;
 	vertical-align: baseline; /* clear bs's middle */
 }
 
-
 .item-heading a.title:hover {
-	text-decoration: none;
 	color: #0088cc;
+	text-decoration: none;
 }
 
 .item .item-meta {
@@ -134,49 +121,48 @@ body {
 }
 
 .item .control-bar {
+	background-color: #d3d7cf;
+	border-radius: 2em;
 	display: none;
 	float: left;
+	opacity: 0;
+	padding: .5em;
 	position: absolute;
 	top: 200px;
-	background-color: #d3d7cf;
-	opacity: 0;
-	border-radius: 2em;
 	-webkit-transition: all .4s;
-	padding: .5em;
 }
 
 .item .control-bar:hover {
+	box-shadow: 0 0 .6em black;
 	opacity: 1;
 	-webkit-transition: all .4s;
-	box-shadow: 0 0 .6em black;
 }
 
 .item .control-bar p {
+	cursor: pointer;
 	font-size: 3em;
 	line-height: 1em;
-	text-align: center;
 	margin: 0;
+	text-align: center;
 	-webkit-transition: all .4s;
-	cursor: pointer;
 }
 
 .item .control-bar p:hover {
-	-webkit-transition: all .4s;
 	text-shadow: 0 0 .4em black;
+	-webkit-transition: all .4s;
 }
 
 .item-checker {
 	display: none; /* tmp disable it */
-
-	position: absolute;
 	left: -4em;
 	opacity: .1;
+	position: absolute;
 }
 
 .item-checker p {
+	cursor: pointer;
 	font-size: 3em;
 	margin-top: .1em;
-	cursor: pointer;
 }
 
 .item-checker-checked {
@@ -197,14 +183,14 @@ body {
 }
 
 .comment-item .comment-main {
-	-webkit-transition: all 1s;
-	margin-left: 75px;
 	margin-bottom: .4em;
+	margin-left: 75px;
+	-webkit-transition: all 1s;
 }
 
 .comment-item-op {
-	margin-top: 2em;
 	margin-bottom: 2.5em;
+	margin-top: 2em;
 }
 
 .comment-item-op .comment-main {
@@ -220,67 +206,65 @@ body {
 }
 
 .comment-item .comment-author {
+	color: #444;
 	font-size: 1em;
 	font-weight: 900;
-	color: #444;
 }
 
 .comment-item .comment-content {
+	color: black;
 	font-size: 1em;
-	/* improve line-height since we use MSYH, discussions: http://www.v2ex.com/t/33832 */
-	line-height: 1.7em;
+	line-height: 1.7em; /* improve line-height since we use MSYH, discussions: http://www.v2ex.com/t/33832 */
 	overflow-x: auto;
 	word-wrap: break-word;
-	color: black;
 }
 
 .comment-item .comment-content img,
 .comment-item .comment-content embed,
 .comment-item .comment-content .gist {
-	width: 100%;
 	max-width: 100% !important;
+	width: 100%;
 }
 
 .comment-item .comment-no {
-	width: 64px;
 	float: left;
 	padding: .6em;
 	text-align: right;
+	width: 64px;
 }
 
 .comment-item .comment-no p {
-	line-height: .8em;
-	margin: 0;
 	color: #888;
 	font-size: 2em;
+	line-height: .8em;
+	margin: 0;
 }
 
 .comment-item .comment-no p:before {
-	font-size: 80%;
 	content: "#";
+	font-size: 80%;
 	vertical-align: super;
 }
-
 
 /* -------------------------- *
  * MISC
  * -------------------------- */
 /*.item:hover .item-checker,*/
 #toolbar-container {
-	margin-top: 2em;
 	height: 128px;
+	margin-top: 2em;
 }
 
 #overlay {
+	background-color: black;
+	display: none;
+	height: 100%;
+	left: 0;
+	opacity: .5;
 	position: fixed;
 	top: 0;
-	left: 0;
 	width: 100%;
-	height: 100%;
 	z-index: 99;
-	background-color: black;
-	opacity: .5;
-	display: none;
 }
 
 .search-query {
@@ -291,19 +275,3 @@ body {
 	content: none !important;
 }
 
-/* copy and override bootstrap's style */
-/*
-.btn.hover,
-.btn:hover {
-  color: #333333;
-  text-decoration: none;
-  background-color: #e6e6e6;
-  background-position: 0 -15px;
-  background-color: #e6e6e6;
-  -webkit-transition: none;
-  -moz-transition: none;
-  -ms-transition: none;
-  -o-transition: none;
-  transition: none;
-}
-*/
