@@ -7,15 +7,15 @@ It's currently designed/developed as an extension to Google Chrome, maybe later 
 
 Use
 ---
-Either [download](//github.com/gDD/subv/zipball/master) & extract zip file *--OR--* clone the repo:
+1. Grab a latest build from the [subv-build](//github.com/gDD/subv-build) repo.
 
-    git clone git://github.com/gdd/subv.git
+2. And you're done, click the tmp/ugly Subv icon (![](//github.com/gDD/subv/raw/master/assets/image/icon9.png)) besides the wrench icon to start Subv.
 
-Then:
-
-`Google Chrome` &rarr; `Settings` &rarr; `Extensions` &rarr; `Check "Developer mode"` &rarr; `Load unpacked extension...`
-
-And you're done, click the tmp/ugly Subv icon (![](//github.com/gDD/subv/raw/master/assets/image/icon9.png)) besides the wrench icon to start Subv.
+Development
+-----------
+1. Fork this repo.
+2. `Google Chrome` &rarr; `Settings` &rarr; `Extensions` &rarr; `Check "Developer mode"` &rarr; `Load unpacked extension...`
+3. Write code, send pull request.
 
 License
 -------
