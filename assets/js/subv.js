@@ -29,9 +29,9 @@ $(function() {
 		var id = $(this).attr("id").substring(4);
 		showTopic(id);
 	});
-	$("#item-collapse").on("click", function() {
+	$(document).on("click", "#item-collapse", function() {
 		$(this).closest(".item").removeClass("active");
-	}
+	});
 	$("#logo").on("click", function() {
 		$("#list").html("");
 		appendItems(0);
@@ -56,7 +56,7 @@ function showTopic(id) {
 	}
 
 	var $item = $("#item" + id);
-	var $commentsContainer = $item.find(".comments-container");
+	var $commentsContainer = $item.find(".item-comments");
 	$commentsContainer.html("").append('<h3 class="pagination-right">Loading...</h3>');
 	$item.addClass("active");
 	$.ajax({
@@ -203,126 +203,5 @@ function rewriteCommon() {
 		//$("#o").fadeOut();
 		$("body").fadeIn();
 	}, 1000);
-}
-
-function rewritePost() {
-	// FIX the OP structure
-	if ($("#Content > .box:first-child > .cell").length === 0) {
-		$("#Content > .box:first-child > .inner:first-child").addClass("cell").removeClass("inner");
-		var div = document.createElement("div");
-		div.className = "inner";
-		var div2 = document.createElement("div");
-		div2.className = "content topic_content";
-		div2.innerText = "/dev/null";
-		div.appendChild(div2);
-		$("#Content > .box:first-child > .cell:first-child").after(div);
-	}
-
-	$("#Content > .box small.fade").html($("#Content > .box small.fade").html().split(/^By /).join(""));
-	// then move meta info to post content area
-	$("#Content > .box:nth-child(1) > .cell > small.fade")
-		.prependTo("#Content > .box:nth-child(1) > .inner > .content.topic_content");
-
-	// refactor the fav button
-	var fav = $($("#Content .box:first-child .inner:last-child a").get(0));
-	if (fav.text() === "加入收藏") {
-		fav.html('<i class="icon-star-empty"></i>');
-	} else {
-		fav.html('<span style="color: black"><i class="icon-star"></i></span>');
-	}
-	fav.css("line-height", "1em");
-	fav.css("border-radius", "1em");
-	fav.css("font-size", "1em");
-	fav.css("font-family", "Arial");
-	fav.prependTo("#Content .box:first-child h1");
-
-	var favText = $("#Content .box:first-child .inner:last-child .fr");
-	var favNums;
-	if ($.trim(favText.find("span").text()) === "") {
-		favNums = "0";
-	} else {
-		favNums = $.trim(favText.find("span").text()).split(' ')[1];
-	}
-	favText.parent().remove();
-	if (favNums !== "0") {
-		$("#Content .box:first-child h1 a").append(favNums);
-	}
-
-	// now refactor tag
-	var tagPath = $("#Content .box span.bigger a:last-child").attr("href");
-	var tagName = $("#Content .box span.bigger a:last-child").text();
-	$("#Content .box span.bigger").remove(); // not needed anymore
-	$("#Content .box h1").css("padding", "0");
-	$("#Content .box h1").parent().css("min-height", "0");
-	// TODO: not robust
-	$("#Content .box h1 a").after(' • <a href="' + tagPath + '" class="tag-in-title op">' + tagName + '</a> • ');
-	// prepare the tag-details
-	var tagDetails;
-	if ($("#Rightbar > .box").length <= 2) {
-		tagDetails = $('<div class="box" id="tag-details"><div class="inner"><strong>nothing</strong></div></div>');
-	} else {
-		tagDetails = $("#Rightbar > .box").eq(1).clone().attr("id", "tag-details");
-	}
-	tagDetails.appendTo("body");
-	$("#tag-details").css({
-		"display": "none",
-		"position": "absolute",
-		"border": "2px solid #dde",
-		"border-radius": ".5em",
-		"min-width": "256px",
-		"min-height": "32px",
-		"max-width": "480px",
-		"box-shadow": "rgb(85, 87, 83) 0px 16px 32px"
-	});
-	$("#tag-details").attr("style", 'background-color: white !important; ' + $("#tag-details").attr("style"));
-	$("#tag-details > .inner").css({ "background-color": "transparent" });
-
-	var timerId;
-	$(".tag-in-title").hover(function() {
-		var y = $(".tag-in-title").outerHeight() + $(".tag-in-title").offset().top + 2;
-		var x = $(".tag-in-title").offset().left;
-		$("#tag-details").css({
-			"top": y,
-			"left": x
-		}).fadeIn().hover(function() {
-				clearTimeout(timerId);
-			}, function() {
-				$("#tag-details").fadeOut();
-			});
-	}, function() {
-		timerId = setTimeout(function() {
-			$("#tag-details").fadeOut();
-		}, 400);
-	});
-
-	// remove everything around the comment box
-	if ($("#Content .box form").length) {
-		$("#Content .box:last-child .inner").remove();
-		$("#Content .box:last-child form .cell:first-child").remove();
-	}
-
-	// refactor comments
-	// FIX the last comment
-	$("#replies > .inner").addClass("cell").removeClass("inner");
-	$("#replies .cell td:last-child").map(function() {
-		//console.log(this);
-		$(this).find("> div.fr img")
-			.insertBefore($(this).find("> strong"))
-			.css("width", "12px")
-			.css("margin-right", ".2em")
-			.css("opacity", ".4")
-			.css("-webkit-transform", "rotate(222deg)")
-			.hover(function() {
-				$(this).css("opacity", "1");
-			}, function() {
-				$(this).css("opacity", ".4");
-			});
-			//.css("-webkit-transform", "scaleY(-1) rotate(30deg)");
-		$(this).find("> div.fr")
-			.removeClass("fr")
-			.css("display", "inline")
-			.insertBefore($(this).find("> div.sep5"));
-		//console.log($(this).find("> div.fr"));
-	});
 }
 

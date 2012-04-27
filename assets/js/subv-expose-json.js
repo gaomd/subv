@@ -59,7 +59,7 @@ function parseTopic(html) {
 		$this = $(this);
 		return {
 			"id": ($this.find(".thank_area").attr("id") || "").split("_").pop(),
-			"no": (current_page - 1) * 100 + (i+1).toString(),
+			"no": ((topic.current_page - 1) * 100 + (i+1)).toString(),
 			"content_html": $this.find("td:last-child > .reply_content").html(),
 			"time_ago": $this.find("td:last-child > .fade.small").text().split("前").shift() + "前",
 			"time_iso": null,
@@ -91,7 +91,7 @@ function parseTopic(html) {
 		"comments_count": Number($j.find("#Main > .box > .cell > .gray").text().split(" ")[0]),
 		"last_updated_time_ago": null, // nope
 		"pages": topic.pages,
-		"current_page": topic.current_pages,
+		"current_page": topic.current_page,
 		"tag": {
 			"name": $j.find(".header > a").eq(1).text(),
 			"path": prefix + $j.find(".header > a").eq(1).attr("href"),

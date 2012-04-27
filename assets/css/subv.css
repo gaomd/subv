@@ -111,6 +111,23 @@ body {
 	display: none;
 }
 
+.item-comments div[class|=page-] {
+	display: none;
+}
+
+.item-comments.haspage-1 .page-1,
+.item-comments.haspage-2 .page-2,
+.item-comments.haspage-3 .page-3,
+.item-comments.haspage-4 .page-4,
+.item-comments.haspage-5 .page-5,
+.item-comments.haspage-6 .page-6,
+.item-comments.haspage-7 .page-7,
+.item-comments.haspage-8 .page-8,
+.item-comments.haspage-9 .page-9,
+.item-comments.haspage-10 .page-10 {
+	display: block;
+}
+
 .item .control-bar {
 	display: none;
 	float: left;
@@ -206,7 +223,7 @@ body {
 	color: #444;
 }
 
-.comment-item .content {
+.comment-item .comment-content {
 	font-size: 1em;
 	line-height: 1.55em;
 	overflow-x: auto;
@@ -214,8 +231,8 @@ body {
 	color: black;
 }
 
-.comment-item .content img,
-.comment-item .content embed {
+.comment-item .comment-content img,
+.comment-item .comment-content embed {
 	width: 100%;
 }
 
