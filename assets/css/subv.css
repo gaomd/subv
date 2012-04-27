@@ -11,6 +11,11 @@ body {
 	overflow-y: scroll;
 }
 
+.container {
+	/* span8 + 20px */
+	width: 640px;
+}
+
 /* -------------------------- *
  * NAV
  * -------------------------- */
@@ -222,7 +227,8 @@ body {
 
 .comment-item .comment-content {
 	font-size: 1em;
-	line-height: 1.55em;
+	/* improve line-height since we use MSYH, discussions: http://www.v2ex.com/t/33832 */
+	line-height: 1.7em;
 	overflow-x: auto;
 	word-wrap: break-word;
 	color: black;
@@ -285,3 +291,19 @@ body {
 	content: none !important;
 }
 
+/* copy and override bootstrap's style */
+/*
+.btn.hover,
+.btn:hover {
+  color: #333333;
+  text-decoration: none;
+  background-color: #e6e6e6;
+  background-position: 0 -15px;
+  background-color: #e6e6e6;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -ms-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+*/

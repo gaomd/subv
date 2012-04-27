@@ -18,7 +18,6 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="span2">&nbsp;</div>
 			<div class="span8">
 				<div class="navbar">
 					<div class="navbar-inner">
@@ -47,23 +46,19 @@
 		</div>
 
 		<div class="row">
-			<div class="span2">&nbsp;</div>
 			<div class="span8" id="list-container">
 				<div id="list">
 					<!-- .item's here -->
 				</div>
 			</div>
-			<div class="span2">&nbsp;</div>
 		</div>
 
 		<div class="row" id="toolbar-container">
-			<div class="span2">&nbsp;</div>
 			<div class="span8">
-				<button class="btn btn-large btn-primary">Apply</button>
-				<button id="reload" class="btn btn-large"><i class="icon-refresh"></i> Reload</button>
+				<!--<button class="btn btn-large btn-primary">Apply</button>-->
+				<button id="reload" class="btn btn-large btn-primary"><i class="icon-refresh"></i> Reload</button>
 				<button class="btn btn-large span4 pull-right" id="more">more</button>
 			</div>
-			<div class="span2">&nbsp;</div>
 		</div>
 	</div><!-- .container -->
 
@@ -123,7 +118,7 @@
 		<div class="comment-main well well-small">
 			<div class="comment-meta">
 				<a class="comment-author" href="{{=it.user.path}}">{{=it.user.name}}</a>
-				<span class="comment-time" title="{{=it.time_iso}}">{{=it.time_ago}}</span>
+				<span class="comment-time pull-right" title="{{=it.time_iso}}">{{=it.time_ago}}</span>
 			</div>
 			<div class="comment-content">
 				{{=it.content_html}}
