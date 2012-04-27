@@ -108,8 +108,8 @@ function parseTopic(html) {
 		},
 		"comments": comments
 	};
-	if (topic.comments[0].contentHtml === "") {
-		topic.comments[0].contentHtml = "RT: " + topic.topic.title;
+	if (topic.comments[0].content_html === "") {
+		topic.comments[0].content_html = "RT: " + topic.title;
 	}
 	return topic;
 }

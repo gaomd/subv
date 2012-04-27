@@ -1,6 +1,6 @@
 {
 	"name": "Subv",
-	"version": "VERSION",
+	"version": "0.0.0.0",
 	"description": "Subv redesigns V2EX.com",
 	"update_url": "https://raw.github.com/gDD/subv-build/master/update-check.xml",
 	"background_page": "background.html",
