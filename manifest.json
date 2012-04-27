@@ -2,6 +2,7 @@
 	"name": "Subv",
 	"version": "VERSION",
 	"description": "Subv redesigns V2EX.com",
+	"update_url": "https://raw.github.com/gDD/subv-build/master/update-check.xml",
 	"background_page": "background.html",
 	"browser_action": {
 		"default_icon": "assets/image/icon9.png"
