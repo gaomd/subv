@@ -22,6 +22,7 @@ body {
 	font-size: 80%;
 	vertical-align: super;
 }
+
 .brand {
 	font-family: "Arial Black", arial, sans-serif;
 	font-weight: 900;
@@ -250,7 +251,7 @@ body {
  * MISC
  * -------------------------- */
 /*.item:hover .item-checker,*/
-#toolbar-container {
+.footer-toolbar {
 	height: 128px;
 	margin-top: 2em;
 }
