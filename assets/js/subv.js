@@ -31,6 +31,31 @@ $(function() {
 		Subv.current_page++;
 		appendItemsList(Subv.current_page);
 	});
+
+	$(document).on("submit", ".comment-form", function(e) {
+		e.preventDefault();
+		var id = $(this).attr("action").split("/").pop();
+		$.ajax({
+			"url": $(this).attr("action"),
+			"type": "POST",
+			"data": $(this).serialize(),
+			"success": function() {
+				collapseItem(id);
+				$("#item-" + id).removeClass("cached").removeClass("avoid-expand-again");
+				setTimeout(function() {
+					expandItem(id);
+				}, 200);
+			}
+		});
+		var $form = $(this);
+		$form.find("input[type='submit']").addClass("disabled");
+		$form.find("textarea[name='content']").addClass("disabled");
+		setTimeout(function() {
+			$form.find("input[type='submit']").removeClass("disabled");
+			$form.find("textarea[name='content']").removeClass("disabled");
+		}, 5000);
+		return false;
+	});
 });
 
 function log(info) {
@@ -85,20 +110,24 @@ function expandItem(itemId) {
 		$item.addClass("cached avoid-expand-again");
 	}
 	var $commentsContainer = $item.find(".item-comments");
-	$commentsContainer.html("").append('<h3 class="pagination-right">Loading...</h3>');
+	$commentsContainer.find(".loading-indicator").html("").append('<h3 class="pagination-right">Loading...</h3>');
 	$item.addClass("active");
 	$.ajax({
 		"url": "http://www.v2ex.com/t/" + itemId,
 		//"url": "http://localhost/" + id,
 		"success": function(html) {
 			var topic = parseTopic(html);
-			$commentsContainer.html("");
+			console.log(topic);
+			var $page = $commentsContainer.find(".page-" + topic.current_page);
+			$page.html("");
+			$commentsContainer.addClass("haspage-" + topic.current_page);
 			for (var i = 0; i < topic.comments.length; i++) {
 				var template = $("#comment-item").text();
 				var t = ( doT.template(template) )(topic.comments[i]);
-				$commentsContainer.append(t);
+				$page.append(t);
 			}
 			$commentsContainer.find(".comment-item").eq(0).addClass("comment-item-op");
+			$commentsContainer.find(".loading-indicator").html("");
 			$commentsContainer.slideDown();
 			var controlBarOffsetY = $commentsContainer.eq(0).offset().top - $commentsContainer.eq(0).closest(".item").offset().top;
 			$item.find(".control-bar").css({

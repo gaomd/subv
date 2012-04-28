@@ -58,12 +58,10 @@ function parseTopic(html) {
 	var $j = $(html);
 
 	var topic = {};
-	topic.pages = Math.floor(topic.commentsCount / 100) + 1;
 	topic.current_page = Number($j.find("span.page_current").text());
 	if (topic.current_page === 0) {
 		topic.current_page = 1;
 	}
-
 	var comments = $j.find(".no").closest("table").map(function(i) {
 		$this = $(this);
 		return {
@@ -99,8 +97,8 @@ function parseTopic(html) {
 		"views_count": $j.find(".header small.gray").text().trim().replace(/.*?(\d+) 次点击.*/, "$1"),
 		"comments_count": Number($j.find("#Main > .box > .cell > .gray").text().split(" ")[0]),
 		"last_updated_time_ago": null, // nope
-		"pages": topic.pages,
-		"current_page": topic.current_page,
+		"pages": 1,
+		"current_page": 1,
 		"tag": {
 			"name": $j.find(".header > a").eq(1).text(),
 			"path": prefix + $j.find(".header > a").eq(1).attr("href"),
@@ -108,6 +106,7 @@ function parseTopic(html) {
 		},
 		"comments": comments
 	};
+	topic.pages = Math.floor(topic.comments_count / 100) + 1;
 	if (topic.comments[0].content_html === "") {
 		topic.comments[0].content_html = "RT: " + topic.title;
 	}
@@ -118,7 +117,7 @@ function parseTopic(html) {
 function parseList(html) {
 	var prefix = "http://www.v2ex.com";
 	html = stripAvatar(html);
-	return $(html).find(".item").map(function() {
+	var list = $(html).find(".item").map(function() {
 		var $this = $(this);
 
 		// possible meta format
@@ -139,7 +138,7 @@ function parseList(html) {
 			"comments_count": $this.find(".count_livid").text() || $this.find(".count_orange").text() || 0,
 			"last_updated_time_ago": timeAgo,
 			"pages": null, // placeholder
-			"current_page": null, // placeholder
+			"current_page": 1, // placeholder
 			"tag": {
 				"name": $this.find(".node").text(),
 				"path": prefix + $this.find(".node").attr("href"),
@@ -163,5 +162,9 @@ function parseList(html) {
 			]
 		};
 	}).get();
+	for (var i = 0; i < list.length; i++) {
+		list[i].comment_url = prefix + "/t/" + list[i].id;
+	}
+	return list;
 }
 

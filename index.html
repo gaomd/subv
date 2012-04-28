@@ -93,6 +93,13 @@
 			<div class="page-8"></div>
 			<div class="page-9"></div>
 			<div class="page-10"></div>
+			<div class="comment">
+				<form class="comment-form" method="post" action="{{=it.comment_url}}">
+					<textarea name="content" maxlength="10000" id="comment"></textarea>
+					<br/>
+					<input type="submit" class="btn comment-submit" value="comment!">
+				</form>
+			</div>
 		</div>
 		<div class="control-bar">
 			<p id="item-fav"><i class="icon-star-empty"></i></p>
