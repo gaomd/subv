@@ -3,7 +3,7 @@
 	<head>
 		<script type="text/javascript">
 			chrome.browserAction.onClicked.addListener(function() {
-				  chrome.tabs.create({'url': chrome.extension.getURL('index.html')});
+				  chrome.tabs.create({"url": chrome.extension.getURL("subv.html")});
 			});
 			chrome.browserAction.setBadgeBackgroundColor({ color: [150, 210, 100, 200] });
 			//chrome.browserAction.setBadgeText({ text: '42' });
