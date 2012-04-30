@@ -260,13 +260,6 @@ body {
  * MISC
  * -------------------------- */
 /*.item:hover .item-checker,*/
-.toolbar {
-	margin-top: 1em;
-}
-
-.toolbar:last-child {
-	margin-bottom: 1em;
-}
 
 #overlay {
 	background-color: black;

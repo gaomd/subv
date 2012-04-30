@@ -36,6 +36,7 @@
 									<li><a href="#">notifications</a></li>
 									<li><a href="#">favorites</a></li>
 									<li><a href="#">prefs</a></li>
+									<li class="divider"></li>
 									<li><a href="#">sign out</a></li>
 								</ul>
 							</div>
@@ -53,26 +54,33 @@
 		</div>
 		<div class="row">
 			<div class="span8">
-				<div class="toolbar">
-					<button class="btn" id="mark-all-read">mark all as read</button>
-					<button class="btn btn-danger" id="mark-ban-unread">ban unread</button>
-				</div>
-				<div class="toolbar">
-					<button id="reload" class="btn btn-large btn-primary"><i class="icon-refresh"></i> Reload</button>
+				<div class="btn-toolbar">
+					<div class="btn-group">
+						<button id="reload" class="btn btn-large btn-primary">
+							<i class="icon-refresh"></i> Reload
+						</button>
+						<button class="btn btn-large btn-primary dropdown-toggle" data-toggle="dropdown">
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a id="mark-all-read" href="#">And mark all as read</a></li>
+							<li><a id="mark-ban-unread" href="#">And ban unread</a></li>
+						</ul>
+					</div><!-- .btn-group -->
 					<button class="btn btn-large span4 pull-right" id="more">more</button>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="span8">
-				<h3><button class="btn" id="show-read-list">Show</button> Read Items:</h3>
+				<h3><button class="btn" id="show-read-list"><span class="caret"></span></button> Read Items:</h3>
 				<div id="read-list">
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="span8">
-				<h3><button class="btn" id="show-banned-list">Show</button> Banned Items:</h3>
+				<h3><button class="btn" id="show-banned-list"><span class="caret"></span></button> Banned Items:</h3>
 				<div id="banned-list">
 				</div>
 			</div>
