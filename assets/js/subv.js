@@ -56,6 +56,9 @@ $(function() {
 		}, 5000);
 		return false;
 	});
+	$("#show-read-list").on("click", function() {
+		$("#read-list").slideToggle();
+	});
 });
 
 function log(info) {
@@ -139,12 +142,17 @@ function expandItem(itemId) {
 					.find(".comment-item").eq(0).find(".comment-main")
 					.removeClass("comment-main-flashlight");
 			}, 1000);
+
+
+			log("marking "+itemId+"-"+topic.comments_count+" as read");
+			item.markRead(itemId, topic.comments_count);
 		}
 	});
 }
 
 function reloadItemsList() {
 	$("#list").html("");
+	$("#read-list").hide().html("");
 	Subv.current_page = 0;
 	appendItemsList(0);
 }
@@ -164,58 +172,40 @@ function appendItemsList(pageNo) {
 			//log(list);
 			for (var i = 0; i < list.length; i++) {
 				var t = (doT.template($("#item").text()))(list[i]);
-				$("#list").append(t);
+				if (item.isRead(list[i].id, list[i].comments_count)) {
+					$("#read-list").append(t);
+				} else {
+					$("#list").append(t);
+				}
 			}
 		}
 	});
 }
 
-function recordLinkClick(link) {
-	localStorage[link] = "true";
-}
-
-function isClicked(link) {
-	if (localStorage[link] === "true") {
-		return true;
-	} else {
+var item = {
+	"markRead": function(id, comments) {
+		amplify.store("read-"+id+"-"+comments, "true");
+	},
+	"markUnRead": function(id, comments) {
+		amplify.store("read-"+id+"-"+comments, "false");
+	},
+	"isRead": function(id, comments) {
+		if (amplify.store("read-"+id+"-"+comments) === "true") {
+			return true;
+		}
+		return false;
+	},
+	"markBan": function(id) {
+		amplify.store("ban-"+id, "true");
+	},
+	"markUnban": function(id) {
+		amplify.store("ban-"+id, "false");
+	},
+	"isBan": function(id) {
+		if (amplify.store("ban-"+id) === "true") {
+			return true;
+		}
 		return false;
 	}
-}
-
-function markAllAsRead() {
-	$("#list .item .heading .title").map(function() {
-		var link = $(this).attr("href");
-		log("mark as read " + link);
-		recordLinkClick(link);
-	});
-}
-
-
-// bind onclick to link.
-function hookClick() {
-	// .on(...) is not available in older jQ
-	$("#list .item .heading .title").click(function() {
-		var link = $(this).attr("href");
-		log("clicked " + link);
-		recordLinkClick(link);
-	});
-}
-
-// now hide
-function hideReadPosts() {
-	$("#Content > .box")
-		.append('<div id="read-items-desc"><h1>Read Items:</h1><button id="show-read-items">show</button></div>')
-		.append('<div id="read-items"></div>');
-	$("#show-read-items").click(function() {
-		$("#read-items").slideDown();
-		$(this).remove();
-	});
-
-	$("#Content > .box .cell > table > tbody > tr span.bigger a").map(function() {
-		if (isClicked($(this).attr("href"))) {
-			log("moving read post " + $(this).attr("href") + " :: " + $(this).text());
-			$(this).closest(".cell").appendTo("#read-items");
-		}
-	});
 }
 

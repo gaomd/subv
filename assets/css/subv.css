@@ -261,8 +261,8 @@ body {
  * -------------------------- */
 /*.item:hover .item-checker,*/
 .footer-toolbar {
-	height: 128px;
 	margin-top: 2em;
+	margin-bottom: 2em;
 }
 
 #overlay {
@@ -283,5 +283,13 @@ body {
 
 .dropdown-menu-no-caret:after {
 	content: none !important;
+}
+
+#read-list {
+	display: none;
+}
+
+.container .row:last-child {
+	margin-bottom: 128px;
 }
 
