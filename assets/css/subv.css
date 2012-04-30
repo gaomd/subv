@@ -260,9 +260,12 @@ body {
  * MISC
  * -------------------------- */
 /*.item:hover .item-checker,*/
-.footer-toolbar {
-	margin-top: 2em;
-	margin-bottom: 2em;
+.toolbar {
+	margin-top: 1em;
+}
+
+.toolbar:last-child {
+	margin-bottom: 1em;
 }
 
 #overlay {

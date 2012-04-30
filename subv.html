@@ -52,16 +52,28 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="span8 footer-toolbar">
-				<!--<button class="btn btn-large btn-primary">Apply</button>-->
-				<button id="reload" class="btn btn-large btn-primary"><i class="icon-refresh"></i> Reload</button>
-				<button class="btn btn-large span4 pull-right" id="more">more</button>
+			<div class="span8">
+				<div class="toolbar">
+					<button class="btn" id="mark-all-read">mark all as read</button>
+					<button class="btn btn-danger" id="mark-ban-unread">ban unread</button>
+				</div>
+				<div class="toolbar">
+					<button id="reload" class="btn btn-large btn-primary"><i class="icon-refresh"></i> Reload</button>
+					<button class="btn btn-large span4 pull-right" id="more">more</button>
+				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="span8">
-				<h3>Read Items:<button class="btn btn-small" id="show-read-list">show</button></h3>
+				<h3><button class="btn" id="show-read-list">Show</button> Read Items:</h3>
 				<div id="read-list">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span8">
+				<h3><button class="btn" id="show-banned-list">Show</button> Banned Items:</h3>
+				<div id="banned-list">
 				</div>
 			</div>
 		</div>
