@@ -182,6 +182,7 @@ function expandItem(itemId) {
 function reloadItemsList() {
 	$("#list").html("");
 	$("#read-list").hide().html("");
+	$("#banned-list").hide().html("");
 	Subv.current_page = 0;
 	appendItemsList(0);
 }
@@ -201,10 +202,10 @@ function appendItemsList(pageNo) {
 			//log(list);
 			for (var i = 0; i < list.length; i++) {
 				var t = (doT.template($("#item").text()))(list[i]);
-				if (item.isRead(list[i].id, list[i].comments_count)) {
-					$("#read-list").append(t);
-				} else if (item.isBanned(list[i].id)) {
+				if (item.isBanned(list[i].id)) {
 					$("#banned-list").append(t);
+				} else if (item.isRead(list[i].id, list[i].comments_count)) {
+					$("#read-list").append(t);
 				} else {
 					$("#list").append(t);
 				}
