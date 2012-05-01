@@ -18,6 +18,31 @@ $(function() {
 		e.preventDefault();
 	});
 
+	$("#mark-all-read").on("click", function(e) {
+		console.log("#mark-all-read clicked");
+		e.preventDefault();
+		$("#list .item").each(function() {
+			var id = $(this).attr("id").split("-")[1];
+			var comments = $(this).attr("id").split("-")[2];
+			item.markRead(id, comments);
+		});
+		reloadItemsList();
+	});
+
+	$("#mark-ban-unread").on("click", function(e) {
+		console.log("#mark-ban-unread clicked");
+		e.preventDefault();
+		$("#list .item").each(function() {
+			var id = $(this).attr("id").split("-")[1];
+			var comments = $(this).attr("id").split("-")[2];
+			if (!item.isRead(id, comments)) {
+				log("Banning " + id);
+				item.markBan(id);
+			}
+		});
+		reloadItemsList();
+	});
+
 	bindExpandItem();
 	bindCollapseItem();
 
@@ -41,7 +66,7 @@ $(function() {
 			"data": $(this).serialize(),
 			"success": function() {
 				collapseItem(id);
-				$("#item-" + id).removeClass("cached").removeClass("avoid-expand-again");
+				$("[id^=item-" + id + "]").removeClass("cached").removeClass("avoid-expand-again");
 				setTimeout(function() {
 					expandItem(id);
 				}, 200);
@@ -59,6 +84,10 @@ $(function() {
 	$("#show-read-list").on("click", function() {
 		$("#read-list").slideToggle();
 	});
+	$("#show-banned-list").on("click", function() {
+		$("#banned-list").slideToggle();
+	});
+
 });
 
 function log(info) {
@@ -69,12 +98,12 @@ function bindExpandItem() {
 	// TODO, click pass on title
 	$(document).on("click", ".item .heading .title", function(e) {
 		e.preventDefault();
-		var id = $(this).closest(".item").attr("id").split("-").pop();
+		var id = $(this).closest(".item").attr("id").split("-")[1];
 		log("Clicked id: " + id);
 		expandItem(id);
 	});
 	$(document).on("click", ".item", function(e) {
-		var id = $(this).attr("id").split("-").pop();
+		var id = $(this).attr("id").split("-")[1];
 		log("Clicked id: " + id);
 		expandItem(id);
 	});
@@ -82,14 +111,14 @@ function bindExpandItem() {
 
 function bindCollapseItem() {
 	$(document).on("click", "#item-collapse", function(e) {
-		collapseItem($(this).closest(".item").attr("id").split("-").pop());
+		collapseItem($(this).closest(".item").attr("id").split("-")[1]);
 	});
 }
 
 function collapseItem(itemId) {
 	log("Collapse id: " + itemId);
 
-	var $item = $("#item-" + itemId);
+	var $item = $("[id^=item-" + itemId + "]");
 	$item.removeClass("active");
 	setTimeout(function() {
 		$item.removeClass("avoid-expand-again");
@@ -99,7 +128,7 @@ function collapseItem(itemId) {
 function expandItem(itemId) {
 	log("expandItem(" + itemId + ")");
 
-	var $item = $("#item-" + itemId);
+	var $item = $("[id^=item-" + itemId + "]");
 	// expand item directly if it's expanded once
 	if ($item.hasClass("avoid-expand-again")) {
 		log("avoid-expand-again, detected, return");
@@ -174,6 +203,8 @@ function appendItemsList(pageNo) {
 				var t = (doT.template($("#item").text()))(list[i]);
 				if (item.isRead(list[i].id, list[i].comments_count)) {
 					$("#read-list").append(t);
+				} else if (item.isBanned(list[i].id)) {
+					$("#banned-list").append(t);
 				} else {
 					$("#list").append(t);
 				}
@@ -201,7 +232,7 @@ var item = {
 	"markUnban": function(id) {
 		amplify.store("ban-"+id, "false");
 	},
-	"isBan": function(id) {
+	"isBanned": function(id) {
 		if (amplify.store("ban-"+id) === "true") {
 			return true;
 		}

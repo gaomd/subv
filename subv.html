@@ -63,8 +63,8 @@
 							<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
-							<li><a id="mark-all-read" href="#">And mark all as read</a></li>
-							<li><a id="mark-ban-unread" href="#">And ban unread</a></li>
+							<li><a id="mark-all-read" href="#">&amp; mark all as read</a></li>
+							<li><a id="mark-ban-unread" href="#">&amp; ban unread</a></li>
 						</ul>
 					</div><!-- .btn-group -->
 					<button class="btn btn-large span4 pull-right" id="more">more</button>
@@ -89,7 +89,7 @@
 
 <script type="text/template" id="item">
 
-	<div class="item btn" id="item-{{=it.id}}">
+	<div class="item btn" id="item-{{=it.id}}-{{=it.comments_count}}">
 		<div class="item-checker">
 			<p><i class="icon-remove-sign"></i></p>
 		</div>

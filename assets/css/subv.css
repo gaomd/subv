@@ -281,7 +281,8 @@ body {
 	content: none !important;
 }
 
-#read-list {
+#read-list,
+#banned-list {
 	display: none;
 }
 
