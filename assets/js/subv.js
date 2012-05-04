@@ -175,6 +175,14 @@ function expandItem(itemId) {
 
 			log("marking "+itemId+"-"+topic.comments_count+" as read");
 			item.markRead(itemId, topic.comments_count);
+
+			var $item2 = $item.clone();
+			$("#item-view").html("").append($item2);
+			$item.removeClass("active avoid-expand-again");
+			$("#item-view").css({
+				"padding-top": $item.offset().top - $("#item-view").offset().top
+			});
+			$item2.removeClass("btn");
 		}
 	});
 }

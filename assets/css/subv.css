@@ -10,8 +10,13 @@ body {
 	overflow-y: scroll;
 }
 
+html,
+body {
+	height: 100%;
+}
+
 .container {
-	width: 640px; /* that is span8 + 20px */
+	/*width: 640px;*/ /* that is span8 + 20px */
 }
 
 /* -------------------------- *
@@ -289,4 +294,26 @@ body {
 .container .row:last-child {
 	margin-bottom: 128px;
 }
+
+#more {
+	float: right;
+}
+
+#items-view,
+#item-view {
+	height: 100%;
+	overflow-y: auto;
+}
+
+#items-view::-webkit-scrollbar,
+#item-view::-webkit-scrollbar {
+	width: 4px;
+}
+ 
+#items-view::-webkit-scrollbar-thumb,
+#item-view::-webkit-scrollbar-thumb {
+	border-radius: 2px;
+	background: rgba(0,0,0,.5);
+}
+
 
