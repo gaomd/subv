@@ -46,7 +46,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="span6">
+			<div class="span12">
 				<div id="items-view">
 					<div id="list">
 						<!-- .item's here -->
@@ -54,10 +54,10 @@
 	
 					<div class="btn-toolbar">
 						<div class="btn-group">
-							<button id="reload" class="btn btn-large btn-primary">
+							<button id="reload" class="btn">
 								<i class="icon-refresh"></i> Reload
 							</button>
-							<button class="btn btn-large btn-primary dropdown-toggle" data-toggle="dropdown">
+							<button class="btn dropdown-toggle" data-toggle="dropdown">
 								<span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu">
@@ -65,7 +65,7 @@
 								<li><a id="mark-ban-unread" href="#">&amp; ban unread (unban is not implemented)</a></li>
 							</ul>
 						</div><!-- .btn-group -->
-						<button class="btn btn-large span3 pull-right" id="more">more</button>
+						<button class="btn span4 pull-right" id="more">more</button>
 					</div>
 	
 					<h3><button class="btn" id="show-read-list"><span class="caret"></span></button> Read Items:</h3>
@@ -83,23 +83,22 @@
 
 <script type="text/template" id="item">
 
-	<div class="item btn" id="item-{{=it.id}}-{{=it.comments_count}}">
+	<div class="item" id="item-{{=it.id}}-{{=it.comments_count}}">
 		<div class="item-checker">
 			<p><i class="icon-remove-sign"></i></p>
 		</div>
 		<div class="item-heading">
 			<h3>
-				<a class="label label-info label-tag" href="{{=it.tag.path}}">{{=it.tag.name}}</a>
-				<a class="title clickpass" href="{{=it.path}}">{{=it.title}}</a>
+				<span class="title"><a class="clickpass" title="{{=it.title}}" href="{{=it.path}}">{{=it.title}}</a></span>
+				<span class="tag">(<a href="{{=it.tag.path}}">{{=it.tag.name}}</a>)</span>
 			</h3>
 		</div>
 		<div class="item-meta">
-			<span class="comments-count">{{=it.comments_count}} comments</span>
-			<span class="pull-right">
-				<a class="author" href="{{=it.comments[0].user.path}}">{{=it.comments[0].user.name}}</a>
-				&bullet;
-				<time class="time" title="{{=it.last_updated_time_iso}}">{{=it.last_updated_time_ago}}</time>
-			</span>
+			by <a class="author" href="{{=it.comments[0].user.path}}">{{=it.comments[0].user.name}}</a>
+			&bullet; <span class="comments-count"><a href="{{=it.path}}">{{=it.comments_count}} comments</a></span>
+			<!--
+			<time class="time" title="{{=it.last_updated_time_iso}}">{{=it.last_updated_time_ago}}</time>
+			-->
 		</div>
 		<div class="item-comments">
 			<div class="loading-indicator"></div>

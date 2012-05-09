@@ -3,7 +3,7 @@
  * -------------------------- */
 * {
 	box-sizing: border-box;
-	font-family: "Helvetica Neue", Helvetica, Arial, STHeiti, "Microsoft YaHei", "Droid Sans Fallback", "WenQuanYi Micro Hei", "WenQuanYi Zen Hei", sans-serif;
+	font-family: "Trebuchet MS", "Helvetica Neue", Helvetica, Arial, STHeiti, "Microsoft YaHei", "Droid Sans Fallback", "WenQuanYi Micro Hei", "WenQuanYi Zen Hei", sans-serif;
 }
 
 body {
@@ -39,10 +39,10 @@ body {
 .item {
 	border-bottom: 0;
 	border-radius: 0;
-	padding: 1.2em .6em;
 	position: relative;
 	text-align: left;
 	width: 100%;
+	margin-bottom: 1em;
 }
 
 .item.active {
@@ -54,10 +54,12 @@ body {
 }
 
 /* helper classes */
+/*
 .item.active,
 .item:last-child {
 	border-bottom: 1px solid #cccccc;
 }
+*/
 
 .item.active .control-bar {
 	display: block;
@@ -73,36 +75,62 @@ body {
 /* ^ helper classes */
 
 .item .item-heading {
-	margin-bottom: .8em;
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	/*white-space: nowrap;*/
 }
 
-.item-heading .label-tag {
-	font-size: 1em;
-	padding: 2px;
-	vertical-align: baseline; /* clear bs's middle */
+.item .item-heading h3 {
+	font-weight: normal;
 }
 
-.item-heading a.title:hover {
-	color: #0088cc;
+.item-heading a:hover,
+.item-heading a:active,
+.item-heading a {
+	color: black;
 	text-decoration: none;
 }
 
+.item-heading a:visited {
+	color: #888;
+}
+
+.item-heading .tag {
+	font-size: 80%;
+	color: #888;
+}
+
+.item-heading .tag a {
+	color: #888;
+}
+
+.item-heading .title {
+	max-width: 90%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	display: inline-block;
+}
+
 .item .item-meta {
+	font-size: 1.2em;
+	color: #888;
+}
+
+.item .item-meta a {
+	color: #888;
 }
 
 .item-meta .views-count,
 .item-meta .comments-count {
-	color: #888;
-	font-size: 1.4em;
 }
 
 .item-meta .author {
-	color: #888;
 	font-weight: 900;
 }
 
 .item-meta .time {
-	color: #888;
 }
 
 .item-comments {
@@ -303,6 +331,11 @@ body {
 #item-view {
 	height: 100%;
 	overflow-y: auto;
+}
+
+#items-view {
+	background-color: #f6f6f6;
+	padding: 1em;
 }
 
 #items-view::-webkit-scrollbar,
