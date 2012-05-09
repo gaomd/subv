@@ -54,6 +54,7 @@ window.subv = {
 		$("#latest").html("");
 		$("#read").hide().html("");
 		$("#banned").hide().html("");
+		$("#item").html("");
 	},
 	refreshList: function() {
 		subv.clearList();
@@ -173,8 +174,16 @@ window.subv = {
 
 		$("#width-controller").on("change", function() {
 			var val = $(this).val();
+			/*
 			$("#items").attr("class", "span" + val);
 			$("#item").attr("class", "span" + (12-val));
+			*/
+			$("#items").css({
+				width: val + "%"
+			});
+			$("#item").css({
+				width: (99-val) + "%"
+			});
 		}).trigger("change");
 	},
 };
@@ -193,6 +202,8 @@ subv.item.expand = function(itemId) {
 	subv.log("expandItem(" + itemId + ")");
 
 	var $item = $("[id^=item-" + itemId + "]");
+	$(".item.expanded").removeClass("expanded");
+	$item.addClass("expanded");
 	// expand item directly if it's expanded once
 	if ($item.hasClass("cached")) {
 		subv.log("cached, expand directly [DO NOTHING CURRENTLY]");

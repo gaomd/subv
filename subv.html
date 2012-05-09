@@ -11,13 +11,13 @@
 	<script type="text/javascript" src="assets/third/js/amplify.store.js"></script>
 	<script type="text/javascript" src="assets/third/js/doT.js"></script>	
 	<script type="text/javascript" src="assets/third/js/bootstrap.js"></script>
-	<script type="text/javascript" src="assets/js/subv.js"></script>	
 	<script type="text/javascript" src="assets/js/subv-expose-json.js"></script>	
+	<script type="text/javascript" src="assets/js/subv.js"></script>	
 	<title>Subv</title>
 </head>
 <body>
-	<div class="container">
-		<div class="row">
+	<div class="container-fluid">
+		<div class="row-fluid">
 			<div class="span12">
 				<div id="nav">
 					<a href="http://www.v2ex.com" class="brand" id="logo">Subv/V2EX</a>
@@ -43,45 +43,41 @@
 			</div>
 		</div>
 
-		<div class="row">
+		<div class="row-fluid">
 			<div class="span12" id="width-controller-container">
-				<input type="range" id="width-controller" min="1" max="12" value="6" step="1" />
+				<input type="range" id="width-controller" min="1" max="100" value="50" step="1" />
 			</div>
 		</div>
 
-		<div class="row">
+		<div class="row-fluid" style="background-color: #f6f6ef; min-height: 1024px; padding-bottom: 128px;">
 			<div class="span12">
-				<div class="row">
-
-					<div class="span11" id="items">
-						<div id="latest"></div>
+				<div class="span" id="items">
+					<div id="latest"></div>
 			
-						<div class="btn-toolbar">
-							<div class="btn-group">
-								<button id="reload" class="btn">
-									<i class="icon-refresh"></i> Reload
-								</button>
-								<button class="btn dropdown-toggle" data-toggle="dropdown">
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a id="mark-all-read" href="#">&amp; mark all as read</a></li>
-									<li><a id="mark-ban-unread" href="#">&amp; ban unread (unban is not implemented)</a></li>
-								</ul>
-							</div><!-- .btn-group -->
-							<button class="btn span4 pull-right" id="more">more</button>
-						</div>
-			
-						<h3><button class="btn" id="show-read-list"><span class="caret"></span></button> Read Items:</h3>
-						<div id="read"></div>
-			
-						<h3><button class="btn" id="show-banned-list"><span class="caret"></span></button> Banned Items:</h3>
-						<div id="banned"></div>
+					<div class="btn-toolbar">
+						<div class="btn-group">
+							<button id="reload" class="btn">
+								<i class="icon-refresh"></i> Reload
+							</button>
+							<button class="btn dropdown-toggle" data-toggle="dropdown">
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a id="mark-all-read" href="#">&amp; mark all as read</a></li>
+								<li><a id="mark-ban-unread" href="#">&amp; ban unread (unban is not implemented)</a></li>
+							</ul>
+						</div><!-- .btn-group -->
+						<button class="btn span2" id="more">more</button>
 					</div>
+			
+					<h3><button class="btn" id="show-read-list"><span class="caret"></span></button> Read Items:</h3>
+					<div id="read"></div>
+			
+					<h3><button class="btn" id="show-banned-list"><span class="caret"></span></button> Banned Items:</h3>
+					<div id="banned"></div>
+				</div>
 	
-					<div class="span1" id="item"></div>
-
-				</div><!-- /.row -->
+				<div class="span" id="item"></div>
 			</div><!-- /.span12 -->
 		</div><!-- /.row -->
 	</div><!-- .container -->
@@ -140,11 +136,11 @@
 		<div class="comment-no">
 			<p>{{=it.no}}</p>
 		</div>
-		<div class="comment-main well well-small">
+		<div class="comment-main">
 			<div class="comment-meta">
 				<span class="author"><a href="{{=it.user.path}}">{{=it.user.name}}</a></span>
-				&bullet;
-				<span class="time" title="{{=it.time_iso}}">{{=it.time_ago}}</span>
+				&middot;
+				<span class="time" x-title="{{=it.time_iso}}">{{=it.time_ago}}</span>
 			</div>
 			<div class="comment-content">
 				{{=it.content_html}}

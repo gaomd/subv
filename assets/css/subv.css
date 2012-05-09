@@ -19,6 +19,10 @@ body {
 	/*width: 640px;*/ /* that is span8 + 20px */
 }
 
+.container-fluid {
+	margin: 0 8%;
+}
+
 /* -------------------------- *
  * NAV
  * -------------------------- */
@@ -63,6 +67,10 @@ body {
 	text-align: left;
 	width: 100%;
 	margin-bottom: 1em;
+}
+
+.item.expanded {
+	background-color: #f6f6b6;
 }
 
 .item.active {
@@ -124,6 +132,10 @@ body {
 
 .item-heading .tag a {
 	color: #888;
+}
+
+.item-heading .tag a:hover {
+	text-decoration: underline;
 }
 
 .item-heading .title {
@@ -233,18 +245,21 @@ body {
  * COMMENTS
  * -------------------------- */
 .comment-item {
-	margin-bottom: .4em;
 	overflow: auto;
+	background-color: #f6f6ef;
+	padding: .5em;
+	margin-bottom: .5em;
 }
 
 .comment-item:first-child {
 	margin-bottom: 2em;
+	background-color: #f6f6b6;
 }
 
 .comment-item .comment-main {
 	margin-bottom: .4em;
 	/*margin-left: 75px;*/
-	-webkit-transition: all 1s;
+	/*-webkit-transition: all 1s;*/
 }
 
 .comment-item-op {
@@ -261,7 +276,7 @@ body {
 }
 
 .comment-item .comment-meta {
-	margin-bottom: 1em;
+	margin-bottom: .2em;
 	color: #888;
 }
 
@@ -374,10 +389,12 @@ body {
 #item {
 	height: 100%;
 	overflow-y: auto;
+	float: left;
+	margin-left: 0; /* override .span */
 }
 
 #items {
-	background-color: #f6f6f6;
+	background-color: #f6f6ef;
 	padding: 1em;
 }
 
@@ -386,6 +403,11 @@ body {
 	width: 4px;
 }
  
+#items::-webkit-scrollbar:horizontal,
+#item::-webkit-scrollbar:horizontal {
+	width: 4px;
+}
+
 #items::-webkit-scrollbar-thumb,
 #item::-webkit-scrollbar-thumb {
 	border-radius: 2px;
