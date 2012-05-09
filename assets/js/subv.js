@@ -175,7 +175,7 @@ window.subv = {
 			var val = $(this).val();
 			$("#items").attr("class", "span" + val);
 			$("#item").attr("class", "span" + (12-val));
-		});
+		}).trigger("change");
 	},
 };
 

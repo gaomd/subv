@@ -45,7 +45,7 @@
 
 		<div class="row">
 			<div class="span12" id="width-controller-container">
-				<input type="range" id="width-controller" min="1" max="12" value="11" step="1" />
+				<input type="range" id="width-controller" min="1" max="12" value="6" step="1" />
 			</div>
 		</div>
 
@@ -142,8 +142,9 @@
 		</div>
 		<div class="comment-main well well-small">
 			<div class="comment-meta">
-				<a class="comment-author" href="{{=it.user.path}}">{{=it.user.name}}</a>
-				<span class="comment-time pull-right" title="{{=it.time_iso}}">{{=it.time_ago}}</span>
+				<span class="author"><a href="{{=it.user.path}}">{{=it.user.name}}</a></span>
+				&bullet;
+				<span class="time" title="{{=it.time_iso}}">{{=it.time_ago}}</span>
 			</div>
 			<div class="comment-content">
 				{{=it.content_html}}
