@@ -89,6 +89,7 @@ body {
 	display: none;
 }
 
+#item .item-comments,
 .item.active .item-comments {
 	display: block;
 }
@@ -330,9 +331,17 @@ body {
 	content: none !important;
 }
 
-#read-list,
-#banned-list {
+#read,
+#banned {
 	display: none;
+}
+
+#latest,
+#read,
+#banned {
+	padding-bottom: 1em;
+	margin-bottom: 1em;
+	border-bottom: 2px solid #eeeeec;
 }
 
 .container .row:last-child {
@@ -343,26 +352,33 @@ body {
 	float: right;
 }
 
-#items-view,
-#item-view {
+#items,
+#item {
 	height: 100%;
 	overflow-y: auto;
 }
 
-#items-view {
+#items {
 	background-color: #f6f6f6;
 	padding: 1em;
 }
 
-#items-view::-webkit-scrollbar,
-#item-view::-webkit-scrollbar {
+#items::-webkit-scrollbar,
+#item::-webkit-scrollbar {
 	width: 4px;
 }
  
-#items-view::-webkit-scrollbar-thumb,
-#item-view::-webkit-scrollbar-thumb {
+#items::-webkit-scrollbar-thumb,
+#item::-webkit-scrollbar-thumb {
 	border-radius: 2px;
 	background: rgba(0,0,0,.5);
 }
 
+#width-controller-container {
+	padding: 1em 0;
+}
+
+#width-controller {
+	width: 100%;
+}
 

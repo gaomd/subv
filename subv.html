@@ -4,7 +4,7 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="stylesheet" href="assets/third/css/bootstrap.css" />
-	<!--<link rel="stylesheet" href="assets/third/css/bootstrap-responsive.css" />-->
+	<link rel="stylesheet" href="assets/third/css/bootstrap-responsive.css" />
 	<link rel="stylesheet" href="assets/third/css/font-awesome.css" />
 	<link rel="stylesheet" href="assets/css/subv.css" />
 	<script type="text/javascript" src="assets/third/js/jquery.js"></script>
@@ -42,50 +42,56 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="row">
+			<div class="span12" id="width-controller-container">
+				<input type="range" id="width-controller" min="1" max="12" value="11" step="1" />
+			</div>
+		</div>
+
 		<div class="row">
 			<div class="span12">
-				<div id="items-view">
-					<div id="list">
-						<!-- .item's here -->
+				<div class="row">
+
+					<div class="span11" id="items">
+						<div id="latest"></div>
+			
+						<div class="btn-toolbar">
+							<div class="btn-group">
+								<button id="reload" class="btn">
+									<i class="icon-refresh"></i> Reload
+								</button>
+								<button class="btn dropdown-toggle" data-toggle="dropdown">
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a id="mark-all-read" href="#">&amp; mark all as read</a></li>
+									<li><a id="mark-ban-unread" href="#">&amp; ban unread (unban is not implemented)</a></li>
+								</ul>
+							</div><!-- .btn-group -->
+							<button class="btn span4 pull-right" id="more">more</button>
+						</div>
+			
+						<h3><button class="btn" id="show-read-list"><span class="caret"></span></button> Read Items:</h3>
+						<div id="read"></div>
+			
+						<h3><button class="btn" id="show-banned-list"><span class="caret"></span></button> Banned Items:</h3>
+						<div id="banned"></div>
 					</div>
 	
-					<div class="btn-toolbar">
-						<div class="btn-group">
-							<button id="reload" class="btn">
-								<i class="icon-refresh"></i> Reload
-							</button>
-							<button class="btn dropdown-toggle" data-toggle="dropdown">
-								<span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu">
-								<li><a id="mark-all-read" href="#">&amp; mark all as read</a></li>
-								<li><a id="mark-ban-unread" href="#">&amp; ban unread (unban is not implemented)</a></li>
-							</ul>
-						</div><!-- .btn-group -->
-						<button class="btn span4 pull-right" id="more">more</button>
-					</div>
-	
-					<h3><button class="btn" id="show-read-list"><span class="caret"></span></button> Read Items:</h3>
-					<div id="read-list"></div>
-	
-					<h3><button class="btn" id="show-banned-list"><span class="caret"></span></button> Banned Items:</h3>
-					<div id="banned-list"></div>
-				</div><!-- /.span6 -->
-			</div>
-			<div class="span6">
-				<div id="item-view"></div>
-			</div><!-- /.span6 -->
+					<div class="span1" id="item"></div>
+
+				</div><!-- /.row -->
+			</div><!-- /.span12 -->
 		</div><!-- /.row -->
 	</div><!-- .container -->
 
-<script type="text/template" id="item">
+<script type="text/template" id="item-template">
 
 	<div class="item" id="item-{{=it.id}}-{{=it.comments_count}}">
-		<div class="item-checker">
-			<p><i class="icon-remove-sign"></i></p>
-		</div>
 		<div class="item-heading">
 			<h3>
+				<span class="status"></span>
 				<span class="title"><a class="clickpass" title="{{=it.title}}" href="{{=it.path}}">{{=it.title}}</a></span>
 				<span class="tag">(<a href="{{=it.tag.path}}">{{=it.tag.name}}</a>)</span>
 			</h3>
@@ -94,7 +100,7 @@
 			<a class="author" href="{{=it.comments[0].user.path}}">{{=it.comments[0].user.name}}</a>
 			&bullet; <span class="comments-count"><a href="{{=it.path}}">{{=it.comments_count}} comments</a></span>
 			<!--
-			<time class="time" title="{{=it.last_updated_time_iso}}">{{=it.last_updated_time_ago}}</time>
+			<span class="time" x-title="{{=it.last_updated_time_iso}}">{{=it.last_updated_time_ago}}</span>
 			-->
 		</div>
 		<div class="item-comments">
@@ -128,8 +134,7 @@
 
 </script>
 
-
-<script type="text/template" id="comment-item">
+<script type="text/template" id="comment-item-template">
 
 	<div class="comment-item" id="comment-{{=it.id}}">
 		<div class="comment-no">

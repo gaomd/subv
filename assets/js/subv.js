@@ -6,7 +6,7 @@
 
 "use strict";
 
-var subv = {
+window.subv = {
 	currentPage: -1,
 	init: function() {
 		window.doT.templateSettings.strip = false;
@@ -18,7 +18,11 @@ var subv = {
 		if ( !window.console && !window.console.log ) {
 			return false;
 		}
-		console.log("LOG: " + context);
+		if (typeof context === "object") {
+			console.log(context);
+		} else {
+			console.log("LOG: " + context);
+		}
 	},
 	loadNextList: function() {
 		subv.currentPage++;
@@ -27,29 +31,29 @@ var subv = {
 		if (page === 0) {
 			url = "/";
 		} else {
-			url = "/recent?p=" + pageNo;
+			url = "/recent?p=" + page;
 		}
 		$.ajax({
 			"url": "http://www.v2ex.com" + url,
 			"success": function(html) {
 				var list = parseList(html);
 				for (var i = 0; i < list.length; i++) {
-					var t = (doT.template($("#item").text()))(list[i]);
+					var t = (doT.template($("#item-template").text()))(list[i]);
 					if (subv.item.isBanned(list[i].id)) {
-						$("#banned-list").append(t);
+						$("#banned").append(t);
 					} else if (subv.item.isRead(list[i].id, list[i].comments_count)) {
-						$("#read-list").append(t);
+						$("#read").append(t);
 					} else {
-						$("#list").append(t);
+						$("#latest").append(t);
 					}
 				}
 			}
 		});
 	},
 	clearList: function() {
-		$("#list").html("");
-		$("#read-list").hide().html("");
-		$("#banned-list").hide().html("");
+		$("#latest").html("");
+		$("#read").hide().html("");
+		$("#banned").hide().html("");
 	},
 	refreshList: function() {
 		subv.clearList();
@@ -80,11 +84,15 @@ var subv = {
 						return true;
 				}
 				return false;
+		},
+		expand: function(id) {
+		},
+		collapse: function(id) {
 		}
 	},
 	items: {
 		markAllAsRead: function() {
-			$("#list .item").each(function() {
+			$("#latest .item").each(function() {
 				var id = $(this).attr("id").split("-")[1];
 				var comments = $(this).attr("id").split("-")[2];
 				subv.item.markRead(id, comments);
@@ -92,7 +100,7 @@ var subv = {
 			subv.refreshList();
 		},
 		markAllAsBanned: function() {
-			$("#list .item").each(function() {
+			$("#latest .item").each(function() {
 				var id = $(this).attr("id").split("-")[1];
 				var comments = $(this).attr("id").split("-")[2];
 				if (!item.isRead(id, comments)) {
@@ -127,14 +135,26 @@ var subv = {
 		});
 
 		$("#show-read-list").on("click", function() {
-			$("#read-list").slideToggle();
+			$("#read").slideToggle();
 		});
 
 		$("#show-banned-list").on("click", function() {
-			$("#banned-list").slideToggle();
+			$("#banned").slideToggle();
 		});
 
 		//onsubmit="window.open('https://www.google.com/search?q=site%3Av2ex.com%2Ft+' + document.getElementById('q').value); return false;"
+
+		$(document).on("click", ".item-heading .title a, .item-meta .comments-count a", function(e) {
+			var id = $(this).closest(".item").attr("id").split("-")[1];
+			subv.log("clicked item id: " + id);
+			subv.item.expand(id);
+		});
+
+		/* TODO
+		$(document).on("click", "#item-collapse", function(e) {
+			collapseItem($(this).closest(".item").attr("id").split("-")[1]);
+		});
+		*/
 
 		$(document).on("submit", ".comment-form", function(e) {
 			e.preventDefault();
@@ -150,33 +170,16 @@ var subv = {
 				}
 			});
 		});
+
+		$("#width-controller").on("change", function() {
+			var val = $(this).val();
+			$("#items").attr("class", "span" + val);
+			$("#item").attr("class", "span" + (12-val));
+		});
 	},
 };
 
-$(subv.init);
-
-function bindExpandItem() {
-	// TODO, click pass on title
-	$(document).on("click", ".item .heading .title", function(e) {
-		e.preventDefault();
-		var id = $(this).closest(".item").attr("id").split("-")[1];
-		log("Clicked id: " + id);
-		expandItem(id);
-	});
-	$(document).on("click", ".item", function(e) {
-		var id = $(this).attr("id").split("-")[1];
-		log("Clicked id: " + id);
-		expandItem(id);
-	});
-}
-
-function bindCollapseItem() {
-	$(document).on("click", "#item-collapse", function(e) {
-		collapseItem($(this).closest(".item").attr("id").split("-")[1]);
-	});
-}
-
-function collapseItem(itemId) {
+subv.item.collapse = function(itemId) {
 	log("Collapse id: " + itemId);
 
 	var $item = $("[id^=item-" + itemId + "]");
@@ -186,65 +189,51 @@ function collapseItem(itemId) {
 	}, 1000);
 }
 
-function expandItem(itemId) {
-	log("expandItem(" + itemId + ")");
+subv.item.expand = function(itemId) {
+	subv.log("expandItem(" + itemId + ")");
 
 	var $item = $("[id^=item-" + itemId + "]");
 	// expand item directly if it's expanded once
-	if ($item.hasClass("avoid-expand-again")) {
-		log("avoid-expand-again, detected, return");
-		return;
-	} else if ($item.hasClass("cached")) {
-		log("cached, expand directly");
-		$item.addClass("active avoid-expand-again");
+	if ($item.hasClass("cached")) {
+		subv.log("cached, expand directly [DO NOTHING CURRENTLY]");
 		return;
 	} else {
-		log("loading...");
+		subv.log("loading...");
 		$item.addClass("cached avoid-expand-again");
 	}
-	var $commentsContainer = $item.find(".item-comments");
+	var $commentsContainer = $("#item");
+	$commentsContainer.html("").append($item.find(".item-comments").clone());
 	$commentsContainer.find(".loading-indicator").html("").append('<h3 class="pagination-right">Loading...</h3>');
-	$item.addClass("active");
 	$.ajax({
 		"url": "http://www.v2ex.com/t/" + itemId,
 		//"url": "http://localhost/" + id,
 		"success": function(html) {
 			var topic = parseTopic(html);
-			console.log(topic);
+			subv.log(topic);
 			var $page = $commentsContainer.find(".page-" + topic.current_page);
 			$page.html("");
 			$commentsContainer.addClass("haspage-" + topic.current_page);
 			for (var i = 0; i < topic.comments.length; i++) {
-				var template = $("#comment-item").text();
+				var template = $("#comment-item-template").text();
 				var t = ( doT.template(template) )(topic.comments[i]);
 				$page.append(t);
 			}
+			/*
 			$commentsContainer.find(".comment-item").eq(0).addClass("comment-item-op");
 			$commentsContainer.find(".loading-indicator").html("");
-			$commentsContainer.slideDown();
-			var controlBarOffsetY = $commentsContainer.eq(0).offset().top - $commentsContainer.eq(0).closest(".item").offset().top;
-			$item.find(".control-bar").css({
-				"top": controlBarOffsetY
-			});
 			$commentsContainer.find(".comment-item").eq(0).find(".comment-main").addClass("comment-main-flashlight");
 			setTimeout(function() {
 				$commentsContainer
 					.find(".comment-item").eq(0).find(".comment-main")
 					.removeClass("comment-main-flashlight");
 			}, 1000);
+			*/
 
 
-			log("marking "+itemId+"-"+topic.comments_count+" as read");
-			item.markRead(itemId, topic.comments_count);
-
-			var $item2 = $item.clone();
-			$("#item-view").html("").append($item2);
-			$item.removeClass("active avoid-expand-again");
-			$("#item-view").css({
-				"padding-top": $item.offset().top - $("#item-view").offset().top
-			});
-			$item2.removeClass("btn");
+			subv.log("marking "+itemId+"-"+topic.comments_count+" as read");
+			subv.item.markRead(itemId, topic.comments_count);
 		}
 	});
 }
 
+$(subv.init);
