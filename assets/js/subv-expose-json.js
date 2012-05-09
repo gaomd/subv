@@ -126,9 +126,8 @@ function parseList(html) {
 		var meta = $this.find(".item_title ~ .small.fade").text().split("•");
 		meta.shift();
 		meta.shift();
-		var charCount = meta[0].trim();
-		var viewsCount = meta[1].trim().split(" ")[0];
-		var timeAgo = meta[2].trim();
+		var viewsCount = ""; // v2ex.com no longer have this shown
+		var timeAgo = $.trim(meta[0]);
 
 		return {
 			"id": $this.find(".item_title a").attr("href").substring(3).split("#").shift(),
