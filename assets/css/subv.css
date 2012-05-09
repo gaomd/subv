@@ -22,15 +22,35 @@ body {
 /* -------------------------- *
  * NAV
  * -------------------------- */
+/*
 #logo:before {
 	content: "Subv";
 	font-size: 80%;
 	vertical-align: super;
 }
+*/
 
 .brand {
 	font-family: "Arial Black", arial, sans-serif;
 	font-weight: 900;
+	font-size: 2em;
+	color: black;
+	text-decoration: none;
+}
+
+.brand:hover,
+.brand:active {
+	color: black;
+	text-decoration: none;
+}
+
+#nav .search-form {
+	display: inline-block;
+	margin: 0;
+}
+
+#nav {
+	padding: 1em 0;
 }
 
 /* -------------------------- *
@@ -304,10 +324,6 @@ body {
 	top: 0;
 	width: 100%;
 	z-index: 99;
-}
-
-.search-query {
-	box-sizing: content-box;
 }
 
 .dropdown-menu-no-caret:after {

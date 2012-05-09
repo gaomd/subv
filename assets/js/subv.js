@@ -6,93 +6,154 @@
 
 "use strict";
 
-$(function() {
-	window.Subv = {
-		"current_page": 0
-	};
-	window.doT.templateSettings.strip = false;
-	// load page 0
-	appendItemsList(Subv.current_page);
-
-	$(document).on("click", "a", function(e) {
-		e.preventDefault();
-	});
-
-	$("#mark-all-read").on("click", function(e) {
-		console.log("#mark-all-read clicked");
-		e.preventDefault();
-		$("#list .item").each(function() {
-			var id = $(this).attr("id").split("-")[1];
-			var comments = $(this).attr("id").split("-")[2];
-			item.markRead(id, comments);
-		});
-		reloadItemsList();
-	});
-
-	$("#mark-ban-unread").on("click", function(e) {
-		console.log("#mark-ban-unread clicked");
-		e.preventDefault();
-		$("#list .item").each(function() {
-			var id = $(this).attr("id").split("-")[1];
-			var comments = $(this).attr("id").split("-")[2];
-			if (!item.isRead(id, comments)) {
-				log("Banning " + id);
-				item.markBan(id);
-			}
-		});
-		reloadItemsList();
-	});
-
-	bindExpandItem();
-	bindCollapseItem();
-
-	$("#logo, #reload").on("click", function(e) {
-		e.preventDefault;
-		reloadItemsList();
-	});
-
-	// load next page
-	$("#more").on("click", function() {
-		Subv.current_page++;
-		appendItemsList(Subv.current_page);
-	});
-
-	$(document).on("submit", ".comment-form", function(e) {
-		e.preventDefault();
-		var id = $(this).attr("action").split("/").pop();
+var subv = {
+	currentPage: -1,
+	init: function() {
+		window.doT.templateSettings.strip = false;
+		subv.bindEvents();
+		subv.clearList();
+		subv.loadNextList();
+	},
+	log: function(context) {
+		if ( !window.console && !window.console.log ) {
+			return false;
+		}
+		console.log("LOG: " + context);
+	},
+	loadNextList: function() {
+		subv.currentPage++;
+		var page = subv.currentPage;
+		var url;
+		if (page === 0) {
+			url = "/";
+		} else {
+			url = "/recent?p=" + pageNo;
+		}
 		$.ajax({
-			"url": $(this).attr("action"),
-			"type": "POST",
-			"data": $(this).serialize(),
-			"success": function() {
-				collapseItem(id);
-				$("[id^=item-" + id + "]").removeClass("cached").removeClass("avoid-expand-again");
-				setTimeout(function() {
-					expandItem(id);
-				}, 200);
+			"url": "http://www.v2ex.com" + url,
+			"success": function(html) {
+				var list = parseList(html);
+				for (var i = 0; i < list.length; i++) {
+					var t = (doT.template($("#item").text()))(list[i]);
+					if (subv.item.isBanned(list[i].id)) {
+						$("#banned-list").append(t);
+					} else if (subv.item.isRead(list[i].id, list[i].comments_count)) {
+						$("#read-list").append(t);
+					} else {
+						$("#list").append(t);
+					}
+				}
 			}
 		});
-		var $form = $(this);
-		$form.find("input[type='submit']").addClass("disabled");
-		$form.find("textarea[name='content']").addClass("disabled");
-		setTimeout(function() {
-			$form.find("input[type='submit']").removeClass("disabled");
-			$form.find("textarea[name='content']").removeClass("disabled");
-		}, 5000);
-		return false;
-	});
-	$("#show-read-list").on("click", function() {
-		$("#read-list").slideToggle();
-	});
-	$("#show-banned-list").on("click", function() {
-		$("#banned-list").slideToggle();
-	});
+	},
+	clearList: function() {
+		$("#list").html("");
+		$("#read-list").hide().html("");
+		$("#banned-list").hide().html("");
+	},
+	refreshList: function() {
+		subv.clearList();
+		subv.currentPage = -1;
+		subv.loadNextList();
+	},
+	item: {
+		markRead: function(id, comments) {
+				amplify.store("read-"+id+"-"+comments, "true");
+		},
+		markUnRead: function(id, comments) {
+				amplify.store("read-"+id+"-"+comments, "false");
+		},
+		isRead: function(id, comments) {
+				if (amplify.store("read-"+id+"-"+comments) === "true") {
+						return true;
+				}
+				return false;
+		},
+		markBan: function(id) {
+				amplify.store("ban-"+id, "true");
+		},
+		markUnban: function(id) {
+				amplify.store("ban-"+id, "false");
+		},
+		isBanned: function(id) {
+				if (amplify.store("ban-"+id) === "true") {
+						return true;
+				}
+				return false;
+		}
+	},
+	items: {
+		markAllAsRead: function() {
+			$("#list .item").each(function() {
+				var id = $(this).attr("id").split("-")[1];
+				var comments = $(this).attr("id").split("-")[2];
+				subv.item.markRead(id, comments);
+			});
+			subv.refreshList();
+		},
+		markAllAsBanned: function() {
+			$("#list .item").each(function() {
+				var id = $(this).attr("id").split("-")[1];
+				var comments = $(this).attr("id").split("-")[2];
+				if (!item.isRead(id, comments)) {
+					subv.log("Banning " + id);
+					subv.item.markBan(id);
+				}
+			});
+			subv.refreshList();
+		}
+	},
+	bindEvents: function() {
+		$(document).on("click", "a", function(e) {
+			e.preventDefault();
+		});
 
-});
+		$("#mark-all-read").on("click", function() {
+			subv.log("#mark-all-read clicked");
+			subv.items.markAllAsRead();
+		});
 
-function log(info) {
-	console.log("LOG: " + info);
-}
+		$("#mark-ban-unread").on("click", function() {
+			subv.log("#mark-ban-unread clicked");
+			subv.items.markAllAsBanned()
+		});
+
+		$("#logo, #reload").on("click", function() {
+			subv.refreshList();
+		});
+
+		$("#more"/* <button/> */).on("click", function() {
+			subv.loadNextList();
+		});
+
+		$("#show-read-list").on("click", function() {
+			$("#read-list").slideToggle();
+		});
+
+		$("#show-banned-list").on("click", function() {
+			$("#banned-list").slideToggle();
+		});
+
+		//onsubmit="window.open('https://www.google.com/search?q=site%3Av2ex.com%2Ft+' + document.getElementById('q').value); return false;"
+
+		$(document).on("submit", ".comment-form", function(e) {
+			e.preventDefault();
+			var id = $(this).attr("action").split("/").pop();
+			subv.log("COMMENT FUNCTION DISABLED");
+			return false;
+			$.ajax({
+				"url": $(this).attr("action"),
+				"type": "POST",
+				"data": $(this).serialize(),
+				"success": function() {
+					subv.log("POST to " + id + " success!");
+				}
+			});
+		});
+	},
+};
+
+$(subv.init);
 
 function bindExpandItem() {
 	// TODO, click pass on title
@@ -185,67 +246,5 @@ function expandItem(itemId) {
 			$item2.removeClass("btn");
 		}
 	});
-}
-
-function reloadItemsList() {
-	$("#list").html("");
-	$("#read-list").hide().html("");
-	$("#banned-list").hide().html("");
-	Subv.current_page = 0;
-	appendItemsList(0);
-}
-
-function appendItemsList(pageNo) {
-	var url;
-	if (pageNo === 0) {
-		url = "/";
-	} else {
-		url = "/recent?p=" + pageNo;
-	}
-	$.ajax({
-		"url": "http://www.v2ex.com" + url,
-		//"url": "http://localhost/recent_" + pageNo,
-		"success": function(html) {
-			var list = parseList(html);
-			//log(list);
-			for (var i = 0; i < list.length; i++) {
-				var t = (doT.template($("#item").text()))(list[i]);
-				if (item.isBanned(list[i].id)) {
-					$("#banned-list").append(t);
-				} else if (item.isRead(list[i].id, list[i].comments_count)) {
-					$("#read-list").append(t);
-				} else {
-					$("#list").append(t);
-				}
-			}
-		}
-	});
-}
-
-var item = {
-	"markRead": function(id, comments) {
-		amplify.store("read-"+id+"-"+comments, "true");
-	},
-	"markUnRead": function(id, comments) {
-		amplify.store("read-"+id+"-"+comments, "false");
-	},
-	"isRead": function(id, comments) {
-		if (amplify.store("read-"+id+"-"+comments) === "true") {
-			return true;
-		}
-		return false;
-	},
-	"markBan": function(id) {
-		amplify.store("ban-"+id, "true");
-	},
-	"markUnban": function(id) {
-		amplify.store("ban-"+id, "false");
-	},
-	"isBanned": function(id) {
-		if (amplify.store("ban-"+id) === "true") {
-			return true;
-		}
-		return false;
-	}
 }
 

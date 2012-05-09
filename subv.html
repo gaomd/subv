@@ -4,7 +4,7 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="stylesheet" href="assets/third/css/bootstrap.css" />
-	<link rel="stylesheet" href="assets/third/css/bootstrap-responsive.css" />
+	<!--<link rel="stylesheet" href="assets/third/css/bootstrap-responsive.css" />-->
 	<link rel="stylesheet" href="assets/third/css/font-awesome.css" />
 	<link rel="stylesheet" href="assets/css/subv.css" />
 	<script type="text/javascript" src="assets/third/js/jquery.js"></script>
@@ -19,27 +19,24 @@
 	<div class="container">
 		<div class="row">
 			<div class="span12">
-				<div class="navbar">
-					<div class="navbar-inner">
-						<div class="container">
-							<a href="/" class="brand" id="logo">V2EX</a>
-							<form class="navbar-search" onsubmit="window.open('https://www.google.com/search?q=site%3Av2ex.com%2Ft+' + document.getElementById('q').value); return false;">
-								<input id="q" type="text" class="search-query span2"></input>
-							</form>
-							<div class="btn-group pull-right">
-								<button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">
-									<i class="icon-chevron-down"></i>
-									<!--<span class="caret"></span>-->
-								</button>
-								<ul class="dropdown-menu dropdown-menu-no-caret">
-									<li><a href="#">my profile</a></li>
-									<li><a href="#">notifications</a></li>
-									<li><a href="#">favorites</a></li>
-									<li><a href="#">prefs</a></li>
-									<li class="divider"></li>
-									<li><a href="#">sign out</a></li>
-								</ul>
-							</div>
+				<div id="nav">
+					<a href="http://www.v2ex.com" class="brand" id="logo">Subv/V2EX</a>
+					<div class="pull-right">
+						<div class="btn-group" style="display: inline-block">
+							<button class="btn dropdown-toggle" data-toggle="dropdown">
+								<span id="notifications-count"></span>
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-no-caret">
+								<li>
+								</li>
+								<li><a href="#">my profile</a></li>
+								<li><a href="#">notifications</a></li>
+								<li><a href="#">favorites</a></li>
+								<li><a href="#">prefs</a></li>
+								<li class="divider"></li>
+								<li><a href="#">sign out</a></li>
+							</ul>
 						</div>
 					</div>
 				</div>
@@ -94,7 +91,7 @@
 			</h3>
 		</div>
 		<div class="item-meta">
-			by <a class="author" href="{{=it.comments[0].user.path}}">{{=it.comments[0].user.name}}</a>
+			<a class="author" href="{{=it.comments[0].user.path}}">{{=it.comments[0].user.name}}</a>
 			&bullet; <span class="comments-count"><a href="{{=it.path}}">{{=it.comments_count}} comments</a></span>
 			<!--
 			<time class="time" title="{{=it.last_updated_time_iso}}">{{=it.last_updated_time_ago}}</time>
@@ -116,7 +113,7 @@
 				<form class="comment-form" method="post" action="{{=it.comment_url}}">
 					<textarea name="content" maxlength="10000" id="comment"></textarea>
 					<br/>
-					<input type="submit" class="btn comment-submit" value="comment!">
+					<input type="submit" class="btn comment-submit" value="comment!" />
 				</form>
 			</div>
 		</div>
