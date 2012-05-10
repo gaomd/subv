@@ -1,24 +1,21 @@
-/* Copyright (C) 2012 Md Gao
- * MIT /LICENSE
+/*
+ * Subv: //github.com/gdd/subv
+ * Copyright (C) 2012 Md Gao
+ * Licensed under the MIT License
  */
 
-// for consistency on YQL/XHR
-function extractResponseText(o) {
-	// TODO how to do type check correctly?
-	if (o.responseText !== "undefined") {
-		return o.responseText;
-	}
-}
+window.subv.api = {};
+window.subv.api.v2ex = {};
+window.subv.api.v2ex = {
 
-function stripAvatar(html) {
+stripAvatar: function(html) {
 	// kill avatar img tag
 	html = html.replace(/src="[^"]*?v2ex\.com\/avatar\/[^"]*?"/g, "");
 	// kill src="/static/..." img and script tag
 	html = html.replace(/src="\/static\/[^"]*?"/g, "");
 	return html;
-}
-
-function extractMeta(html) {
+},
+parseMeta: function(html) {
 	var prefix = "http://www.v2ex.com";
 	var $j = $(html);
 	var meta = {
@@ -49,12 +46,10 @@ function extractMeta(html) {
 			  "path": prefix + "/signup"
 		}
 	}
-}
-
-// Parse HTML into Topic JSON
-function parseTopic(html) {
+},
+parseItem: function(html) {
 	var prefix = "http://www.v2ex.com";
-	html = stripAvatar(html);
+	html = subv.api.v2ex.stripAvatar(html);
 	var $j = $(html);
 
 	var topic = {};
@@ -111,12 +106,10 @@ function parseTopic(html) {
 		topic.comments[0].content_html = "RT: " + topic.title;
 	}
 	return topic;
-}
-
-// Parse HTML into Items List JSON
-function parseList(html) {
+},
+parseItems: function(html) {
 	var prefix = "http://www.v2ex.com";
-	html = stripAvatar(html);
+	html = subv.api.v2ex.stripAvatar(html);
 	var list = $(html).find(".item").map(function() {
 		var $this = $(this);
 
@@ -166,4 +159,6 @@ function parseList(html) {
 	}
 	return list;
 }
+
+};
 

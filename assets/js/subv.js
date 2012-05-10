@@ -36,7 +36,7 @@ window.subv = {
 		$.ajax({
 			"url": "http://www.v2ex.com" + url,
 			"success": function(html) {
-				var list = parseList(html);
+				var list = subv.api.v2ex.parseItems(html);
 				for (var i = 0; i < list.length; i++) {
 					var t = (doT.template($("#item-template").text()))(list[i]);
 					if (subv.item.isBanned(list[i].id)) {
@@ -228,7 +228,7 @@ subv.item.expand = function(itemId) {
 		"url": "http://www.v2ex.com/t/" + itemId,
 		//"url": "http://localhost/" + id,
 		"success": function(html) {
-			var topic = parseTopic(html);
+			var topic = subv.api.v2ex.parseItem(html);
 			subv.log(topic);
 			var $page = $commentsContainer.find(".page-" + topic.current_page);
 			$page.html("");
