@@ -19,9 +19,11 @@ body {
 	/*width: 640px;*/ /* that is span8 + 20px */
 }
 
+/*
 .container-fluid {
 	margin: 0 8%;
 }
+*/
 
 /* -------------------------- *
  * NAV
@@ -125,6 +127,7 @@ body {
 	color: #888;
 }
 
+/*
 .item-heading .tag {
 	font-size: 80%;
 	color: #888;
@@ -133,13 +136,17 @@ body {
 .item-heading .tag a {
 	color: #888;
 }
+*/
+.item-heading .tag a:visited {
+	color: black;
+}
 
 .item-heading .tag a:hover {
 	text-decoration: underline;
 }
 
-.item-heading .title {
-	max-width: 90%;
+.item-heading h3 {
+	max-width: 100%;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -382,7 +389,7 @@ body {
 }
 
 #more {
-	float: right;
+	width: 100%;
 }
 
 #items,
@@ -418,7 +425,22 @@ body {
 	padding: 1em 0;
 }
 
-#width-controller {
+#width-controller-container table {
 	width: 100%;
 }
 
+#width-controller-container table td:first-child {
+	white-space: nowrap;
+	width: 30%;
+}
+
+#width-controller-container table td {
+	text-align: center;
+}
+
+#width-adjuster,
+#width-splitter {
+	margin: 0;
+	padding: 0;
+	width: 95%;
+}

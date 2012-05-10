@@ -172,7 +172,7 @@ window.subv = {
 			});
 		});
 
-		$("#width-controller").on("change", function() {
+		$("#width-splitter").on("change", function() {
 			var val = $(this).val();
 			/*
 			$("#items").attr("class", "span" + val);
@@ -184,6 +184,15 @@ window.subv = {
 			$("#item").css({
 				width: (99-val) + "%"
 			});
+		}).trigger("change");
+
+		$("#width-adjuster").on("change", function() {
+			var val = $(this).val();
+			setTimeout(function() {
+				$(".container-fluid").css({
+					"margin": "0 "+val+"%"
+				});
+			}, 1000);
 		}).trigger("change");
 	},
 };
