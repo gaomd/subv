@@ -374,9 +374,8 @@ div[class^=page-] {
 #latest,
 #read,
 #banned {
-	padding-bottom: 1em;
 	margin-bottom: 1em;
-	border-bottom: 2px solid #eeeeec;
+	border-bottom: 1px solid #eee;
 }
 
 .container .row:last-child {
@@ -408,11 +407,7 @@ div[class^=page-] {
 #items::-webkit-scrollbar,
 #item::-webkit-scrollbar {
 	width: 4px;
-}
- 
-#items::-webkit-scrollbar:horizontal,
-#item::-webkit-scrollbar:horizontal {
-	width: 4px;
+	height: 4px;
 }
 
 #items::-webkit-scrollbar-thumb,
@@ -442,6 +437,9 @@ div[class^=page-] {
 #width-splitter {
 	margin: 0;
 	padding: 0;
-	width: 95%;
+	width: 100%;
 }
 
+.full-width {
+	width: 100%;
+}

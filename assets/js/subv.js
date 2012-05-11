@@ -49,6 +49,9 @@ window.subv = {
 					$("#latest").append(t);
 				}
 			}
+			// update the #read/#banned counter
+			$("#read-items-counter").text($("#read > .item").length);
+			$("#banned-items-counter").text($("#banned > .item").length);
 		});
 	},
 	clearList: function() {
@@ -175,11 +178,11 @@ window.subv = {
 			subv.loadNextList();
 		});
 
-		$("#show-read-list").on("click", function() {
+		$("#read-items-toggle").on("click", function() {
 			$("#read").slideToggle();
 		});
 
-		$("#show-banned-list").on("click", function() {
+		$("#banned-items-toggle").on("click", function() {
 			$("#banned").slideToggle();
 		});
 
