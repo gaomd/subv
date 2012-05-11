@@ -212,6 +212,11 @@ window.subv = {
 			$(this).next().show();
 			$(this).remove();
 		});
+
+		$(document).on("click", ".js-load-page", function() {
+			var page = $(this).parent().attr("class").split("-").pop();
+			subv.log("loading page " + page);
+		});
 	},
 };
 
@@ -236,11 +241,11 @@ subv.item.expand = function(itemId) {
 	$(".item.expand").removeClass("expand");
 	$item.addClass("expand");
 
-	var $view = $("<div/>");
-	$view.append($item.find(".item-comments").clone());
-	var $loading = $view.find(".loading-indicator");
-	$loading.show();
-	$("#item").append($view);
+	$("#item").empty();
+	var $view = $("<div/>")
+		.append($item.find(".item-comments").clone())
+		.appendTo("#item");
+	var $loading = $view.find(".js-loading").show();
 
 	$.ajax({
 		"url": "http://www.v2ex.com/t/" + itemId,
@@ -254,8 +259,10 @@ subv.item.expand = function(itemId) {
 			$op.append(t);
 
 			// comments
-			var $page = $view.find(".page-" + item.current_page);
-			$view.addClass("haspage-" + item.current_page);
+			for (var i = 1; i <= item.pages; i++) {
+				$view.addClass("haspage-" + i);
+			}
+			var $page = $view.find(".page-" + item.current_page).empty();
 			for (var i = 1; i < item.comments.length; i++) {
 				var template = $("#comment-item-template").text();
 				var t = ( doT.template(template) )(item.comments[i]);

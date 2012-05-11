@@ -52,15 +52,15 @@ parseItem: function(html) {
 	var $j = $(html);
 
 	var topic = {};
-	topic.current_page = Number($j.find("span.page_current").text());
-	if (topic.current_page === 0) {
-		topic.current_page = 1;
+	var current_page = parseInt($j.find("span.page_current").text());
+	if (current_page === 0) {
+		current_page = 1;
 	}
 	var comments = $j.find(".no").closest("table").map(function(i) {
 		$this = $(this);
 		return {
 			"id": ($this.find(".thank_area").attr("id") || "").split("_").pop(),
-			"no": ((topic.current_page - 1) * 100 + (i+1)).toString(),
+			"no": ((current_page - 1) * 100 + (i+1)).toString(),
 			"content_html": $this.find("td:last-child > .reply_content").html(),
 			"time_ago": $this.find("td:last-child > .fade.small").text().split("前").shift() + "前",
 			"time_iso": null,
@@ -92,7 +92,7 @@ parseItem: function(html) {
 		"comments_count": Number($j.find("#Main > .box > .cell > .gray").text().split(" ")[0]),
 		"last_updated_time_ago": null, // nope
 		"pages": 1,
-		"current_page": 1,
+		"current_page": current_page,
 		"tag": {
 			"name": $j.find(".header > a").eq(1).text(),
 			"path": prefix + $j.find(".header > a").eq(1).attr("href"),

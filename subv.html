@@ -113,33 +113,19 @@
 			-->
 		</div>
 		<div class="item-comments">
-			<div class="loading-indicator"><h3 class="pagination-right">Loading...</h3></div>
+			<div class="js-loading"><h3 class="pagination-right">Loading...</h3></div>
 			<div class="op"></div>
-			<div class="page-1"></div>
-			<div class="page-2"></div>
-			<div class="page-3"></div>
-			<div class="page-4"></div>
-			<div class="page-5"></div>
-			<div class="page-6"></div>
-			<div class="page-7"></div>
-			<div class="page-8"></div>
-			<div class="page-9"></div>
-			<div class="page-10"></div>
-			<button class="btn js-show-comment-box">add comment</button>
-			<div class="comment">
-				<form class="comment-form" method="post" action="{{=it.comment_url}}">
-					<textarea name="content" maxlength="10000" id="comment"></textarea>
-					<br/>
-					<input type="submit" class="btn comment-submit" value="comment!" />
-				</form>
-			</div>
-		</div>
-		<div class="control-bar">
-			<p id="item-fav"><i class="icon-star-empty"></i></p>
-			<p id="item-watch"><i class="icon-eye-open"></i></p>
-			<p id="item-watchplus"><i class="icon-ok"></i></p>
-			<p id="item-ban"><i class="icon-remove"></i></p>
-			<p id="item-collapse"><i class="icon-chevron-up"></i></p>
+			<div class="page-1"><button class="btn load-page js-load-page">load page 1</button></div>
+			<div class="page-2"><button class="btn load-page js-load-page">load page 2</button></div>
+			<div class="page-3"><button class="btn load-page js-load-page">load page 3</button></div>
+			<div class="page-4"><button class="btn load-page js-load-page">load page 4</button></div>
+			<div class="page-5"><button class="btn load-page js-load-page">load page 5</button></div>
+			<div class="page-6"><button class="btn load-page js-load-page">load page 6</button></div>
+			<div class="page-7"><button class="btn load-page js-load-page">load page 7</button></div>
+			<div class="page-8"><button class="btn load-page js-load-page">load page 8</button></div>
+			<div class="page-9"><button class="btn load-page js-load-page">load page 9</button></div>
+			<div class="page-10"><button class="btn load-page js-load-page">load page 10</button></div>
+			<button class="btn comment-box js-show-comment-box">add comment</button>
 		</div>
 	</div>
 
@@ -161,6 +147,18 @@
 				{{=it.content_html}}
 			</div>
 		</div>
+	</div>
+
+</script>
+
+<script type="text/template" id="comment-box-template">
+
+	<div class="comment">
+		<form class="comment-form" method="post" action="{{=it.comment_url}}">
+			<textarea name="content" maxlength="10000" id="comment"></textarea>
+			<br/>
+			<input type="submit" class="btn comment-submit" value="ok" />
+		</form>
 	</div>
 
 </script>
