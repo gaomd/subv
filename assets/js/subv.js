@@ -38,26 +38,15 @@ window.subv = {
 	},
 	loadNextList: function() {
 		subv.currentPage++;
-		var page = subv.currentPage;
-		var url;
-		if (page === 0) {
-			url = "/";
-		} else {
-			url = "/recent?p=" + page;
-		}
-		$.ajax({
-			"url": "http://www.v2ex.com" + url,
-			"success": function(html) {
-				var list = subv.api.v2ex.parseItems(html);
-				for (var i = 0; i < list.length; i++) {
-					var t = (doT.template($("#item-template").text()))(list[i]);
-					if (subv.item.isBanned(list[i].id)) {
-						$("#banned").append(t);
-					} else if (subv.item.isRead(list[i].id, list[i].comments_count)) {
-						$("#read").append(t);
-					} else {
-						$("#latest").append(t);
-					}
+		subv.api.v2ex.getItems(subv.currentPage, function(items) {
+			for (var i = 0; i < items.length; i++) {
+				var t = (doT.template($("#item-template").text()))(items[i]);
+				if (subv.item.isBanned(items[i].id)) {
+					$("#banned").append(t);
+				} else if (subv.item.isRead(items[i].id, items[i].comments_count)) {
+					$("#read").append(t);
+				} else {
+					$("#latest").append(t);
 				}
 			}
 		});
@@ -99,6 +88,47 @@ window.subv = {
 				return false;
 		},
 		expand: function(id) {
+			subv.log("subv.item.expand(" + id + ")");
+		
+			var $item = $("[id^=item-" + id + "-]");
+			if ($item.hasClass("cached")) {
+				// expand item directly if it's expanded once
+				subv.log("cached, expand directly [DO NOTHING CURRENTLY]");
+				return;
+			} else {
+				$item.addClass("cached");
+			}
+			$(".item.expand").removeClass("expand");
+			$item.addClass("expand");
+		
+			$("#item").empty();
+			var $view = $("<div/>")
+				.append($item.find(".item-comments").clone())
+				.appendTo("#item");
+			var $loading = $view.find(".js-loading").show();
+		
+			subv.api.v2ex.getItem(id, null, function(item) {
+				subv.log(item);
+				// op
+				var $op = $view.find(".op");
+				var template = $("#comment-item-template").text();
+				var t = ( doT.template(template) )(item.comments[0]);
+				$op.append(t);
+				// comments
+				for (var i = 1; i <= item.pages; i++) {
+					$view.addClass("haspage-" + i);
+				}
+				var $page = $view.find(".page-" + item.current_page).empty();
+				for (var i = 1; i < item.comments.length; i++) {
+					var template = $("#comment-item-template").text();
+					var t = ( doT.template(template) )(item.comments[i]);
+					$page.append(t);
+				}
+				$loading.hide();
+		
+				subv.log("marking "+id+"-"+item.comments_count+" as read");
+				subv.item.markRead(id, item.comments_count);
+			});
 		},
 		collapse: function(id) {
 		}
@@ -186,15 +216,11 @@ window.subv = {
 		$("#width-splitter").on("change", function() {
 			var val = $(this).val();
 			amplify.store("width-splitter-value", val);
-			/*
-			$("#items").attr("class", "span" + val);
-			$("#item").attr("class", "span" + (12-val));
-			*/
 			$("#items").css({
-				width: val + "%"
+				"width": val + "%"
 			});
 			$("#item").css({
-				width: (99-val) + "%"
+				"width": (99-val) + "%"
 			});
 		});
 
@@ -220,61 +246,5 @@ window.subv = {
 	},
 };
 
-subv.item.collapse = function(itemId) {
-	log("subv.item.collapse("+ itemId + ")");
-
-	var $item = $("[id^=item-" + itemId + "]");
-	$item.removeClass("expand");
-}
-
-subv.item.expand = function(itemId) {
-	subv.log("subv.item.expand(" + itemId + ")");
-
-	var $item = $("[id^=item-" + itemId + "-]");
-	if ($item.hasClass("cached")) {
-		// expand item directly if it's expanded once
-		subv.log("cached, expand directly [DO NOTHING CURRENTLY]");
-		return;
-	} else {
-		$item.addClass("cached");
-	}
-	$(".item.expand").removeClass("expand");
-	$item.addClass("expand");
-
-	$("#item").empty();
-	var $view = $("<div/>")
-		.append($item.find(".item-comments").clone())
-		.appendTo("#item");
-	var $loading = $view.find(".js-loading").show();
-
-	$.ajax({
-		"url": "http://www.v2ex.com/t/" + itemId,
-		"success": function(html) {
-			var item = subv.api.v2ex.parseItem(html);
-
-			// op
-			var $op = $view.find(".op");
-			var template = $("#comment-item-template").text();
-			var t = ( doT.template(template) )(item.comments[0]);
-			$op.append(t);
-
-			// comments
-			for (var i = 1; i <= item.pages; i++) {
-				$view.addClass("haspage-" + i);
-			}
-			var $page = $view.find(".page-" + item.current_page).empty();
-			for (var i = 1; i < item.comments.length; i++) {
-				var template = $("#comment-item-template").text();
-				var t = ( doT.template(template) )(item.comments[i]);
-				$page.append(t);
-			}
-
-			$loading.hide();
-
-			subv.log("marking "+itemId+"-"+item.comments_count+" as read");
-			subv.item.markRead(itemId, item.comments_count);
-		}
-	});
-}
-
 $(subv.init);
+

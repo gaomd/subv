@@ -99,11 +99,9 @@
 
 	<div class="item" id="item-{{=it.id}}-{{=it.comments_count}}">
 		<div class="item-heading">
-			<h3>
-				<span class="status"></span>
-				<span class="tag">[<a href="{{=it.tag.path}}">{{=it.tag.name /* path.split("/").pop().toUpperCase() */}}</a>]</span><!--
-				--> <span class="title"><a class="clickpass" title="{{=it.title}}" href="{{=it.path}}">{{=it.title}}</a></span>
-			</h3>
+			<span class="status"></span>
+			<span class="tag">[<a href="{{=it.tag.path}}">{{=it.tag.name /* path.split("/").pop().toUpperCase() */}}</a>]</span><!--
+			--> <span class="title"><a class="clickpass" title="{{=it.title}}" href="{{=it.path}}">{{=it.title}}</a></span>
 		</div>
 		<div class="item-meta">
 			<a class="author" href="{{=it.comments[0].user.path}}">{{=it.comments[0].user.name}}</a>
@@ -115,17 +113,24 @@
 		<div class="item-comments">
 			<div class="js-loading"><h3 class="pagination-right">Loading...</h3></div>
 			<div class="op"></div>
-			<div class="page-1"><button class="btn load-page js-load-page">load page 1</button></div>
-			<div class="page-2"><button class="btn load-page js-load-page">load page 2</button></div>
-			<div class="page-3"><button class="btn load-page js-load-page">load page 3</button></div>
-			<div class="page-4"><button class="btn load-page js-load-page">load page 4</button></div>
-			<div class="page-5"><button class="btn load-page js-load-page">load page 5</button></div>
-			<div class="page-6"><button class="btn load-page js-load-page">load page 6</button></div>
-			<div class="page-7"><button class="btn load-page js-load-page">load page 7</button></div>
-			<div class="page-8"><button class="btn load-page js-load-page">load page 8</button></div>
-			<div class="page-9"><button class="btn load-page js-load-page">load page 9</button></div>
-			<div class="page-10"><button class="btn load-page js-load-page">load page 10</button></div>
-			<button class="btn comment-box js-show-comment-box">add comment</button>
+			<div class="page-1"><button class="btn btn-load-page js-load-page">load page 1</button></div>
+			<div class="page-2"><button class="btn btn-load-page js-load-page">load page 2</button></div>
+			<div class="page-3"><button class="btn btn-load-page js-load-page">load page 3</button></div>
+			<div class="page-4"><button class="btn btn-load-page js-load-page">load page 4</button></div>
+			<div class="page-5"><button class="btn btn-load-page js-load-page">load page 5</button></div>
+			<div class="page-6"><button class="btn btn-load-page js-load-page">load page 6</button></div>
+			<div class="page-7"><button class="btn btn-load-page js-load-page">load page 7</button></div>
+			<div class="page-8"><button class="btn btn-load-page js-load-page">load page 8</button></div>
+			<div class="page-9"><button class="btn btn-load-page js-load-page">load page 9</button></div>
+			<div class="page-10"><button class="btn btn-load-page js-load-page">load page 10</button></div>
+			<div>
+				<button class="btn btn-show-comment-box js-show-comment-box">add comment</button>
+				<form class="comment-form" method="post" action="{{=it.comment_url}}">
+					<textarea name="content" maxlength="10000" id="comment"></textarea>
+					<br/>
+					<input type="submit" class="btn comment-submit" value="ok" />
+				</form>
+			</div>
 		</div>
 	</div>
 
@@ -152,14 +157,6 @@
 </script>
 
 <script type="text/template" id="comment-box-template">
-
-	<div class="comment">
-		<form class="comment-form" method="post" action="{{=it.comment_url}}">
-			<textarea name="content" maxlength="10000" id="comment"></textarea>
-			<br/>
-			<input type="submit" class="btn comment-submit" value="ok" />
-		</form>
-	</div>
 
 </script>
 </body>

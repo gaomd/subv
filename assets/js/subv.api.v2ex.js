@@ -6,6 +6,34 @@
 
 window.subv.api = {};
 window.subv.api.v2ex = {
+	getItems: function(pageNo, callback) {
+		if (pageNo === 0) {
+			url = "/";
+		} else {
+			url = "/recent?p=" + pageNo;
+		}
+		$.ajax({
+			"url": "http://www.v2ex.com" + url,
+			"success": function(html) {
+				var items = subv.api.v2ex.parseItems(html);
+				callback(items)
+			}
+		});
+	},
+	getItem: function(id, pageNo, callback) {
+		var url = "http://www.v2ex.com/t/" + id;
+		if (pageNo !== null) {
+			url += "?p=" + pageNo;
+		}
+		$.ajax({
+			"url": url,
+			"success": function(html) {
+				var item = subv.api.v2ex.parseItem(html);
+				item.id = id;
+				callback(item);
+			}
+		});
+	},
 
 stripAvatar: function(html) {
 	// kill avatar img tag
@@ -53,7 +81,7 @@ parseItem: function(html) {
 
 	var topic = {};
 	var current_page = parseInt($j.find("span.page_current").text());
-	if (current_page === 0) {
+	if (!current_page) {
 		current_page = 1;
 	}
 	var comments = $j.find(".no").closest("table").map(function(i) {

@@ -102,8 +102,9 @@ body {
 	/*white-space: nowrap;*/
 }
 
-.item .item-heading h3 {
+.item .item-heading {
 	font-weight: normal;
+	font-size: 1.1em;
 }
 
 .item-heading a:hover,
@@ -144,7 +145,7 @@ body {
 }
 
 .item .item-meta {
-	font-size: 1.2em;
+	/*font-size: 1.2em;*/
 	color: #888;
 }
 
@@ -328,13 +329,20 @@ div[class^=page-] {
 	vertical-align: super;
 }
 
-.item-comments .comment {
-	/*margin-left: 75px;*/
+.comment-form {
+	display: none;
 }
 
-.item-comments .comment textarea {
+.comment-form textarea {
 	width: 100%;
 	height: 8em;
+}
+
+.btn-show-comment-box {
+	width: 100%;
+}
+.btn-load-page {
+	width: 100%;
 }
 
 /* -------------------------- *
@@ -432,14 +440,3 @@ div[class^=page-] {
 	width: 95%;
 }
 
-.comment-box {
-	width: 100%;
-}
-
-.comment {
-	display: none;
-}
-
-.load-page {
-	width: 100%;
-}
