@@ -162,15 +162,15 @@ window.subv = {
 			e.preventDefault();
 		});
 
-		$("#mark-all-read").on("click", function() {
+		$("#btn-read-all").on("click", function() {
 			subv.items.markAllAsRead();
 		});
 
-		$("#mark-ban-unread").on("click", function() {
+		$("#btn-ban-all").on("click", function() {
 			subv.items.markAllAsBanned()
 		});
 
-		$("#logo, #reload").on("click", function() {
+		$("#logo, #btn-reload").on("click", function() {
 			subv.refreshList();
 		});
 

@@ -46,7 +46,7 @@
 			<div class="span12" id="width-controller-container">
 				<table>
 					<tr>
-						<td style="padding-right: 1em;">
+						<td style="padding-right: 9px;">
 							<input id="width-adjuster" type="range" min="0" max="24" value="6" step="1" />
 						</td>
 						<td>
@@ -62,32 +62,28 @@
 				<div id="items">
 					<div id="latest"></div>
 			
-					<div class="btn-toolbar">
-						<table class="full-width">
-							<tr>
-								<td style="width: 1px; white-space: nowrap;">
-									<div class="btn-group">
-										<button id="reload" class="btn">
-											<i class="icon-refresh"></i> Reload
-										</button>
-										<button class="btn dropdown-toggle" data-toggle="dropdown">
-											<span class="caret"></span>
-										</button>
-										<ul class="dropdown-menu">
-											<li><a id="mark-all-read" href="#">&amp; mark all as read</a></li>
-											<li><a id="mark-ban-unread" href="#">&amp; ban unread (unban is not implemented)</a></li>
-										</ul>
-									</div><!-- .btn-group -->
-								</td>
-								<td style="padding-left: 1em;">
-									<div class="btn-group full-width">
-										<button class="btn" id="more">more</button>
-									</div>
-								</td>
-							</tr>
-						</table>
+					<div class="btn-toolbar footer-tb">
+						<div class="footer-tb-reload">
+							<div class="btn-group">
+								<button id="btn-reload" class="btn">
+									<i class="icon-refresh"></i> Reload
+								</button>
+								<button class="btn dropdown-toggle" data-toggle="dropdown">
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a id="btn-read-all" href="#">&amp; mark all as read</a></li>
+									<li><a id="btn-ban-all" href="#">&amp; ban unread (unban is not implemented)</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="footer-tb-more">
+							<div class="btn-group full-width">
+								<button class="btn" id="more">more</button>
+							</div>
+						</div>
 					</div>
-			
+	
 					<div class="btn-toolbar">
 						<button class="btn full-width" id="read-items-toggle">
 							<span class="caret"></span>

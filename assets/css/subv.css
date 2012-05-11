@@ -172,6 +172,14 @@ div[class^=page-] {
 	display: none;
 }
 
+div[class^=page-] .comment-item:nth-child(odd) {
+	background-color: #eeeeee;
+}
+
+div[class^=page-] .comment-item:nth-child(even) {
+	/*background-color: #e1e1e1;*/
+}
+
 .haspage-1 .page-1,
 .haspage-2 .page-2,
 .haspage-3 .page-3,
@@ -187,8 +195,11 @@ div[class^=page-] {
 
 .item-comments .op .comment-item .comment-main {
 	/*background-color: #e9b96e;*/
-	margin-bottom: 2em;
 	background-color: #f6f6b6;
+}
+
+.item-comments .op .comment-item {
+	margin-bottom: 2em;
 }
 
 .item .control-bar {
@@ -256,7 +267,7 @@ div[class^=page-] {
 }
 
 .comment-item .comment-main {
-	margin-bottom: .4em;
+	/*margin-bottom: .4em;*/
 	/*margin-left: 75px;*/
 	/*-webkit-transition: all 1s;*/
 }
@@ -331,6 +342,7 @@ div[class^=page-] {
 
 .comment-form {
 	display: none;
+	margin: 0; /* override bs */
 }
 
 .comment-form textarea {
@@ -371,10 +383,7 @@ div[class^=page-] {
 	display: none;
 }
 
-#latest,
-#read,
-#banned {
-	margin-bottom: 1em;
+#latest {
 	border-bottom: 1px solid #eee;
 }
 
@@ -443,3 +452,22 @@ div[class^=page-] {
 .full-width {
 	width: 100%;
 }
+
+.footer-tb {
+	display: table;
+	width: 100%;
+}
+
+.footer-tb > div {
+	display: table-cell;
+}
+
+.footer-tb-reload {
+	width: 1px;
+	white-space: nowrap;
+}
+
+.footer-tb-more {
+	padding-left: 12px;
+}
+
