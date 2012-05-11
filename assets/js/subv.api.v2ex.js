@@ -5,7 +5,6 @@
  */
 
 window.subv.api = {};
-window.subv.api.v2ex = {};
 window.subv.api.v2ex = {
 
 stripAvatar: function(html) {
@@ -114,8 +113,8 @@ parseItems: function(html) {
 		var $this = $(this);
 
 		// possible meta format
-		// ["tag", "op", "chars", "views", "time_ago", "last_commentator"]
-		// ["tag", "op", "chars", "views", "time_ago"]
+		// ["tag", "op", "time_ago", "last_commentator"]
+		// ["tag", "op", "time_ago"]
 		var meta = $this.find(".item_title ~ .small.fade").text().split("•");
 		meta.shift();
 		meta.shift();

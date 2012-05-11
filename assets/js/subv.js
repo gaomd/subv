@@ -13,15 +13,27 @@ window.subv = {
 		subv.bindEvents();
 		subv.clearList();
 		subv.loadNextList();
+		subv.applySettings();
 	},
 	log: function(context) {
-		if ( !window.console && !window.console.log ) {
+		if ( !window.console || !window.console.log ) {
 			return false;
 		}
 		if (typeof context === "object") {
 			console.log(context);
 		} else {
 			console.log("LOG: " + context);
+		}
+	},
+	applySettings: function() {
+		var val;
+		val = amplify.store("width-splitter-value");
+		if (val) {
+			$("#width-splitter").val(val).trigger("change");
+		}
+		val = amplify.store("width-adjuster-value");
+		if (val) {
+			$("#width-adjuster").val(val).trigger("change");
 		}
 	},
 	loadNextList: function() {
@@ -118,12 +130,10 @@ window.subv = {
 		});
 
 		$("#mark-all-read").on("click", function() {
-			subv.log("#mark-all-read clicked");
 			subv.items.markAllAsRead();
 		});
 
 		$("#mark-ban-unread").on("click", function() {
-			subv.log("#mark-ban-unread clicked");
 			subv.items.markAllAsBanned()
 		});
 
@@ -143,19 +153,20 @@ window.subv = {
 			$("#banned").slideToggle();
 		});
 
-		//onsubmit="window.open('https://www.google.com/search?q=site%3Av2ex.com%2Ft+' + document.getElementById('q').value); return false;"
+		/* unused
+		$("#search-form").on("submit", function(e) {
+			e.preventDefault();
+			var url = "https://www.google.com/search?q=site%3Av2ex.com%2Ft+";
+			var keywords = $(this).find("input").val();
+			window.open(url + keywords)
+		});
+		*/
 
 		$(document).on("click", ".item-heading .title a, .item-meta .comments-count a", function(e) {
 			var id = $(this).closest(".item").attr("id").split("-")[1];
 			subv.log("clicked item id: " + id);
 			subv.item.expand(id);
 		});
-
-		/* TODO
-		$(document).on("click", "#item-collapse", function(e) {
-			collapseItem($(this).closest(".item").attr("id").split("-")[1]);
-		});
-		*/
 
 		$(document).on("submit", ".comment-form", function(e) {
 			e.preventDefault();
@@ -174,6 +185,7 @@ window.subv = {
 
 		$("#width-splitter").on("change", function() {
 			var val = $(this).val();
+			amplify.store("width-splitter-value", val);
 			/*
 			$("#items").attr("class", "span" + val);
 			$("#item").attr("class", "span" + (12-val));
@@ -184,74 +196,76 @@ window.subv = {
 			$("#item").css({
 				width: (99-val) + "%"
 			});
-		}).trigger("change");
+		});
 
 		$("#width-adjuster").on("change", function() {
 			var val = $(this).val();
+			amplify.store("width-adjuster-value", val);
 			setTimeout(function() {
 				$(".container-fluid").css({
 					"margin": "0 "+val+"%"
 				});
 			}, 1000);
-		}).trigger("change");
+		});
+
+		$(document).on("click", ".js-show-comment-box", function() {
+			$(this).next().show();
+			$(this).remove();
+		});
 	},
 };
 
 subv.item.collapse = function(itemId) {
-	log("Collapse id: " + itemId);
+	log("subv.item.collapse("+ itemId + ")");
 
 	var $item = $("[id^=item-" + itemId + "]");
-	$item.removeClass("active");
-	setTimeout(function() {
-		$item.removeClass("avoid-expand-again");
-	}, 1000);
+	$item.removeClass("expand");
 }
 
 subv.item.expand = function(itemId) {
-	subv.log("expandItem(" + itemId + ")");
+	subv.log("subv.item.expand(" + itemId + ")");
 
-	var $item = $("[id^=item-" + itemId + "]");
-	$(".item.expanded").removeClass("expanded");
-	$item.addClass("expanded");
-	// expand item directly if it's expanded once
+	var $item = $("[id^=item-" + itemId + "-]");
 	if ($item.hasClass("cached")) {
+		// expand item directly if it's expanded once
 		subv.log("cached, expand directly [DO NOTHING CURRENTLY]");
 		return;
 	} else {
-		subv.log("loading...");
-		$item.addClass("cached avoid-expand-again");
+		$item.addClass("cached");
 	}
-	var $commentsContainer = $("#item");
-	$commentsContainer.html("").append($item.find(".item-comments").clone());
-	$commentsContainer.find(".loading-indicator").html("").append('<h3 class="pagination-right">Loading...</h3>');
+	$(".item.expand").removeClass("expand");
+	$item.addClass("expand");
+
+	var $view = $("<div/>");
+	$view.append($item.find(".item-comments").clone());
+	var $loading = $view.find(".loading-indicator");
+	$loading.show();
+	$("#item").append($view);
+
 	$.ajax({
 		"url": "http://www.v2ex.com/t/" + itemId,
-		//"url": "http://localhost/" + id,
 		"success": function(html) {
-			var topic = subv.api.v2ex.parseItem(html);
-			subv.log(topic);
-			var $page = $commentsContainer.find(".page-" + topic.current_page);
-			$page.html("");
-			$commentsContainer.addClass("haspage-" + topic.current_page);
-			for (var i = 0; i < topic.comments.length; i++) {
+			var item = subv.api.v2ex.parseItem(html);
+
+			// op
+			var $op = $view.find(".op");
+			var template = $("#comment-item-template").text();
+			var t = ( doT.template(template) )(item.comments[0]);
+			$op.append(t);
+
+			// comments
+			var $page = $view.find(".page-" + item.current_page);
+			$view.addClass("haspage-" + item.current_page);
+			for (var i = 1; i < item.comments.length; i++) {
 				var template = $("#comment-item-template").text();
-				var t = ( doT.template(template) )(topic.comments[i]);
+				var t = ( doT.template(template) )(item.comments[i]);
 				$page.append(t);
 			}
-			/*
-			$commentsContainer.find(".comment-item").eq(0).addClass("comment-item-op");
-			$commentsContainer.find(".loading-indicator").html("");
-			$commentsContainer.find(".comment-item").eq(0).find(".comment-main").addClass("comment-main-flashlight");
-			setTimeout(function() {
-				$commentsContainer
-					.find(".comment-item").eq(0).find(".comment-main")
-					.removeClass("comment-main-flashlight");
-			}, 1000);
-			*/
 
+			$loading.hide();
 
-			subv.log("marking "+itemId+"-"+topic.comments_count+" as read");
-			subv.item.markRead(itemId, topic.comments_count);
+			subv.log("marking "+itemId+"-"+item.comments_count+" as read");
+			subv.item.markRead(itemId, item.comments_count);
 		}
 	});
 }
