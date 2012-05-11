@@ -220,7 +220,7 @@ window.subv = {
 				"width": val + "%"
 			});
 			$("#item").css({
-				"width": (99-val) + "%"
+				"width": (100-val) + "%"
 			});
 		});
 

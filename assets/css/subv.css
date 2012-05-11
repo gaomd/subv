@@ -251,7 +251,7 @@ div[class^=page-] {
 .comment-item {
 	overflow: auto;
 	background-color: #f6f6ef;
-	padding: .5em;
+	/*padding: .5em;*/
 	margin-bottom: .5em;
 }
 
@@ -398,6 +398,11 @@ div[class^=page-] {
 #items {
 	background-color: #f6f6ef;
 	padding: 1em;
+}
+
+#item {
+	padding: 1em;
+	border-left: 1px solid #eee;
 }
 
 #items::-webkit-scrollbar,
