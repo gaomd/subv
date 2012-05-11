@@ -2,13 +2,20 @@
  * GLOBAL
  * -------------------------- */
 * {
-	box-sizing: border-box;
-	font-family: "Trebuchet MS", "Helvetica Neue", Helvetica, Arial, STHeiti, "Microsoft YaHei", "Droid Sans Fallback", "WenQuanYi Micro Hei", "WenQuanYi Zen Hei", sans-serif;
+	box-sizing/* ftw */: border-box;
 }
 
 body {
 	overflow-y: scroll;
 	padding: 0; /* override bs */
+}
+
+*,
+input,
+button,
+select,
+textarea {
+	font-family: "Trebuchet MS", "Helvetica Neue", Helvetica, Arial, STHeiti, "Microsoft YaHei", "Droid Sans Fallback", "WenQuanYi Micro Hei", "WenQuanYi Zen Hei", sans-serif;
 }
 
 .container-fluid {
