@@ -30,354 +30,10 @@ textarea {
 	overflow: auto; /* inner div is float */
 }
 
-/* -------------------------- *
- * NAV
- * -------------------------- */
-.brand {
-	font-size: 2em;
-	color: black;
-	text-decoration: none;
+#latest {
+	border-bottom: 1px solid #eee;
 }
 
-.brand-v2ex {
-	font-family: "Arial Black", Arial, sans-serif;
-	font-weight: 900;
-}
-
-
-.brand:hover,
-.brand:active {
-	color: black;
-	text-decoration: none;
-}
-/* -------------------------- *
- * ITEM
- * -------------------------- */
-.item {
-	border-bottom: 0;
-	border-radius: 0;
-	position: relative;
-	text-align: left;
-	width: 100%;
-	margin-bottom: 1em;
-}
-
-.item.expand {
-	background-color: #f6f6b6;
-}
-
-.item.active {
-	background-color: #fafafa;
-	border-left: 0;
-	border-right: 0;
-	cursor: auto;
-	margin-bottom: 1em;
-}
-
-/* helper classes */
-/*
-.item.active,
-.item:last-child {
-	border-bottom: 1px solid #cccccc;
-}
-*/
-
-.item.active .control-bar {
-	display: block;
-}
-
-.item.active .item-meta {
-	display: none;
-}
-
-#item .item-comments,
-.item.active .item-comments {
-	display: block;
-}
-/* ^ helper classes */
-
-.item .item-heading {
-	width: 100%;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	/*white-space: nowrap;*/
-}
-
-.item .item-heading {
-	font-weight: normal;
-	font-size: 1.1em;
-}
-
-.item-heading a:hover,
-.item-heading a:active,
-.item-heading a {
-	color: black;
-	text-decoration: none;
-}
-
-.item-heading a:visited {
-	color: #888;
-}
-
-/*
-.item-heading .tag {
-	font-size: 80%;
-	color: #888;
-}
-
-.item-heading .tag a {
-	color: #888;
-}
-*/
-.item-heading .tag a:visited {
-	color: black;
-}
-
-.item-heading .tag a:hover {
-	text-decoration: underline;
-}
-
-.item-heading h3 {
-	max-width: 100%;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	display: inline-block;
-}
-
-.item .item-meta {
-	/*font-size: 1.2em;*/
-	color: #888;
-}
-
-.item .item-meta a {
-	color: #888;
-}
-
-.item-meta .views-count,
-.item-meta .comments-count {
-}
-
-.item-meta .author {
-	font-weight: 900;
-}
-
-.item-meta .time {
-}
-
-.item-comments {
-	display: none;
-}
-
-div[class^=page-] {
-	display: none;
-}
-
-div[class^=page-] .comment-item:nth-child(odd) {
-	background-color: #eeeeee;
-}
-
-div[class^=page-] .comment-item:nth-child(even) {
-	/*background-color: #e1e1e1;*/
-}
-
-.haspage-1 .page-1,
-.haspage-2 .page-2,
-.haspage-3 .page-3,
-.haspage-4 .page-4,
-.haspage-5 .page-5,
-.haspage-6 .page-6,
-.haspage-7 .page-7,
-.haspage-8 .page-8,
-.haspage-9 .page-9,
-.haspage-10 .page-10 {
-	display: block;
-}
-
-.item-comments .op .comment-item .comment-main {
-	/*background-color: #e9b96e;*/
-	background-color: #f6f6b6;
-}
-
-.item-comments .op .comment-item {
-	margin-bottom: 2em;
-}
-
-.item .control-bar {
-	background-color: #d3d7cf;
-	border-radius: 2em;
-	display: none;
-	float: left;
-	opacity: 0;
-	padding: .5em;
-	position: absolute;
-	top: 200px;
-	-webkit-transition: all .4s;
-}
-
-.item .control-bar:hover {
-	box-shadow: 0 0 .6em black;
-	opacity: 1;
-	-webkit-transition: all .4s;
-}
-
-.item .control-bar p {
-	cursor: pointer;
-	font-size: 3em;
-	line-height: 1em;
-	margin: 0;
-	text-align: center;
-	-webkit-transition: all .4s;
-}
-
-.item .control-bar p:hover {
-	text-shadow: 0 0 .4em black;
-	-webkit-transition: all .4s;
-}
-
-.item-checker {
-	display: none; /* tmp disable it */
-	left: -4em;
-	opacity: .1;
-	position: absolute;
-}
-
-.item-checker p {
-	cursor: pointer;
-	font-size: 3em;
-	margin-top: .1em;
-}
-
-.item-checker-checked {
-	color: green;
-	opacity: 1;
-}
-
-.item-checker:hover {
-	opacity: 1;
-}
-
-/* -------------------------- *
- * COMMENTS
- * -------------------------- */
-.comment-item {
-	overflow: auto;
-	background-color: #f6f6ef;
-	/*padding: .5em;*/
-	margin-bottom: .5em;
-}
-
-.comment-item .comment-main {
-	/*margin-bottom: .4em;*/
-	/*margin-left: 75px;*/
-	/*-webkit-transition: all 1s;*/
-}
-
-.comment-item-op {
-	margin-bottom: 2.5em;
-	margin-top: 2em;
-}
-
-.comment-item-op .comment-main {
-	border: 1px dashed black;
-}
-
-.comment-item .comment-meta {
-	margin-bottom: .2em;
-	color: #888;
-}
-
-.comment-item .author a {
-	font-weight: 900;
-}
-
-.comment-item .author a {
-	color: #888;
-}
-
-.comment-item .comment-content {
-	color: black;
-	font-size: 1em;
-	line-height: 1.7em; /* improve line-height since we use MSYH, discussions: http://www.v2ex.com/t/33832 */
-	overflow-x: auto;
-	word-wrap: break-word;
-}
-
-.comment-item .comment-content a {
-	color: black;
-	text-decoration: none;
-}
-
-.comment-item .comment-content a:hover {
-	text-decoration: underline;
-}
-
-.comment-item .comment-content img,
-.comment-item .comment-content embed,
-.comment-item .comment-content .gist {
-	max-width: 100% !important;
-	width: 100%;
-}
-
-.comment-item .comment-no {
-	display: none;
-
-	float: left;
-	padding: .6em;
-	text-align: right;
-	width: 64px;
-}
-
-.comment-item .comment-no p {
-	color: #888;
-	font-size: 2em;
-	line-height: .8em;
-	margin: 0;
-}
-
-.comment-item .comment-no p:before {
-	content: "#";
-	font-size: 80%;
-	vertical-align: super;
-}
-
-.comment-form {
-	display: none;
-	margin: 0; /* override bs */
-}
-
-.comment-form textarea {
-	width: 100%;
-	height: 8em;
-}
-
-.btn-show-comment-box {
-	width: 100%;
-}
-.btn-load-page {
-	width: 100%;
-}
-
-/* -------------------------- *
- * MISC
- * -------------------------- */
-/*.item:hover .item-checker,*/
-
-#overlay {
-	background-color: black;
-	display: none;
-	height: 100%;
-	left: 0;
-	opacity: .5;
-	position: fixed;
-	top: 0;
-	width: 100%;
-	z-index: 99;
-}
-
-.dropdown-menu-no-caret:after {
-	content: none !important;
-}
 
 #read,
 #banned {
@@ -388,34 +44,16 @@ div[class^=page-] .comment-item:nth-child(even) {
 #banned-items-toggle {
 	text-align: left;
 }
-
-#latest {
-	border-bottom: 1px solid #eee;
-}
-
-.container .row:last-child {
-	margin-bottom: 128px;
-}
-
-#more {
-	width: 100%;
-}
-
 #items,
 #item {
 	height: 100%;
 	overflow-y: auto;
 	float: left;
 	margin-left: 0; /* override .span */
-}
-
-#items {
-	background-color: #f6f6ef;
 	padding: 1em;
 }
 
 #item {
-	padding: 1em;
 	border-left: 1px solid #eee;
 }
 
@@ -429,34 +67,6 @@ div[class^=page-] .comment-item:nth-child(even) {
 #item::-webkit-scrollbar-thumb {
 	border-radius: 2px;
 	background: rgba(0,0,0,.5);
-}
-
-#width-controller-container {
-	padding: 1em 0;
-}
-
-#width-controller-container table {
-	width: 100%;
-}
-
-#width-controller-container table td:first-child {
-	white-space: nowrap;
-	width: 30%;
-}
-
-#width-controller-container table td {
-	text-align: center;
-}
-
-#width-adjuster,
-#width-splitter {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-}
-
-.full-width {
-	width: 100%;
 }
 
 .width-tb,
@@ -487,3 +97,189 @@ div[class^=page-] .comment-item:nth-child(even) {
 .width-tb-splitter {
 	width: 100%;
 }
+
+#width-adjuster,
+#width-splitter {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+/* -------------------------- *
+ * NAV
+ * -------------------------- */
+.brand {
+	font-size: 2em;
+	color: black;
+	text-decoration: none;
+	line-height: 1.2em;
+}
+
+.brand-v2ex {
+	font-family: "Arial Black", Arial, sans-serif;
+	font-weight: 900;
+}
+
+
+.brand:hover,
+.brand:active {
+	color: black;
+	text-decoration: none;
+}
+
+/* -------------------------- *
+ * ITEM
+ * -------------------------- */
+.item {
+	border-bottom: 0;
+	border-radius: 0;
+	position: relative;
+	text-align: left;
+	width: 100%;
+	margin-bottom: 1em;
+}
+
+.item.expand {
+	background-color: #f6f6b6;
+}
+
+.item .item-heading {
+	/*white-space: nowrap;*/
+	font-size: 1.1em;
+	font-weight: normal;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 100%;
+}
+
+.item-heading a,
+.item-heading a:active,
+.item-heading a:hover,
+.item-heading a:visited {
+	color: black;
+	text-decoration: none;
+}
+
+.item-heading .tag a:visited {
+	color: black;
+}
+
+.item-heading .tag a:hover {
+	text-decoration: underline;
+}
+
+.item-meta,
+.item-meta a {
+	color: #888;
+}
+
+.item-meta .author {
+	font-weight: 900;
+}
+
+.item-comments {
+	display: none;
+}
+
+/* -------------------------- *
+ * COMMENTS
+ * -------------------------- */
+.comment-item {
+	overflow: auto;
+	background-color: #f6f6ef;
+	/*padding: .5em;*/
+	margin-bottom: .5em;
+}
+
+div[class^=page-] {
+	display: none;
+}
+
+.op .comment-item {
+	background-color: #f6f6b6;
+	margin-bottom: 2em;
+}
+
+div[class^=page-] .comment-item:nth-child(odd) {
+	background-color: #eeeeee;
+}
+
+div[class^=page-] .comment-item:nth-child(even) {
+	/*background-color: #e1e1e1;*/
+}
+
+.haspage-1 .page-1,
+.haspage-2 .page-2,
+.haspage-3 .page-3,
+.haspage-4 .page-4,
+.haspage-5 .page-5,
+.haspage-6 .page-6,
+.haspage-7 .page-7,
+.haspage-8 .page-8,
+.haspage-9 .page-9,
+.haspage-10 .page-10 {
+	display: block;
+}
+
+.comment-meta {
+	margin-bottom: .2em;
+	color: #888;
+}
+
+.comment-meta.author a {
+	font-weight: 900;
+	color: #888;
+}
+
+.comment-content {
+	color: black;
+	font-size: 1em;
+	line-height: 1.7em; /* improve line-height since we use MSYH, discussions: http://www.v2ex.com/t/33832 */
+	overflow-x: auto;
+	word-wrap: break-word;
+}
+
+.comment-content a {
+	color: black;
+	text-decoration: none;
+}
+
+.comment-content a:hover {
+	text-decoration: underline;
+}
+
+.comment-content img,
+.comment-content embed,
+.comment-content .gist {
+	max-width: 100% !important;
+	width: 100%;
+}
+
+.comment-form {
+	display: none;
+	margin: 0; /* override bs */
+}
+
+.comment-form textarea {
+	width: 100%;
+	height: 8em;
+}
+
+.btn-show-comment-box {
+	width: 100%;
+}
+.btn-load-page {
+	width: 100%;
+}
+
+/* -------------------------- *
+ * MISC
+ * -------------------------- */
+.dropdown-menu-no-caret:after {
+	content: none !important;
+}
+
+.full-width {
+	width: 100%;
+}
+
