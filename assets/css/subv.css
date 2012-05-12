@@ -90,6 +90,7 @@ textarea {
 }
 
 #nav,
+.config-tb,
 .width-tb {
 	padding: 0 1em;
 }
@@ -142,10 +143,6 @@ textarea {
 	text-align: left;
 	width: 100%;
 	margin-bottom: 1em;
-}
-
-.item.expand {
-	background-color: #f6f6b6;
 }
 
 .item-heading {
@@ -282,8 +279,28 @@ div[class^=page-] .comment-item:nth-child(even) {
 	width: 100%;
 }
 
-.goto-item {
-	margin-top: 1em;
+.item.outline.expanded,
+.item.outline-stacked.expanded,
+.item.outline.expanding,
+.item.outline-stacked.expanding {
+	background-color: #f6f6b6;
+}
+
+.item.expanding .item-comments {
+	display: none;
+}
+
+.item.expanding .js-loading {
+	display: block;
+}
+
+.item.expanded .item-comments {
+	display: block;
+}
+
+.item.inline.expanded .item-meta,
+.item.expanded .js-loading {
+	display: none;
 }
 
 /* -------------------------- *

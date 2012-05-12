@@ -8,8 +8,12 @@
 
 window.subv = {
 	currentPage: -1,
+	settings: {
+		expandMode: "outline", // inline, outline, stacked
+	},
 	init: function() {
 		window.doT.templateSettings.strip = false;
+		subv.settings.expandMode = "outline";
 		subv.bindEvents();
 		subv.clearList();
 		subv.loadNextList();
@@ -96,52 +100,60 @@ window.subv = {
 		},
 		expand: function(id) {
 			subv.log("subv.item.expand(" + id + ")");
-		
-			var $item = $("[id^=item-" + id + "-]");
-			if ($item.hasClass("cached")) {
-				// expand item directly if it's expanded once
-				subv.log("cached, expand directly [DO NOTHING CURRENTLY]");
-				return;
-			} else {
-				$item.addClass("cached");
-			}
-			$(".item.expand").removeClass("expand");
-			$item.addClass("expand");
-		
-			$("#item").empty();
-			var $view = $("<div/>")
-				.append($item.find(".item-comments").clone())
-				.appendTo("#item");
-			var $loading = $view.find(".js-loading").show();
-			var $gotoItem = $('<div class="goto-item" id="goto-item-' + id + '"><button class="btn"><i class="icon-arrow-left"></i> back</button></div>');
 
-			$("body").animate({
-				"scrollTop": $("#item").offset().top
-			});
+			var $item = $("[id^=item-" + id + "-]");
+			var $itemx;
+			if (subv.settings.expandMode === "inline" &&
+					$item.hasClass("cached")) {
+				$item.addClass("inline expanded");
+				return;
+			}
+			if (subv.settings.expandMode === "inline") {
+				$itemx = $item;
+			} else if (subv.settings.expandMode === "outline" ||
+					subv.settings.expandMode === "stacked") {
+				$itemx = $("<div/>").addClass("item");
+				$itemx.append($item.find(".item-heading").clone());
+			}
+			if (subv.settings.expandMode !== "inline") {
+				if (subv.settings.expandMode === "outline") {
+					$("#item").empty().append($itemx);
+				} else if (subv.settings.expandMode === "stacked") {
+					$("#item").append($itemx);
+				}
+			}
+			if (subv.settings.expandMode === "outline") {
+				$("body").animate({
+					"scrollTop": $itemx.offset().top
+				});
+			}
+
+			$(".item.outline.expanded").removeClass("outline expanded");
+			$(".item.outline.expanded").removeClass(".stacked.expanded");
+			$item.addClass("expanding cached").addClass(subv.settings.expandMode);
+			$itemx.addClass("expanding");
+
+			var template = doT.template( $("#item-comments-template").text() );
+			var $comments = $( template({ "id": id}) );
+			$itemx.append($comments);
 	
 			subv.api.v2ex.getItem(id, null, function(item) {
 				subv.log(item);
-				// title
-				$view.prepend($item.find(".item-heading").clone());
 				// op
-				var $op = $view.find(".op");
-				var template = $("#comment-item-template").text();
-				var t = ( doT.template(template) )(item.comments[0]);
-				$op.append(t);
+				var $op = $comments.find(".op");
+				var template = doT.template( $("#comment-item-template").text() );
+				$op.append( template(item.comments[0]) );
 				// comments
 				for (var i = 1; i <= item.pages; i++) {
-					$view.addClass("haspage-" + i);
+					$comments.addClass("haspage-" + i);
 				}
-				var $page = $view.find(".page-" + item.current_page).empty();
+				var $page = $comments.find(".page-" + item.current_page).empty();
 				for (var i = 1; i < item.comments.length; i++) {
-					var template = $("#comment-item-template").text();
-					var t = ( doT.template(template) )(item.comments[i]);
-					$page.append(t);
+					var template = doT.template( $("#comment-item-template").text() );
+					$page.append( template(item.comments[i]) );
 				}
-				$loading.hide();
-				$view.append($gotoItem);
-		
-				subv.log("marking "+id+"-"+item.comments_count+" as read");
+				$item.removeClass("expanding").addClass("expanded");
+				$itemx.removeClass("expanding").addClass("expanded");
 				subv.item.markRead(id, item.comments_count);
 			});
 		},
@@ -226,6 +238,21 @@ window.subv = {
 					subv.log("POST to " + id + " success!");
 				}
 			});
+		});
+
+		$("#btn-set-mode-inline").on("click", function() {
+			subv.log("true");
+			subv.settings.expandMode = "inline";
+		});
+
+		$("#btn-set-mode-outline").on("click", function() {
+			subv.log("true");
+			subv.settings.expandMode = "outline";
+		});
+
+		$("#btn-set-mode-stacked").on("click", function() {
+			subv.log("true");
+			subv.settings.expandMode = "stacked";
 		});
 
 		$("#width-splitter").on("change", function() {

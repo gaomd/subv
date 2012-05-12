@@ -39,6 +39,13 @@
 			</div>
 		</div>
 
+		<div class="btn-toolbar config-tb">
+			<div class="btn-group">
+				<button class="btn" id="btn-set-mode-inline">inline</button>
+				<button class="btn" id="btn-set-mode-outline">outline</button>
+				<button class="btn" id="btn-set-mode-stacked">stacked</button>
+			</div>
+		</div>
 		<div class="btn-toolbar width-tb">
 			<div class="width-tb-margin">
 				<input id="width-adjuster" type="range" min="0" max="24" value="6" step="1" />
@@ -112,27 +119,37 @@
 			<a class="author" href="{{=it.comments[0].user.path}}">{{=it.comments[0].user.name}}</a>
 			&middot; <span class="comments-count"><a href="{{=it.path}}">{{=it.comments_count}} comments</a></span>
 		</div>
-		<div class="item-comments">
-			<div class="js-loading"><h3 class="pagination-right">Loading...</h3></div>
-			<div class="op"></div>
-			<div class="page-1"><button class="btn btn-load-page js-load-page">load page 1</button></div>
-			<div class="page-2"><button class="btn btn-load-page js-load-page">load page 2</button></div>
-			<div class="page-3"><button class="btn btn-load-page js-load-page">load page 3</button></div>
-			<div class="page-4"><button class="btn btn-load-page js-load-page">load page 4</button></div>
-			<div class="page-5"><button class="btn btn-load-page js-load-page">load page 5</button></div>
-			<div class="page-6"><button class="btn btn-load-page js-load-page">load page 6</button></div>
-			<div class="page-7"><button class="btn btn-load-page js-load-page">load page 7</button></div>
-			<div class="page-8"><button class="btn btn-load-page js-load-page">load page 8</button></div>
-			<div class="page-9"><button class="btn btn-load-page js-load-page">load page 9</button></div>
-			<div class="page-10"><button class="btn btn-load-page js-load-page">load page 10</button></div>
-			<div>
-				<button class="btn btn-show-comment-box js-show-comment-box">add comment</button>
-				<form class="comment-form" method="post" action="{{=it.comment_url}}">
-					<textarea name="content" maxlength="10000" id="comment"></textarea>
-					<br/>
-					<input type="submit" class="btn comment-submit" value="post" />
-				</form>
-			</div>
+	</div>
+
+</script>
+
+<script type="text/template" id="item-comments-template">
+
+	<div class="js-loading"><h4>Loading...</h4></div>
+	<div class="item-comments">
+		<div class="op"></div>
+		<div class="page-1"><button class="btn btn-load-page js-load-page">load page 1</button></div>
+		<div class="page-2"><button class="btn btn-load-page js-load-page">load page 2</button></div>
+		<div class="page-3"><button class="btn btn-load-page js-load-page">load page 3</button></div>
+		<div class="page-4"><button class="btn btn-load-page js-load-page">load page 4</button></div>
+		<div class="page-5"><button class="btn btn-load-page js-load-page">load page 5</button></div>
+		<div class="page-6"><button class="btn btn-load-page js-load-page">load page 6</button></div>
+		<div class="page-7"><button class="btn btn-load-page js-load-page">load page 7</button></div>
+		<div class="page-8"><button class="btn btn-load-page js-load-page">load page 8</button></div>
+		<div class="page-9"><button class="btn btn-load-page js-load-page">load page 9</button></div>
+		<div class="page-10"><button class="btn btn-load-page js-load-page">load page 10</button></div>
+		<!-- comment maybe gone forever :(
+		<div>
+			<button class="btn btn-show-comment-box js-show-comment-box">add comment</button>
+			<form class="comment-form" method="post" action="{{=it.comment_url}}">
+				<textarea name="content" maxlength="10000" id="comment"></textarea>
+				<br/>
+				<input type="submit" class="btn comment-submit" value="post" />
+			</form>
+		</div>
+		-->
+		<div class="goto-item" id="goto-item-{{=it.id}}">
+			<button class="btn"><i class="icon-arrow-up"></i> back</button>
 		</div>
 	</div>
 
