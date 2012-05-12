@@ -27,11 +27,11 @@ window.subv = {
 	},
 	applySettings: function() {
 		var val;
-		val = amplify.store("width-splitter-value");
+		val = amplify.store("width-splitter-value") || $("#width-splitter").val();
 		if (val) {
 			$("#width-splitter").val(val).trigger("change");
 		}
-		val = amplify.store("width-adjuster-value");
+		val = amplify.store("width-adjuster-value") || $("#width-adjuster").val();
 		if (val) {
 			$("#width-adjuster").val(val).trigger("change");
 		}
@@ -64,6 +64,10 @@ window.subv = {
 		subv.clearList();
 		subv.currentPage = -1;
 		subv.loadNextList();
+		// scroll to top
+		$("body").animate({
+			"scrollTop": 0
+		});
 	},
 	item: {
 		markRead: function(id, comments) {

@@ -11,6 +11,7 @@ body {
 }
 
 *,
+p,
 input,
 button,
 select,
@@ -86,6 +87,11 @@ textarea {
 
 .footer-tb-more {
 	padding-left: 12px;
+}
+
+#nav,
+.width-tb {
+	padding: 0 1em;
 }
 
 .width-tb-margin {

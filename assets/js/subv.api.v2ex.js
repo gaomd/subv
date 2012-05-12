@@ -14,7 +14,9 @@ window.subv.api.v2ex = {
 		}
 		$.ajax({
 			"url": "http://www.v2ex.com" + url,
+			"type": "GET",
 			"success": function(html) {
+				html = subv.api.v2ex.extractResponse(html);
 				var items = subv.api.v2ex.parseItems(html);
 				callback(items)
 			}
@@ -27,12 +29,20 @@ window.subv.api.v2ex = {
 		}
 		$.ajax({
 			"url": url,
+			"type": "GET",
 			"success": function(html) {
+				html = subv.api.v2ex.extractResponse(html);
 				var item = subv.api.v2ex.parseItem(html);
 				item.id = id;
 				callback(item);
 			}
 		});
+	},
+	extractResponse: function(o) {
+		if (o.responseText) {
+			return o.responseText;
+		}
+		return o;
 	},
 
 stripAvatar: function(html) {
