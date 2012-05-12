@@ -219,11 +219,15 @@ window.subv = {
 		$("#width-splitter").on("change", function() {
 			var val = $(this).val();
 			amplify.store("width-splitter-value", val);
+			var witem = 100-val;
+			if (witem === 0) {
+				witem = 100;
+			}
 			$("#items").css({
 				"width": val + "%"
 			});
 			$("#item").css({
-				"width": (100-val) + "%"
+				"width": witem + "%"
 			});
 		});
 
