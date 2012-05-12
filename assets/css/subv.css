@@ -181,6 +181,10 @@ textarea {
 	display: none;
 }
 
+#item .item-comments {
+	display: block;
+}
+
 /* -------------------------- *
  * COMMENTS
  * -------------------------- */
@@ -221,12 +225,16 @@ div[class^=page-] .comment-item:nth-child(even) {
 	display: block;
 }
 
+.comment-no {
+	display: none;
+}
+
 .comment-meta {
 	margin-bottom: .2em;
 	color: #888;
 }
 
-.comment-meta.author a {
+.comment-meta .author a {
 	font-weight: 900;
 	color: #888;
 }
