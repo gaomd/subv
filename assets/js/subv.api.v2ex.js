@@ -100,7 +100,7 @@ parseItem: function(html) {
 			"id": ($this.find(".thank_area").attr("id") || "").split("_").pop(),
 			"no": ((current_page - 1) * 100 + (i+1)).toString(),
 			"content_html": $this.find("td:last-child > .reply_content").html(),
-			"time_ago": $this.find("td:last-child > .fade.small").text().split("前").shift() + "前",
+			"time_ago": $this.find("td:last-child .fade.small").eq(0).text(),
 			"time_iso": null,
 			"user": {
 				"id": null,
