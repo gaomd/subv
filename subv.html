@@ -102,15 +102,12 @@
 	<div class="item" id="item-{{=it.id}}-{{=it.comments_count}}">
 		<div class="item-heading">
 			<span class="status"></span>
-			<span class="tag">[<a href="{{=it.tag.path}}">{{=it.tag.name /* path.split("/").pop().toUpperCase() */}}</a>]</span><!--
-			--> <span class="title"><a class="clickpass" title="{{=it.title}}" href="{{=it.path}}">{{=it.title}}</a></span>
+			<span class="tag">[<a href="{{=it.tag.path}}">{{=it.tag.name}}</a>]</span>
+			<span class="title"><a class="clickpass" title="{{=it.title}}" href="{{=it.path}}">{{=it.title}}</a></span>
 		</div>
 		<div class="item-meta">
 			<a class="author" href="{{=it.comments[0].user.path}}">{{=it.comments[0].user.name}}</a>
 			&middot; <span class="comments-count"><a href="{{=it.path}}">{{=it.comments_count}} comments</a></span>
-			<!--
-			<span class="time" x-title="{{=it.last_updated_time_iso}}">{{=it.last_updated_time_ago}}</span>
-			-->
 		</div>
 		<div class="item-comments">
 			<div class="js-loading"><h3 class="pagination-right">Loading...</h3></div>
@@ -141,24 +138,17 @@
 <script type="text/template" id="comment-item-template">
 
 	<div class="comment-item" id="comment-{{=it.id}}">
-		<div class="comment-no">
-			<p>{{=it.no}}</p>
-		</div>
 		<div class="comment-main">
 			<div class="comment-meta">
 				<span class="author"><a href="{{=it.user.path}}">{{=it.user.name}}</a></span>
-				&middot;
-				<span class="time" x-title="{{=it.time_iso}}">{{=it.time_ago}}</span>
+				&middot; <span class="time" x-title="{{=it.time_iso}}">{{=it.time_ago}}</span>
+				&middot; <span class="no">#{{=it.no}}</span>
 			</div>
 			<div class="comment-content">
 				{{=it.content_html}}
 			</div>
 		</div>
 	</div>
-
-</script>
-
-<script type="text/template" id="comment-box-template">
 
 </script>
 </body>
