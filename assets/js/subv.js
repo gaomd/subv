@@ -69,7 +69,7 @@ window.subv = {
 		subv.currentPage = -1;
 		subv.loadNextList();
 		// scroll to top
-		$("body").animate({
+		$("html").animate({
 			"scrollTop": 0
 		});
 	},
@@ -123,7 +123,7 @@ window.subv = {
 				}
 			}
 			if (subv.settings.expandMode === "outline") {
-				$("body").animate({
+				$("html").animate({
 					"scrollTop": $itemx.offset().top
 				});
 			}
@@ -294,7 +294,7 @@ window.subv = {
 		$(document).on("click", ".goto-item", function() {
 			var id = $(this).attr("id").split("-").pop();
 			var $item = $("[id^=item-" + id + "]");
-			$("body").animate({
+			$("html").animate({
 				"scrollTop": $item.offset().top
 			});
 		});
