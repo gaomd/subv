@@ -18,8 +18,16 @@ textarea {
 	font-family: "Trebuchet MS", "Helvetica Neue", Helvetica, Arial, STHeiti, "Microsoft YaHei", "Droid Sans Fallback", "WenQuanYi Micro Hei", "WenQuanYi Zen Hei", sans-serif;
 }
 
-.container-fluid {
-	padding: 0; /* override bs */
+#wrapper {
+	padding: 0;
+	margin: 1em 0 0 0;
+}
+
+#content {
+	background-color: #f6f6ef;
+	min-height: 1024px;
+	padding-bottom: 128px;
+	overflow: auto; /* inner div is float */
 }
 
 /* -------------------------- *
@@ -42,11 +50,6 @@ textarea {
 	color: black;
 	text-decoration: none;
 }
-
-#nav {
-	padding: 1em 0;
-}
-
 /* -------------------------- *
  * ITEM
  * -------------------------- */
@@ -456,11 +459,13 @@ div[class^=page-] .comment-item:nth-child(even) {
 	width: 100%;
 }
 
+.width-tb,
 .footer-tb {
 	display: table;
 	width: 100%;
 }
 
+.width-tb > div,
 .footer-tb > div {
 	display: table-cell;
 }
@@ -474,3 +479,11 @@ div[class^=page-] .comment-item:nth-child(even) {
 	padding-left: 12px;
 }
 
+.width-tb-margin {
+	width: 30%;
+	padding-right: 12px;
+}
+
+.width-tb-splitter {
+	width: 100%;
+}

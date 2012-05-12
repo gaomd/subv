@@ -15,99 +15,87 @@
 	<title>Subv</title>
 </head>
 <body>
-	<div class="container-fluid">
-		<div class="row-fluid">
-			<div class="span12">
-				<div id="nav">
-					<a href="http://www.v2ex.com" class="brand" id="logo">Subv/<span class="brand-v2ex">V2EX</span></a>
-					<div class="pull-right">
-						<div class="btn-group" style="display: inline-block">
+	<div id="wrapper">
+		<div id="nav">
+			<a href="http://www.v2ex.com" class="brand" id="logo">Subv/<span class="brand-v2ex">V2EX</span></a>
+			<div class="pull-right">
+				<div class="btn-group" style="display: inline-block">
+					<button class="btn dropdown-toggle" data-toggle="dropdown">
+						<span id="notifications-count"></span>
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu dropdown-menu-no-caret">
+						<li><a href="#">my profile</a></li>
+						<li><a href="#">notifications</a></li>
+						<li><a href="#">favorites</a></li>
+						<li><a href="#">prefs</a></li>
+						<li class="divider"></li>
+						<li><a href="#">sign out</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="btn-toolbar width-tb">
+			<div class="width-tb-margin">
+				<input id="width-adjuster" type="range" min="0" max="24" value="6" step="1" />
+			</div>
+			<div class="width-tb-splitter">
+				<input id="width-splitter" type="range" min="30" max="100" value="50" step="1" />
+			</div>
+		</div>
+
+		<div id="content">
+			<div id="items">
+				<div id="latest"></div>
+		
+				<div class="btn-toolbar footer-tb">
+					<div class="footer-tb-reload">
+						<div class="btn-group">
+							<button id="btn-reload" class="btn">
+								<i class="icon-refresh"></i> Reload
+							</button>
 							<button class="btn dropdown-toggle" data-toggle="dropdown">
-								<span id="notifications-count"></span>
 								<span class="caret"></span>
 							</button>
-							<ul class="dropdown-menu dropdown-menu-no-caret">
-								<li><a href="#">my profile</a></li>
-								<li><a href="#">notifications</a></li>
-								<li><a href="#">favorites</a></li>
-								<li><a href="#">prefs</a></li>
-								<li class="divider"></li>
-								<li><a href="#">sign out</a></li>
+							<ul class="dropdown-menu">
+								<li><a id="btn-read-all" href="#">&amp; mark all as read</a></li>
+								<li><a id="btn-ban-all" href="#">&amp; ban unread (unban is not implemented)</a></li>
 							</ul>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row-fluid">
-			<div class="span12" id="width-controller-container">
-				<table>
-					<tr>
-						<td style="padding-right: 9px;">
-							<input id="width-adjuster" type="range" min="0" max="24" value="6" step="1" />
-						</td>
-						<td>
-							<input id="width-splitter" type="range" min="30" max="100" value="50" step="1" />
-						</td>
-					</tr>
-				</table>
-			</div>
-		</div>
-
-		<div class="row-fluid" style="background-color: #f6f6ef; min-height: 1024px; padding-bottom: 128px;">
-			<div class="span12">
-				<div id="items">
-					<div id="latest"></div>
-			
-					<div class="btn-toolbar footer-tb">
-						<div class="footer-tb-reload">
-							<div class="btn-group">
-								<button id="btn-reload" class="btn">
-									<i class="icon-refresh"></i> Reload
-								</button>
-								<button class="btn dropdown-toggle" data-toggle="dropdown">
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a id="btn-read-all" href="#">&amp; mark all as read</a></li>
-									<li><a id="btn-ban-all" href="#">&amp; ban unread (unban is not implemented)</a></li>
-								</ul>
-							</div>
-						</div>
-						<div class="footer-tb-more">
-							<div class="btn-group full-width">
-								<button class="btn" id="more">more</button>
-							</div>
+					<div class="footer-tb-more">
+						<div class="btn-group full-width">
+							<button class="btn" id="more">more</button>
 						</div>
 					</div>
-	
-					<div class="btn-toolbar">
-						<button class="btn full-width" id="read-items-toggle">
-							<span class="caret"></span>
-							Read Items
-							(<span id="read-items-counter">0</span>)
-						</button>
-					</div>
-					<div id="read"></div>
-			
-					<div class="btn-toolbar">
-						<button class="btn full-width" id="banned-items-toggle">
-							<span class="caret"></span>
-							Banned Items
-							(<span id="banned-items-counter">0</span>)
-						</button>
-						</button>
-					</div>
-					<div id="banned"></div>
-				</div><!-- /#items -->
-	
-				<div id="item">
-					<div id="view"></div>
 				</div>
-			</div><!-- /.span12 -->
-		</div><!-- /.row -->
-	</div><!-- .container -->
+
+				<div class="btn-toolbar">
+					<button class="btn full-width" id="read-items-toggle">
+						<span class="caret"></span>
+						Read Items
+						(<span id="read-items-counter">0</span>)
+					</button>
+				</div>
+				<div id="read"></div>
+		
+				<div class="btn-toolbar">
+					<button class="btn full-width" id="banned-items-toggle">
+						<span class="caret"></span>
+						Banned Items
+						(<span id="banned-items-counter">0</span>)
+					</button>
+					</button>
+				</div>
+				<div id="banned"></div>
+			</div><!-- /#items -->
+
+			<div id="item">
+				<div id="view"></div>
+			</div>
+		</div><!-- /#content -->
+	</div><!-- /#wrapper -->
 
 <script type="text/template" id="item-template">
 

@@ -231,8 +231,9 @@ window.subv = {
 			var val = $(this).val();
 			amplify.store("width-adjuster-value", val);
 			setTimeout(function() {
-				$(".container-fluid").css({
-					"margin": "0 "+val+"%"
+				$("#wrapper").css({
+					"margin-left": val+"%",
+					"margin-right": val+"%"
 				});
 			}, 1000);
 		});
