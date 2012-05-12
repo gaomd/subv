@@ -179,14 +179,6 @@ textarea {
 	font-weight: 900;
 }
 
-.item-comments {
-	display: none;
-}
-
-#item .item-comments {
-	display: block;
-}
-
 /* -------------------------- *
  * COMMENTS
  * -------------------------- */
@@ -284,6 +276,15 @@ div[class^=page-] .comment-item:nth-child(even) {
 .item.outline.expanding,
 .item.outline-stacked.expanding {
 	background-color: #f6f6b6;
+}
+
+.item-comments {
+	margin-top: 1em;
+	display: none;
+}
+
+#item .item-comments {
+	display: block;
 }
 
 .item.expanding .item-comments {
