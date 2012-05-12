@@ -113,9 +113,16 @@ window.subv = {
 				.append($item.find(".item-comments").clone())
 				.appendTo("#item");
 			var $loading = $view.find(".js-loading").show();
-		
+			var $gotoItem = $('<div class="goto-item" id="goto-item-' + id + '"><button class="btn"><i class="icon-arrow-left"></i> back</button></div>');
+
+			$("body").animate({
+				"scrollTop": $("#item").offset().top
+			});
+	
 			subv.api.v2ex.getItem(id, null, function(item) {
 				subv.log(item);
+				// title
+				$view.prepend($item.find(".item-heading").clone());
 				// op
 				var $op = $view.find(".op");
 				var template = $("#comment-item-template").text();
@@ -132,6 +139,7 @@ window.subv = {
 					$page.append(t);
 				}
 				$loading.hide();
+				$view.append($gotoItem);
 		
 				subv.log("marking "+id+"-"+item.comments_count+" as read");
 				subv.item.markRead(id, item.comments_count);
@@ -255,6 +263,15 @@ window.subv = {
 			var page = $(this).parent().attr("class").split("-").pop();
 			subv.log("loading page " + page);
 		});
+
+		$(document).on("click", ".goto-item", function() {
+			var id = $(this).attr("id").split("-").pop();
+			var $item = $("[id^=item-" + id + "]");
+			$("body").animate({
+				"scrollTop": $item.offset().top
+			});
+		});
+
 	},
 };
 

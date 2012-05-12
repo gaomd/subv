@@ -27,7 +27,7 @@ textarea {
 #content {
 	background-color: #f6f6ef;
 	min-height: 1024px;
-	padding-bottom: 128px;
+	padding-bottom: 100%;
 	overflow: auto; /* inner div is float */
 }
 
@@ -148,7 +148,7 @@ textarea {
 	background-color: #f6f6b6;
 }
 
-.item .item-heading {
+.item-heading {
 	/*white-space: nowrap;*/
 	font-size: 1.1em;
 	font-weight: normal;
@@ -277,8 +277,13 @@ div[class^=page-] .comment-item:nth-child(even) {
 .btn-show-comment-box {
 	width: 100%;
 }
+
 .btn-load-page {
 	width: 100%;
+}
+
+.goto-item {
+	margin-top: 1em;
 }
 
 /* -------------------------- *
