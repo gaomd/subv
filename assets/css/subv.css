@@ -25,31 +25,22 @@ textarea {
 /* -------------------------- *
  * NAV
  * -------------------------- */
-/*
-#logo:before {
-	content: "Subv";
-	font-size: 80%;
-	vertical-align: super;
-}
-*/
-
 .brand {
-	font-family: "Arial Black", arial, sans-serif;
-	font-weight: 900;
 	font-size: 2em;
 	color: black;
 	text-decoration: none;
 }
 
+.brand-v2ex {
+	font-family: "Arial Black", Arial, sans-serif;
+	font-weight: 900;
+}
+
+
 .brand:hover,
 .brand:active {
 	color: black;
 	text-decoration: none;
-}
-
-#nav .search-form {
-	display: inline-block;
-	margin: 0;
 }
 
 #nav {
@@ -388,6 +379,11 @@ div[class^=page-] .comment-item:nth-child(even) {
 #read,
 #banned {
 	display: none;
+}
+
+#read-items-toggle,
+#banned-items-toggle {
+	text-align: left;
 }
 
 #latest {
