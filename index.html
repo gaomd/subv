@@ -1,79 +1,175 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN" manifest="subv.appcache">
 <head>
 	<meta charset="UTF-8" />
-	<!--<meta name="viewport" content="width=device-width, initial-scale=1.0" />-->
-	<title>Get Subv</title>
-	<link rel="stylesheet" href="assets/third/css/bootstrap.css" />
-	<script type="text/javascript">
-		function callback(data) {
-			//console.log("callbacked");
-			//console.log("version_latest: " + data.version_latest);
-			var v = document.getElementById("version");
-			v.innerText = data.version_latest;
-			var d = document.getElementById("download");
-			d.href += "?v=" + data.version_latest;
-		}
-	</script>
-	<style>
-		.btn-huge {
-			font-size: 2em;
-			margin-right: 1em;
-		}
-		.container {
-			width: 640px;
-		}
-		.latest-version {
-			margin-top: 1em;
-		}
-		.span8 {
-			margin-top: 100px;
-		}
-		#chrome-logo {
-			width: 48px;
-			margin-right: 12px;
-		}
-		img {
-			width: 100%;
-		}
-		body {
-			padding-bottom: 128px;
-		}
-	</style>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="assets/third/css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="assets/third/css/bootstrap-responsive.css" />
+	<link rel="stylesheet" type="text/css" href="assets/third/css/font-awesome.css" />
+	<script type="text/javascript" src="assets/third/js/jquery.js"></script>
+	<script type="text/javascript" src="assets/third/js/jquery.xdomainajax.js"></script>
+	<script type="text/javascript" src="assets/third/js/amplify.store.js"></script>
+	<script type="text/javascript" src="assets/third/js/doT.js"></script>
+	<script type="text/javascript" src="assets/third/js/bootstrap.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="assets/css/subv.css" />
+	<script type="text/javascript" src="assets/js/subv.js"></script>
+	<script type="text/javascript" src="assets/js/subv.api.v2ex.js"></script>
+	<title>Subv</title>
 </head>
 <body>
-	<div class="container">
-		<div class="row">
-			<div class="span8">
-				<h1 style="margin-bottom: 1em"><img src="http://upload.wikimedia.org/wikipedia/en/thumb/f/fa/Google_Chrome_2011_computer_icon.svg/200px-Google_Chrome_2011_computer_icon.svg.png" alt="Google Chrome Logo" id="chrome-logo">Subv is a Google Chrome extension.</h1>
-				<a class="btn btn-large btn-primary btn-huge" id="download" href="http://gdd.github.com/download/subv/subv-latest.crx">Install Subv</a>
-				<a class="btn btn-large btn-huge" href="https://github.com/gDD/subv">Fork me on GitHub</a>
-				<h6 class="latest-version">latest version: <span id="version">checking...</span></h6>
+	<div id="wrapper">
+		<div id="nav">
+			<a href="http://www.v2ex.com" class="brand" id="logo">Subv/<span class="brand-v2ex">V2EX</span></a>
+			<div class="pull-right">
+				<div class="btn-group" style="display: inline-block">
+					<button class="btn dropdown-toggle" data-toggle="dropdown">
+						<span id="notifications-count"></span>
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu dropdown-menu-no-caret">
+						<li><a href="#">my profile</a></li>
+						<li><a href="#">notifications</a></li>
+						<li><a href="#">favorites</a></li>
+						<li><a href="#">prefs</a></li>
+						<li class="divider"></li>
+						<li><a href="#">sign out</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="span8">
-				<h1>Screenshot:</h1>
-				<a title="we love screenshot" href="http://i.imgur.com/eLrnr.png"><img src="http://i.imgur.com/eLrnr.png" alt="screenshot" /></a>
+
+		<div class="btn-toolbar config-tb">
+			<div class="btn-group">
+				<button class="btn" id="btn-set-mode-inline">inline</button>
+				<button class="btn" id="btn-set-mode-outline">outline</button>
+				<button class="btn" id="btn-set-mode-stacked">stacked</button>
+			</div>
+		</div>
+		<div class="btn-toolbar width-tb">
+			<div class="width-tb-margin">
+				<input id="width-adjuster" type="range" min="0" max="24" value="6" step="1" />
+			</div>
+			<div class="width-tb-splitter">
+				<input id="width-splitter" type="range" min="30" max="100" value="50" step="1" />
+			</div>
+		</div>
+
+		<div id="content">
+			<div id="items">
+				<div id="latest"></div>
+
+				<div class="btn-toolbar footer-tb">
+					<div class="footer-tb-reload">
+						<div class="btn-group">
+							<button id="btn-reload" class="btn">
+								<i class="icon-refresh"></i> Reload
+							</button>
+							<button class="btn dropdown-toggle" data-toggle="dropdown">
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a id="btn-read-all" href="#">&amp; mark all as read</a></li>
+								<li><a id="btn-ban-all" href="#">&amp; ban unread (unban is not implemented)</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="footer-tb-more">
+						<div class="btn-group full-width">
+							<button class="btn full-width" id="more">more</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="btn-toolbar">
+					<button class="btn full-width" id="read-items-toggle">
+						<span class="caret"></span>
+						Read Items
+						(<span id="read-items-counter">0</span>)
+					</button>
+				</div>
+				<div id="read"></div>
+
+				<div class="btn-toolbar">
+					<button class="btn full-width" id="banned-items-toggle">
+						<span class="caret"></span>
+						Banned Items
+						(<span id="banned-items-counter">0</span>)
+					</button>
+					</button>
+				</div>
+				<div id="banned"></div>
+			</div><!-- /#items -->
+
+			<div id="item">
+				<div id="view"></div>
+			</div><!-- /#item -->
+		</div><!-- /#content -->
+	</div><!-- /#wrapper -->
+
+<script type="text/template" id="item-template">
+
+	<div class="item" id="item-{{=it.id}}-{{=it.comments_count}}">
+		<div class="item-heading">
+			<span class="status"></span>
+			<span class="tag">[<a href="{{=it.tag.path}}">{{=it.tag.name}}</a>]</span>
+			<span class="title"><a class="clickpass" title="{{=it.title}}" href="{{=it.path}}">{{=it.title}}</a></span>
+		</div>
+		<div class="item-meta">
+			<a class="author" href="{{=it.comments[0].user.path}}">{{=it.comments[0].user.name}}</a>
+			&middot; <span class="comments-count"><a href="{{=it.path}}">{{=it.comments_count}} comments</a></span>
+		</div>
+	</div>
+
+</script>
+
+<script type="text/template" id="item-comments-template">
+
+	<div class="js-loading"><h4>Loading...</h4></div>
+	<div class="item-comments">
+		<div class="op"></div>
+		<div class="page-1"><button class="btn btn-load-page js-load-page">load page 1</button></div>
+		<div class="page-2"><button class="btn btn-load-page js-load-page">load page 2</button></div>
+		<div class="page-3"><button class="btn btn-load-page js-load-page">load page 3</button></div>
+		<div class="page-4"><button class="btn btn-load-page js-load-page">load page 4</button></div>
+		<div class="page-5"><button class="btn btn-load-page js-load-page">load page 5</button></div>
+		<div class="page-6"><button class="btn btn-load-page js-load-page">load page 6</button></div>
+		<div class="page-7"><button class="btn btn-load-page js-load-page">load page 7</button></div>
+		<div class="page-8"><button class="btn btn-load-page js-load-page">load page 8</button></div>
+		<div class="page-9"><button class="btn btn-load-page js-load-page">load page 9</button></div>
+		<div class="page-10"><button class="btn btn-load-page js-load-page">load page 10</button></div>
+		<!-- comment maybe gone forever :(
+		<div>
+			<button class="btn btn-show-comment-box js-show-comment-box">add comment</button>
+			<form class="comment-form" method="post" action="{{=it.comment_url}}">
+				<textarea name="content" maxlength="10000" id="comment"></textarea>
+				<br/>
+				<input type="submit" class="btn comment-submit" value="post" />
+			</form>
+		</div>
+		-->
+		<div class="goto-item" id="goto-item-{{=it.id}}">
+			<button class="btn"><i class="icon-arrow-up"></i> back</button>
+		</div>
+	</div>
+
+</script>
+
+<script type="text/template" id="comment-item-template">
+
+	<div class="comment-item" id="comment-{{=it.id}}">
+		<div class="comment-main">
+			<div class="comment-meta">
+				<span class="no">{{=it.no}}<sup>#</sup></span>
+				&middot; <span class="author"><a href="{{=it.user.path}}">{{=it.user.name}}</a></span>
+				&middot; <span class="time" x-title="{{=it.time_iso}}">{{=it.time_ago}}</span>
+			</div>
+			<div class="comment-content">
+				{{=it.content_html}}
 			</div>
 		</div>
 	</div>
-	<!-- display the latest version -->
-	<script type="text/javascript" src="https://raw.github.com/gDD/download/gh-pages/subv/subv-latest.jsonp"></script>
-	<script type="text/javascript">
 
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-26964051-1']);
-		_gaq.push(['_setDomainName', 'meiar.org']);
-		_gaq.push(['_trackPageview']);
-
-		(function() {
-		  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
-
-	</script>
+</script>
 </body>
-</html>
 <!-- EOF -->

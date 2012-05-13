@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1.0" />-->
+	<title>Get Subv</title>
+	<link rel="stylesheet" href="assets/third/css/bootstrap.css" />
+	<script type="text/javascript">
+		function callback(data) {
+			//console.log("callbacked");
+			//console.log("version_latest: " + data.version_latest);
+			var v = document.getElementById("version");
+			v.innerText = data.version_latest;
+			var d = document.getElementById("download");
+			d.href += "?v=" + data.version_latest;
+		}
+	</script>
+	<style>
+		.btn-huge {
+			font-size: 2em;
+			margin-right: 1em;
+		}
+		.container {
+			width: 640px;
+		}
+		.latest-version {
+			margin-top: 1em;
+		}
+		.span8 {
+			margin-top: 100px;
+		}
+		#chrome-logo {
+			width: 48px;
+			margin-right: 12px;
+		}
+		img {
+			width: 100%;
+		}
+		body {
+			padding-bottom: 128px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="span8">
+				<h1 style="margin-bottom: 1em"><img src="http://upload.wikimedia.org/wikipedia/en/thumb/f/fa/Google_Chrome_2011_computer_icon.svg/200px-Google_Chrome_2011_computer_icon.svg.png" alt="Google Chrome Logo" id="chrome-logo">Subv is a Google Chrome extension.</h1>
+				<a class="btn btn-large btn-primary btn-huge" id="download" href="http://gdd.github.com/download/subv/subv-latest.crx">Install Subv</a>
+				<a class="btn btn-large btn-huge" href="https://github.com/gDD/subv">Fork me on GitHub</a>
+				<h6 class="latest-version">latest version: <span id="version">checking...</span></h6>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span8">
+				<h1>Screenshot:</h1>
+				<a title="we love screenshot" href="http://i.imgur.com/eLrnr.png"><img src="http://i.imgur.com/eLrnr.png" alt="screenshot" /></a>
+			</div>
+		</div>
+	</div>
+	<!-- display the latest version -->
+	<script type="text/javascript" src="https://raw.github.com/gDD/download/gh-pages/subv/subv-latest.jsonp"></script>
+	<script type="text/javascript">
+
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-26964051-1']);
+		_gaq.push(['_setDomainName', 'meiar.org']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+		  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+
+	</script>
+</body>
+</html>
+<!-- EOF -->

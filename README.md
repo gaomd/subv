@@ -7,7 +7,11 @@ It's currently designed/developed as an extension to Google Chrome, maybe later 
 
 Use
 ---
-1. Download from http://gdd.github.com/subv
+1. Visit http://gdd.github.com/subv/
+
+OR
+
+1. Download Chrome Extension from http://gdd.github.com/subv/get.html
 
 2. And you're done, click the tmp/ugly Subv icon (![](//github.com/gDD/subv/raw/master/assets/image/icon9.png)) besides the wrench icon to start Subv.
 
