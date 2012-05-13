@@ -53,7 +53,6 @@ textarea {
 	overflow-y: auto;
 	float: left;
 	margin-left: 0; /* override .span */
-	padding: 1em;
 }
 
 #item {
@@ -70,6 +69,10 @@ textarea {
 #item::-webkit-scrollbar-thumb {
 	border-radius: 2px;
 	background: rgba(0,0,0,.5);
+}
+
+#viewport-width-selector {
+	width: auto;
 }
 
 .width-tb,
@@ -95,7 +98,11 @@ textarea {
 #nav,
 .config-tb,
 .width-tb {
-	padding: 0 1em;
+	padding: 0 .5em;
+}
+#item,
+#items {
+	padding: .5em;
 }
 
 .width-tb-margin {

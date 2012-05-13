@@ -1,0 +1,115 @@
+<html>
+	<head>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta id="vp" name="viewport" content=""/>
+		<style>
+			* {
+				font-family: "Helvetica Neue", sans-serif;
+			}
+			body {
+				word-break: break-word;
+				border: 4px solid black;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<h3 id="output"></h3>
+		<h3 id="output2"></h3>
+		<label for="init">init</label>
+		<select id="init">
+			<option value="">none</option>
+			<option value="initial-scale=1.0" selected="selected">1.0</option>
+			<option value="initial-scale=0.1">0.1</option>
+			<option value="initial-scale=0.2">0.2</option>
+			<option value="initial-scale=0.3">0.3</option>
+			<option value="initial-scale=0.4">0.4</option>
+			<option value="initial-scale=0.5">0.5</option>
+			<option value="initial-scale=0.6">0.6</option>
+			<option value="initial-scale=0.7">0.7</option>
+			<option value="initial-scale=0.8">0.8</option>
+			<option value="initial-scale=0.9">0.9</option>
+			<option value="initial-scale=1.0">1.0</option>
+			<option value="initial-scale=1.1">1.1</option>
+			<option value="initial-scale=1.2">1.2</option>
+			<option value="initial-scale=1.3">1.3</option>
+			<option value="initial-scale=1.4">1.4</option>
+			<option value="initial-scale=1.5">1.5</option>
+			<option value="initial-scale=1.6">1.6</option>
+			<option value="initial-scale=1.7">1.7</option>
+			<option value="initial-scale=1.8">1.8</option>
+			<option value="initial-scale=1.9">1.9</option>
+			<option value="initial-scale=2.0">2.0</option>
+		</select>
+		<label for="max">max</label>
+		<select id="max">
+			<option value="" selected="selected">none</option>
+			<option value="maximum-scale=1.0">1.0</option>
+			<option value="maximum-scale=1.6">1.6</option>
+		</select>
+		<label for="min">min</label>
+		<select id="min">
+			<option value="" selected="selected">none</option>
+			<option value="minimum-scale=1.0">1.0</option>
+			<option value="minimum-scale=0.25">0.25</option>
+		</select>
+		<label for="width">width</label>
+		<select id="width">
+			<option value="">none</option>
+			<option value="width=device-width" selected="selected">device-width</option>
+			<option value="width=240">240</option>
+			<option value="width=320">320</option>
+			<option value="width=480">480</option>
+			<option value="width=960">960</option>
+		</select>
+		<label for="scalable">scalable</label>
+		<select id="scalable">
+			<option value="" selected="selected">none</option>
+			<option value="user-scalable=1">yes</option>
+			<option value="user-scalable=0">no</option>
+		</select>
+
+
+<script>
+	(function(w, d) {
+	var output = d.getElementById("output"),
+		output2 = d.getElementById("output2"),
+		vp = d.getElementById("vp"),
+		min = d.getElementById("min"),
+		max = d.getElementById("max"),
+		init = d.getElementById("init"),
+		width = d.getElementById("width"),
+		scalable = d.getElementById("scalable"),
+		updateVp = function() {
+			var content = "," +
+				min.options[min.selectedIndex].value + "," +
+				max.options[max.selectedIndex].value + "," +
+				init.options[init.selectedIndex].value + "," +
+				width.options[width.selectedIndex].value + "," +
+				scalable.options[scalable.selectedIndex].value + ",";
+			content = content.replace(/,+/g, ",").replace(/^,|,$/g, "");
+			vp.content = "";
+			vp.content = content;
+			output2.innerText = vp.content;
+		},
+		updateSize = function() {
+			var ww = window.innerWidth,
+				wh = window.innerHeight;
+
+			output.innerText = ww + " x " + wh + " / " + screen.width + " x " + screen.height;
+		};
+
+		//w.addEventListener("resize", updateSize, false);
+		setInterval(updateSize, 1000);
+		min.addEventListener("change", updateVp);
+		max.addEventListener("change", updateVp);
+		init.addEventListener("change", updateVp);
+		width.addEventListener("change", updateVp);
+		scalable.addEventListener("change", updateVp);
+		updateVp();
+		updateSize();
+	})(window, document);
+</script>
+
+	</body>
+</html>

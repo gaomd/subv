@@ -4,9 +4,22 @@
  * Licensed under the MIT License
  */
 
+(function(d) {
+	d.addEventListener("gesturestart", function() {
+		var meta = d.getElementById("viewport-fix");
+		meta.content = "minimum-scale=0.25, maximum-scale=1.6";
+		console.log(meta.content);
+		setTimeout(function() {
+			console.log(meta.content);
+		}, 2000);
+	}, false);
+}(document));
+
+(function(window) {
+
 "use strict";
 
-window.subv = {
+var _subv = {
 	currentPage: -1,
 	settings: {
 		expandMode: "outline", // inline, outline, stacked
@@ -300,8 +313,16 @@ window.subv = {
 			});
 		});
 
+		$("#viewport-width-selector").on("change", function() {
+			$("#viewport-width").attr("content", $(this).find("option:selected").val());
+			subv.log("viewport settings changed to " + $("#viewport-width").attr("content"));
+		});
 	},
 };
+
+window.subv = _subv;
+
+}(window));
 
 $(subv.init);
 

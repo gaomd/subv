@@ -15,3 +15,6 @@ assets/js/subv.api.v2ex.js
 
 NETWORK:
 *
+http://*
+https://*
+
