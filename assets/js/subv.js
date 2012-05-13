@@ -291,8 +291,9 @@ window.subv = {
 			subv.log("loading page " + page);
 		});
 
-		$(document).on("click", ".goto-item", function() {
-			var id = $(this).attr("id").split("-").pop();
+		$(document).on("click", ".goto-item button", function() {
+			subv.log("goto clicked");
+			var id = $(this).parent().attr("id").split("-").pop();
 			var $item = $("[id^=item-" + id + "]");
 			$("html").animate({
 				"scrollTop": $item.offset().top
