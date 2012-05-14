@@ -325,3 +325,31 @@ div[class^=page-] .comment-item:nth-child(even) {
 	width: 100%;
 }
 
+input[type="range"] {
+	-webkit-appearance: none;
+	background-color: #eee;
+	/*height: 8px;*/
+}
+
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	background-color: #bbb;
+	height: 16px;
+	width: 16px;
+	border-radius: 8px;
+	border: 1px solid #eee;
+	cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+	background-color: #aaa;
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+	background-color: #888;
+}
+
+select {
+	cursor: pointer;
+}
+
