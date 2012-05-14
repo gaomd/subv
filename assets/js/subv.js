@@ -4,25 +4,28 @@
  * Licensed under the MIT License
  */
 
-(function(d) {
-	d.addEventListener("gesturestart", function() {
-		var meta = d.getElementById("viewport-fix");
-		meta.content = "minimum-scale=0.25, maximum-scale=1.6";
-		console.log(meta.content);
-		setTimeout(function() {
-			console.log(meta.content);
-		}, 2000);
-	}, false);
-}(document));
+/*global $:false, amplify:false, doT:false */
 
 (function(window) {
 
 "use strict";
 
-var _subv = {
+// http://webdesignerwall.com/tutorials/iphone-safari-viewport-scaling-bug
+// concept derived from: https://gist.github.com/901302
+// though i don't understand the true reason to do this.
+window.document.addEventListener("gesturestart", function() {
+	var meta = window.document.getElementById("viewport-fix");
+	meta.content = "minimum-scale=0.25, maximum-scale=1.6";
+	console.log(meta.content);
+	setTimeout(function() {
+		console.log(meta.content);
+	}, 2000);
+}, false);
+
+var subv = {
 	currentPage: -1,
 	settings: {
-		expandMode: "outline", // inline, outline, stacked
+		expandMode: "outline" // inline, outline, stacked
 	},
 	init: function() {
 		window.doT.templateSettings.strip = false;
@@ -149,20 +152,21 @@ var _subv = {
 			var template = doT.template( $("#item-comments-template").text() );
 			var $comments = $( template({ "id": id}) );
 			$itemx.append($comments);
-	
+
 			subv.api.v2ex.getItem(id, null, function(item) {
+				var template, i;
 				subv.log(item);
 				// op
 				var $op = $comments.find(".op");
-				var template = doT.template( $("#comment-item-template").text() );
+				template = doT.template( $("#comment-item-template").text() );
 				$op.append( template(item.comments[0]) );
 				// comments
-				for (var i = 1; i <= item.pages; i++) {
+				for (i = 1; i <= item.pages; i++) {
 					$comments.addClass("haspage-" + i);
 				}
 				var $page = $comments.find(".page-" + item.current_page).empty();
-				for (var i = 1; i < item.comments.length; i++) {
-					var template = doT.template( $("#comment-item-template").text() );
+				for (i = 1; i < item.comments.length; i++) {
+					template = doT.template( $("#comment-item-template").text() );
 					$page.append( template(item.comments[i]) );
 				}
 				$item.removeClass("expanding").addClass("expanded");
@@ -186,7 +190,7 @@ var _subv = {
 			$("#latest .item").each(function() {
 				var id = $(this).attr("id").split("-")[1];
 				var comments = $(this).attr("id").split("-")[2];
-				if (!item.isRead(id, comments)) {
+				if (!subv.item.isRead(id, comments)) {
 					subv.log("Banning " + id);
 					subv.item.markBan(id);
 				}
@@ -204,7 +208,7 @@ var _subv = {
 		});
 
 		$("#btn-ban-all").on("click", function() {
-			subv.items.markAllAsBanned()
+			subv.items.markAllAsBanned();
 		});
 
 		$("#logo, #btn-reload").on("click", function() {
@@ -242,15 +246,14 @@ var _subv = {
 			e.preventDefault();
 			var id = $(this).attr("action").split("/").pop();
 			subv.log("COMMENT FUNCTION DISABLED");
-			return false;
-			$.ajax({
-				"url": $(this).attr("action"),
-				"type": "POST",
-				"data": $(this).serialize(),
-				"success": function() {
-					subv.log("POST to " + id + " success!");
-				}
-			});
+			//$.ajax({
+			//	"url": $(this).attr("action"),
+			//	"type": "POST",
+			//	"data": $(this).serialize(),
+			//	"success": function() {
+			//		subv.log("POST to " + id + " success!");
+			//	}
+			//});
 		});
 
 		$("#btn-set-mode-inline").on("click", function() {
@@ -317,12 +320,12 @@ var _subv = {
 			$("#viewport-width").attr("content", $(this).find("option:selected").val());
 			subv.log("viewport settings changed to " + $("#viewport-width").attr("content"));
 		});
-	},
+	}
 };
 
-window.subv = _subv;
+window.subv = subv;
 
 }(window));
 
-$(subv.init);
+$(window.subv.init);
 

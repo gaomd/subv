@@ -4,9 +4,16 @@
  * Licensed under the MIT License
  */
 
+/*global subv:false */
+
+(function(window) {
+
+"use strict";
+
 window.subv.api = {};
 window.subv.api.v2ex = {
 	getItems: function(pageNo, callback) {
+		var url;
 		if (pageNo === 0) {
 			url = "/";
 		} else {
@@ -18,7 +25,7 @@ window.subv.api.v2ex = {
 			"success": function(html) {
 				html = subv.api.v2ex.extractResponse(html);
 				var items = subv.api.v2ex.parseItems(html);
-				callback(items)
+				callback(items);
 			}
 		});
 	},
@@ -73,7 +80,7 @@ parseMeta: function(html) {
 		, "signOut": {
 			  "path": prefix + "/logout"
 		}
-	}
+	};
 	var meta = {
 		  "isLoggedIn": false
 		, "signIn": {
@@ -82,7 +89,7 @@ parseMeta: function(html) {
 		, "signUp": {
 			  "path": prefix + "/signup"
 		}
-	}
+	};
 },
 parseItem: function(html) {
 	var prefix = "http://www.v2ex.com";
@@ -90,12 +97,12 @@ parseItem: function(html) {
 	var $j = $(html);
 
 	var topic = {};
-	var current_page = parseInt($j.find("span.page_current").text());
+	var current_page = parseInt($j.find("span.page_current").text(), 10);
 	if (!current_page) {
 		current_page = 1;
 	}
 	var comments = $j.find(".no").closest("table").map(function(i) {
-		$this = $(this);
+		var $this = $(this);
 		return {
 			"id": ($this.find(".thank_area").attr("id") || "").split("_").pop(),
 			"no": ((current_page - 1) * 100 + (i+1)).toString(),
@@ -107,11 +114,11 @@ parseItem: function(html) {
 				"name": $this.find("td:last-child > strong a").text(),
 				"path": prefix + $this.find("td:last-child > strong a").attr("href")
 			}
-		}
+		};
 	}).get();
 	var op = {
 		"id": Math.random().toString().substr(3,8), // avoid id collision, normal is 6 length
-		"no": 0..toString(),
+		"no": (0).toString(),
 		"content_html": $j.find(".topic_content").html() || "",
 		"time_ago": $j.find(".header small.gray").text().split(" at ").pop().split("前").shift() + "前",
 		"time_iso": null,
@@ -198,4 +205,6 @@ parseItems: function(html) {
 }
 
 };
+
+})(window);
 
