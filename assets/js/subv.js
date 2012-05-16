@@ -10,6 +10,12 @@
 
 "use strict";
 
+// we don't need all jQuery Mobile
+$(document).on("mobileinit", function() {
+	$.mobile.autoInitialize = false;
+	$.mobile.autoInitializePage = false;
+});
+
 // http://webdesignerwall.com/tutorials/iphone-safari-viewport-scaling-bug
 // concept derived from: https://gist.github.com/901302
 // though i don't understand the true reason to do this.
@@ -201,6 +207,10 @@ var subv = {
 	bindEvents: function() {
 		$(document).on("click", "a", function(e) {
 			e.preventDefault();
+		});
+
+		$("#prefs-toggle").on("click", function() {
+			$("#prefs").toggle();
 		});
 
 		$("#btn-read-all").on("click", function() {

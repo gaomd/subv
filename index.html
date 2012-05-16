@@ -5,70 +5,82 @@
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta id="viewport-width" name="viewport" content="initial-scale=1.0, width=320" />
 	<meta id="viewport-fix" name="viewport" content="" />
+	<!--<meta name="viewport" content="initial-scale=1.0" />-->
 	<link rel="apple-touch-icon" href="assets/image/more_human_mind.png" />
 	<link rel="icon" type="image/png" href="assets/image/16x.png" />
-	<!--<meta name="viewport" content="initial-scale=1.0" />-->
+
 	<link rel="stylesheet" type="text/css" href="assets/third/css/bootstrap.css" />
 	<link rel="stylesheet" type="text/css" href="assets/third/css/bootstrap-responsive.css" />
 	<link rel="stylesheet" type="text/css" href="assets/third/css/font-awesome.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/subv.css" />
+
 	<script type="text/javascript" src="assets/third/js/jquery.js"></script>
 	<script type="text/javascript" src="assets/third/js/jquery.xdomainajax.js"></script>
 	<script type="text/javascript" src="assets/third/js/amplify.store.js"></script>
 	<script type="text/javascript" src="assets/third/js/doT.js"></script>
 	<script type="text/javascript" src="assets/third/js/bootstrap.js"></script>
-
-	<link rel="stylesheet" type="text/css" href="assets/css/subv.css" />
 	<script type="text/javascript" src="assets/js/subv.js"></script>
 	<script type="text/javascript" src="assets/js/subv.api.v2ex.js"></script>
 	<title>Subv</title>
 </head>
 <body>
 	<div id="wrapper">
-		<div id="nav">
-			<a href="http://www.v2ex.com" class="brand" id="logo">Subv/<span class="brand-v2ex">V2EX</span></a>
-			<div class="pull-right">
-				<div class="btn-group" style="display: inline-block">
-					<button class="btn dropdown-toggle" data-toggle="dropdown">
-						<span id="notifications-count"></span>
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu dropdown-menu-no-caret">
-						<li><a href="#">my profile</a></li>
-						<li><a href="#">notifications</a></li>
-						<li><a href="#">favorites</a></li>
-						<li><a href="#">prefs</a></li>
-						<li class="divider"></li>
-						<li><a href="#">sign out</a></li>
-					</ul>
-				</div>
+		<div id="nav" class="btn-toolbar">
+			<div class="btn-group">
+				<a class="btn btn-large" href="http://www.v2ex.com">V2EX</a>
+				<button class="btn btn-large dropdown-toggle" data-toggle="dropdown">
+					<i class="icon-chevron-down"></i>
+				</button>
+				<ul class="dropdown-menu">
+					<li><a href="#">nope</a></li>
+				</ul>
+			</div>
+			<div class="btn-group">
+				<a class="btn btn-large" href="http://news.ycombinator.com">HN</a>
+				<button class="btn btn-large dropdown-toggle" data-toggle="dropdown">
+					<i class="icon-chevron-down"></i>
+				</button>
+				<ul class="dropdown-menu">
+					<li><a href="#">nope</a></li>
+				</ul>
+			</div>
+			<div class="btn-group pull-right">
+				<a href="#" class="btn btn-large" id="prefs-toggle"><i class="icon-cog"></i> Subv</a>
 			</div>
 		</div>
 
-		<div class="btn-toolbar config-tb">
-			<div class="btn-group">
-				<button class="btn" id="btn-set-mode-inline">inline</button>
-				<button class="btn" id="btn-set-mode-outline">outline</button>
-				<button class="btn" id="btn-set-mode-stacked">stacked</button>
+		<div id="prefs" class="">
+			<label>Comments expand:</label>
+			<div class="btn-toolbar">
+				<div class="btn-group">
+					<button class="btn" id="btn-set-mode-inline">inline</button>
+					<button class="btn" id="btn-set-mode-outline">outline</button>
+					<button class="btn" id="btn-set-mode-stacked">stacked</button>
+				</div>
 			</div>
-			<div class="btn-group">
-				<select id="viewport-width-selector">
-					<option value="initial-scale=1.0, width=device-width" selected="selected">device-width</option>
-					<option value="initial-scale=1.33, width=240">240</option>
-					<option value="initial-scale=1.14, width=280">280</option>
-					<option value="initial-scale=1.0, width=320">320</option>
-					<option value="initial-scale=0.88, width=360">360</option>
-					<option value="initial-scale=6.0, width=400">400</option>
-					<option value="initial-scale=7.0, width=440">440</option>
-					<option value="initial-scale=8.0, width=480">480</option>
-				</select>
+			<label>Mobile:</label>
+			<div class="btn-toolbar">
+				<div class="btn-group">
+					<select id="viewport-width-selector">
+						<option value="initial-scale=1.0, width=device-width" selected="selected">device-width</option>
+						<option value="initial-scale=1.33, width=240">240</option>
+						<option value="initial-scale=1.14, width=280">280</option>
+						<option value="initial-scale=1.0, width=320">320</option>
+						<option value="initial-scale=0.88, width=360">360</option>
+						<option value="initial-scale=6.0, width=400">400</option>
+						<option value="initial-scale=7.0, width=440">440</option>
+						<option value="initial-scale=8.0, width=480">480</option>
+					</select>
+				</div>
 			</div>
-		</div>
-		<div class="btn-toolbar width-tb">
-			<div class="width-tb-margin">
-				<input id="width-adjuster" type="range" min="0" max="24" value="6" step="1" />
-			</div>
-			<div class="width-tb-splitter">
-				<input id="width-splitter" type="range" min="30" max="100" value="50" step="1" />
+			<label>Width controllers:</label>
+			<div class="btn-toolbar width-tb">
+				<div class="width-tb-margin">
+					<input id="width-adjuster" type="range" min="0" max="24" value="6" step="1" />
+				</div>
+				<div class="width-tb-splitter">
+					<input id="width-splitter" type="range" min="30" max="100" value="50" step="1" />
+				</div>
 			</div>
 		</div>
 

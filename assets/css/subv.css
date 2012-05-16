@@ -95,11 +95,23 @@ textarea {
 	padding-left: 12px;
 }
 
-#nav,
-.config-tb,
-.width-tb {
-	padding: 0 .5em;
+#nav {
+	padding: .5em;
+	background-color: #f5f5f5;
+	/*background-color: #f6f6b6;*/
+	/*background-color: #e9b96e;*/
 }
+
+#nav .btn {
+	font-weight: 900;
+}
+
+#prefs {
+	display: none;
+	margin: 1em 0;
+	padding: .5em;
+}
+
 #item,
 #items {
 	padding: .5em;
@@ -136,6 +148,10 @@ textarea {
 	font-weight: 900;
 }
 
+.brand-hn {
+	font-family: Verdana, sans-serif;
+	font-weight: 900;
+}
 
 .brand:hover,
 .brand:active {
@@ -324,6 +340,7 @@ div[class^=page-] .comment-item:nth-child(even) {
 .full-width {
 	width: 100%;
 }
+
 
 input[type="range"] {
 	-webkit-appearance: none;
