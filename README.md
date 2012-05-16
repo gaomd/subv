@@ -5,7 +5,7 @@ Subv redesigns [V2EX.com](http://www.v2ex.com).
 
 Use
 ---
-Visit http://gdd.github.com/subv/
+Visit http://gdd.github.com/p/subv/
 
 Supported browser:
 
