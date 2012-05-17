@@ -1,16 +1,18 @@
 Subv
 ====
 
-Subv redesigns [V2EX.com](http://www.v2ex.com).
+Subv is a redesigned unified [V2EX](http://www.v2ex.com) and [Hacker News](http://news.ycombinator.com) reader.
+
+Hacker News part is a work in progress.
 
 Use
 ---
-Visit http://gdd.github.com/p/subv/
+Visit http://gdd.github.com/subv/
 
 Supported browser:
 
-1. Google Chrome 18+
-2. Mobile Safari on iOS 5 (at least)
+1. Google Chrome 19
+2. Safari on iOS 5.1 on iPhone/iPod touch
 
 Support in progress browser:
 
