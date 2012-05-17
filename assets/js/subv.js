@@ -213,13 +213,17 @@ var subv = {
 			$("#prefs").toggle();
 		});
 
+		/*
 		$("#btn-update").on("click", function() {
-			subv.log("checking appcache");
-			if (applicationCache.status === applicationCache.UPDATEREADY) {
-				applicationCache.swapCache();
-				if (confirm("App just got updated, refresh to view?")) {
-					location.reload();
-				}
+			applicationCache.update();
+		});
+		*/
+
+		$(applicationCache).on("updateready", function() {
+			subv.log("updating");
+			applicationCache.swapCache();
+			if (confirm("App just got updated, refresh to view?")) {
+				location.reload();
 			}
 		});
 
