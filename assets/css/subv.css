@@ -345,17 +345,18 @@ div[class^=page-] .comment-item:nth-child(even) {
 input[type="range"] {
 	-webkit-appearance: none;
 	background-color: #eee;
-	/*height: 8px;*/
+	height: 16px;
 }
 
 input[type="range"]::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	background-color: #bbb;
-	height: 16px;
-	width: 16px;
-	border-radius: 8px;
-	border: 1px solid #eee;
+	height: 32px;
+	width: 32px;
+	border-radius: 16px;
+	border: 2px solid #eee;
 	cursor: pointer;
+	box-shadow: 0 0 2px inset black;
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
