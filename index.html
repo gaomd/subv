@@ -21,6 +21,22 @@
 	<script type="text/javascript" src="assets/third/js/bootstrap.js"></script>
 	<script type="text/javascript" src="assets/js/subv.js"></script>
 	<script type="text/javascript" src="assets/js/subv.api.v2ex.js"></script>
+	<script>
+		if (!amplify.store("subv.settings.noTrack") && location.hostname === "mgao.org") {
+			subv.log("GA enabled");
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-26964051-1']);
+			_gaq.push(['_trackPageview']);
+	
+			(function() {
+			  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		} else {
+			subv.log("GA disabled");
+		}
+	</script>
 	<title>Subv</title>
 </head>
 <body>
