@@ -1,18 +1,21 @@
 CACHE MANIFEST
 
-# VERSION: [MzIxNzgK]
+# VERSION: [MTIyNjkK]
 
+assets/css/subv.css
+assets/image/16x.png
+assets/image/more_human_mind.png
+assets/js/subv.js
+assets/js/subv.api.v2ex.js
 assets/third/css/bootstrap.css
 assets/third/css/bootstrap-responsive.css
 assets/third/css/font-awesome.css
+assets/third/font/fontawesome-webfont.woff
 assets/third/js/jquery.js
 assets/third/js/jquery.xdomainajax.js
 assets/third/js/amplify.store.js
 assets/third/js/doT.js
 assets/third/js/bootstrap.js
-assets/css/subv.css
-assets/js/subv.js
-assets/js/subv.api.v2ex.js
 
 NETWORK:
 *
