@@ -83,7 +83,9 @@ var subv = {
 	clearList: function() {
 		$("#latest").html("");
 		$("#read").hide().html("");
+		$("#read-items-counter").text("0");
 		$("#banned").hide().html("");
+		$("#banned-items-counter").text("0");
 		$("#item").html("");
 	},
 	refreshList: function() {
@@ -219,14 +221,6 @@ var subv = {
 		});
 		*/
 
-		$(applicationCache).on("updateready", function() {
-			subv.log("updating");
-			applicationCache.swapCache();
-			if (confirm("App just got updated, refresh to view?")) {
-				location.reload();
-			}
-		});
-
 		$("#btn-read-all").on("click", function() {
 			subv.items.markAllAsRead();
 		});
@@ -351,5 +345,21 @@ window.subv = subv;
 
 }(window));
 
-$(window.subv.init);
+/*
+(function() {
+	subv.log("hooking updateready");
+	applicationCache.addEventListener("updateready", function() {
+		subv.log("updating");
+		applicationCache.swapCache();
+		if (confirm("App just got updated, refresh to view?")) {
+			location.reload();
+		}
+	}, false);
+}());
+*/
+
+$(function() {
+	subv.log("document ready");
+	subv.init();
+});
 

@@ -58,7 +58,7 @@
 				</ul>
 			</div>
 			<div class="btn-group pull-right">
-				<a href="#" class="btn btn-large" id="prefs-toggle"><i class="icon-cog"></i> Subv</a>
+				<a href="#" class="btn btn-large" id="prefs-toggle"><i class="icon-cog"></i></a>
 			</div>
 		</div>
 
@@ -96,10 +96,10 @@
 			<label>Width controllers:</label>
 			<div class="btn-toolbar width-tb">
 				<div class="width-tb-margin">
-					<input id="width-adjuster" type="range" min="0" max="24" value="6" step="1" />
+					<input id="width-adjuster" type="range" min="0" max="24" value="0" step="1" />
 				</div>
 				<div class="width-tb-splitter">
-					<input id="width-splitter" type="range" min="30" max="100" value="50" step="1" />
+					<input id="width-splitter" type="range" min="30" max="100" value="100" step="1" />
 				</div>
 			</div>
 		</div>
@@ -154,19 +154,26 @@
 				<div id="view"></div>
 			</div><!-- /#item -->
 		</div><!-- /#content -->
+		<div id="footer">
+			<a class="pull-right" href="https://github.com/gdd/subv">Subv</a>
+		</div>
 	</div><!-- /#wrapper -->
 
 <script type="text/template" id="item-template">
 
-	<div class="item" id="item-{{=it.id}}-{{=it.comments_count}}">
-		<div class="item-heading">
-			<span class="status"></span>
-			<span class="tag">[<a href="{{=it.tag.path}}">{{=it.tag.name}}</a>]</span>
-			<span class="title"><a class="clickpass" title="{{=it.title}}" href="{{=it.path}}">{{=it.title}}</a></span>
+	<div class="item btn" id="item-{{=it.id}}-{{=it.comments_count}}">
+		<div class="item-cell item-main">
+			<div class="item-heading">
+				<span class="status"></span>
+				<span class="tag">[<a href="{{=it.tag.path}}">{{=it.tag.name}}</a>]</span>
+				<span class="title"><a class="clickpass" title="{{=it.title}}" href="{{=it.path}}">{{=it.title}}</a></span>
+			</div>
+			<div class="item-meta">
+				<a class="author" href="{{=it.comments[0].user.path}}">{{=it.comments[0].user.name}}</a>
+			</div>
 		</div>
-		<div class="item-meta">
-			<a class="author" href="{{=it.comments[0].user.path}}">{{=it.comments[0].user.name}}</a>
-			&middot; <span class="comments-count"><a href="{{=it.path}}">{{=it.comments_count}} comments</a></span>
+		<div class="item-cell item-stats">
+			<a class="comments-count label" href="{{=it.path}}">{{=it.comments_count}}</a>
 		</div>
 	</div>
 
@@ -198,7 +205,7 @@
 		</div>
 		-->
 		<div class="goto-item" id="goto-item-{{=it.id}}">
-			<button class="btn"><i class="icon-arrow-up"></i> back</button>
+			<button class="btn"><i class="icon-chevron-left"></i> BACK</button>
 		</div>
 	</div>
 
