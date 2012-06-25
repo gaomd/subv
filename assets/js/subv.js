@@ -31,11 +31,10 @@ window.document.addEventListener("gesturestart", function() {
 var subv = {
 	currentPage: -1,
 	settings: {
-		expandMode: "outline" // inline, outline, stacked
+		expandMode: amplify.store("subv.settings.expandMode")
 	},
 	init: function() {
 		window.doT.templateSettings.strip = false;
-		subv.settings.expandMode = "outline";
 		subv.bindEvents();
 		subv.clearList();
 		subv.loadNextList();
@@ -51,7 +50,10 @@ var subv = {
 			console.log("LOG: " + context);
 		}
 	},
+	/* load settings form storage then sync to the UI */
 	applySettings: function() {
+		amplify.store("subv.settings.expandMode", subv.settings.expandMode);
+
 		var val;
 		val = amplify.store("width-splitter-value") || $("#width-splitter").val();
 		if (val) {
@@ -60,6 +62,18 @@ var subv = {
 		val = amplify.store("width-adjuster-value") || $("#width-adjuster").val();
 		if (val) {
 			$("#width-adjuster").val(val).trigger("change");
+		}
+
+		// expand mode
+		$(".js-btn-set-mode").removeClass("active");
+		var mode = amplify.store("subv.settings.expandMode") || "";
+		subv.log("current mode is " + mode);
+		if (mode === "stacked") {
+			$("#btn-set-mode-stacked").addClass("active");
+		} else if (mode === "inline") {
+			$("#btn-set-mode-inline").addClass("active");
+		} else {
+			$("#btn-set-mode-outline").addClass("active");
 		}
 	},
 	loadNextList: function() {
@@ -275,18 +289,18 @@ var subv = {
 		});
 
 		$("#btn-set-mode-inline").on("click", function() {
-			subv.log("true");
 			subv.settings.expandMode = "inline";
+			subv.applySettings();
 		});
 
 		$("#btn-set-mode-outline").on("click", function() {
-			subv.log("true");
 			subv.settings.expandMode = "outline";
+			subv.applySettings();
 		});
 
 		$("#btn-set-mode-stacked").on("click", function() {
-			subv.log("true");
 			subv.settings.expandMode = "stacked";
+			subv.applySettings();
 		});
 
 		$("#width-splitter").on("change", function() {
@@ -350,7 +364,7 @@ window.subv = subv;
 	applicationCache.addEventListener("updateready", function() {
 		subv.log("updateready, now swapCache()");
 		applicationCache.swapCache();
-		if (confirm("App just got updated, refresh to view?")) {
+		if (confirm("Refresh to use updated version?")) {
 			location.reload();
 		}
 	}, false);

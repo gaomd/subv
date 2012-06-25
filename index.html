@@ -73,9 +73,9 @@
 			<label>Comments expand:</label>
 			<div class="btn-toolbar">
 				<div class="btn-group">
-					<button class="btn" id="btn-set-mode-inline">inline</button>
-					<button class="btn" id="btn-set-mode-outline">outline</button>
-					<button class="btn" id="btn-set-mode-stacked">stacked</button>
+					<button class="btn js-btn-set-mode" id="btn-set-mode-inline">inline</button>
+					<button class="btn js-btn-set-mode" id="btn-set-mode-outline">outline</button>
+					<button class="btn js-btn-set-mode" id="btn-set-mode-stacked">stacked</button>
 				</div>
 			</div>
 			<label>Mobile (not working as expected currently):</label>
@@ -160,7 +160,7 @@
 
 <script type="text/template" id="item-template">
 
-	<div class="item btn" id="item-{{=it.id}}-{{=it.comments_count}}">
+	<div class="item" id="item-{{=it.id}}-{{=it.comments_count}}">
 		<div class="table">
 			<div class="table-cell item-main">
 				<div class="item-heading">
@@ -170,7 +170,7 @@
 				</div>
 				<div class="item-meta">
 					<a class="author" href="{{=it.comments[0].user.path}}">{{=it.comments[0].user.name}}</a>
-					<span class="js-loading">&middot; loading...</span>
+					<span class="js-loading">&middot; Loading...</span>
 				</div>
 			</div>
 			<div class="table-cell item-stats">

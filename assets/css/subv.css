@@ -59,6 +59,10 @@ textarea {
 	border-left: 1px solid #eee;
 }
 
+#item .item {
+	background-color: #eee;
+}
+
 #items::-webkit-scrollbar,
 #item::-webkit-scrollbar {
 	width: 4px;
@@ -102,6 +106,7 @@ textarea {
 	/*background-color: #e9b96e;*/
 	margin: 0;
 	border-bottom: 1px solid #eee;
+	margin-top: 1em;
 }
 
 #nav .btn {
@@ -170,17 +175,23 @@ textarea {
  * ITEM
  * -------------------------- */
 .item {
-	border-bottom: 0;
-	border-radius: 0;
+	border-bottom: 1px solid #eee;
+	border-radius: 2px;
 	position: relative;
 	text-align: left;
 	width: 100%;
-	padding: 1em;
+	padding: .5em;
 }
 
+.item:hover {
+	background-color: #eee;
+}
+
+/*
 .item:last-child {
 	border: 1px solid #cccccc;
 }
+*/
 
 .table {
 	display: table;
@@ -239,10 +250,11 @@ textarea {
  * COMMENTS
  * -------------------------- */
 .comment-item {
-	overflow: auto;
-	background-color: #f6f6ef;
-	/*padding: .5em;*/
+	background-color: #f5f5f5; /*#f6f6ef;*/
+	border-radius: 2px;
 	margin-bottom: .5em;
+	overflow: auto;
+	padding: .5em;
 }
 
 div[class^=page-] {
@@ -250,12 +262,13 @@ div[class^=page-] {
 }
 
 .op .comment-item {
-	background-color: #f6f6b6;
+	_background-color: #f6f6b6;
+	_border: 1px dotted black;;
 	margin-bottom: 2em;
 }
 
 div[class^=page-] .comment-item:nth-child(odd) {
-	background-color: #eeeeee;
+	_background-color: #eeeeee;
 }
 
 div[class^=page-] .comment-item:nth-child(even) {
@@ -285,12 +298,20 @@ div[class^=page-] .comment-item:nth-child(even) {
 	color: #888;
 }
 
+.comment-meta .no {
+	color: black;
+}
+
 .comment-content {
 	color: black;
 	font-size: 1em;
 	line-height: 1.7em; /* improve line-height since we use MSYH, discussions: http://www.v2ex.com/t/33832 */
 	overflow-x: auto;
 	word-wrap: break-word;
+}
+
+.comment-content p {
+	margin: 0 0 .2em;
 }
 
 .comment-content a {
@@ -334,7 +355,7 @@ div[class^=page-] .comment-item:nth-child(even) {
 .item.outline-stacked.expanded,
 .item.outline.expanding,
 .item.outline-stacked.expanding {
-	background-color: #f6f6b6;
+	background-color: #ddd; /*#f6f6b6;*/
 }
 
 .item-comments {
