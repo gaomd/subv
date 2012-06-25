@@ -345,18 +345,16 @@ window.subv = subv;
 
 }(window));
 
-/*
 (function() {
 	subv.log("hooking updateready");
 	applicationCache.addEventListener("updateready", function() {
-		subv.log("updating");
+		subv.log("updateready, now swapCache()");
 		applicationCache.swapCache();
 		if (confirm("App just got updated, refresh to view?")) {
 			location.reload();
 		}
 	}, false);
-}());
-*/
+})();
 
 $(function() {
 	subv.log("document ready");

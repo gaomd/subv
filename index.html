@@ -78,7 +78,7 @@
 					<button class="btn" id="btn-set-mode-stacked">stacked</button>
 				</div>
 			</div>
-			<label>Mobile:</label>
+			<label>Mobile (not working as expected currently):</label>
 			<div class="btn-toolbar">
 				<div class="btn-group">
 					<select id="viewport-width-selector">
@@ -145,7 +145,6 @@
 						Banned Items
 						(<span id="banned-items-counter">0</span>)
 					</button>
-					</button>
 				</div>
 				<div id="banned"></div>
 			</div><!-- /#items -->
@@ -162,18 +161,21 @@
 <script type="text/template" id="item-template">
 
 	<div class="item btn" id="item-{{=it.id}}-{{=it.comments_count}}">
-		<div class="item-cell item-main">
-			<div class="item-heading">
-				<span class="status"></span>
-				<span class="tag">[<a href="{{=it.tag.path}}">{{=it.tag.name}}</a>]</span>
-				<span class="title"><a class="clickpass" title="{{=it.title}}" href="{{=it.path}}">{{=it.title}}</a></span>
+		<div class="table">
+			<div class="table-cell item-main">
+				<div class="item-heading">
+					<span class="status"></span>
+					<span class="tag">[<a href="{{=it.tag.path}}">{{=it.tag.name}}</a>]</span>
+					<span class="title"><a class="clickpass" title="{{=it.title}}" href="{{=it.path}}">{{=it.title}}</a></span>
+				</div>
+				<div class="item-meta">
+					<a class="author" href="{{=it.comments[0].user.path}}">{{=it.comments[0].user.name}}</a>
+					<span class="js-loading">&middot; loading...</span>
+				</div>
 			</div>
-			<div class="item-meta">
-				<a class="author" href="{{=it.comments[0].user.path}}">{{=it.comments[0].user.name}}</a>
+			<div class="table-cell item-stats">
+				<a class="comments-count label" href="{{=it.path}}">{{=it.comments_count}}</a>
 			</div>
-		</div>
-		<div class="item-cell item-stats">
-			<a class="comments-count label" href="{{=it.path}}">{{=it.comments_count}}</a>
 		</div>
 	</div>
 
@@ -181,8 +183,7 @@
 
 <script type="text/template" id="item-comments-template">
 
-	<div class="js-loading"><h4>Loading...</h4></div>
-	<div class="item-comments">
+	<div class="item-comments item-row">
 		<div class="op"></div>
 		<div class="page-1"><button class="btn btn-load-page js-load-page">load page 1</button></div>
 		<div class="page-2"><button class="btn btn-load-page js-load-page">load page 2</button></div>

@@ -176,14 +176,18 @@ textarea {
 	text-align: left;
 	width: 100%;
 	padding: 1em;
-	display: table;
 }
 
 .item:last-child {
 	border: 1px solid #cccccc;
 }
 
-.item-cell {
+.table {
+	display: table;
+	margin: 0;
+}
+
+.table-cell {
 	display: table-cell;
 }
 
@@ -302,6 +306,9 @@ div[class^=page-] .comment-item:nth-child(even) {
 .comment-content embed,
 .comment-content .gist {
 	max-width: 100% !important;
+}
+
+.comment-content .gist {
 	width: 100%;
 }
 
@@ -339,12 +346,16 @@ div[class^=page-] .comment-item:nth-child(even) {
 	display: block;
 }
 
+.item .js-loading {
+	display: none;
+}
+
 .item.expanding .item-comments {
 	display: none;
 }
 
 .item.expanding .js-loading {
-	display: block;
+	display: inline;
 }
 
 .item.expanded .item-comments {
