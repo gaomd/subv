@@ -64,17 +64,13 @@ var subv = {
 			$("#width-adjuster").val(val).trigger("change");
 		}
 
-		// expand mode
 		$(".js-btn-set-mode").removeClass("active");
-		var mode = amplify.store("subv.settings.expandMode") || "";
-		subv.log("current mode is " + mode);
-		if (mode === "stacked") {
-			$("#btn-set-mode-stacked").addClass("active");
-		} else if (mode === "inline") {
-			$("#btn-set-mode-inline").addClass("active");
-		} else {
-			$("#btn-set-mode-outline").addClass("active");
+		if (!subv.settings.expandMode) {
+			amplify.store("subv.settings.expandMode", "inline");
+			subv.settings.expandMode = "inline";
 		}
+		subv.log("current mode is " + subv.settings.expandMode);
+		$("#btn-set-mode-" + subv.settings.expandMode).addClass("active");
 	},
 	loadNextList: function() {
 		subv.currentPage++;
