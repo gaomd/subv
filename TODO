@@ -2,3 +2,5 @@
  * highlight OP's comments
  * highlight one's comments when click @one
  * Ajax comment
+ * escape < and > and &
+ * avoid duplicated items

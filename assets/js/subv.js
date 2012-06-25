@@ -80,6 +80,14 @@ var subv = {
 		subv.currentPage++;
 		subv.api.v2ex.getItems(subv.currentPage, function(items) {
 			for (var i = 0; i < items.length; i++) {
+				// duplicate check
+				var id = "#item-" + items[i].id + "-" + items[i].comments_count;
+				if ($(id).length != 0) {
+					subv.log("skipped duplicated item: " + id);
+					continue;
+				}
+				
+				// safe to add
 				var t = (doT.template($("#item-template").text()))(items[i]);
 				if (subv.item.isBanned(items[i].id)) {
 					$("#banned").append(t);
@@ -268,7 +276,7 @@ var subv = {
 		});
 		*/
 
-		$(document).on("click", ".item-heading .title a, .item-meta .comments-count a", function(e) {
+		$(document).on("click", ".item-heading .title a, .item a.comments-count", function(e) {
 			var id = $(this).closest(".item").attr("id").split("-")[1];
 			subv.log("clicked item id: " + id);
 			subv.item.expand(id);
@@ -339,13 +347,19 @@ var subv = {
 			subv.log("loading page " + page);
 		});
 
-		$(document).on("click", ".goto-item button", function() {
+		$(document).on("click", ".goto-item", function() {
 			subv.log("goto clicked");
-			var id = $(this).parent().attr("id").split("-").pop();
+			var id = $(this).attr("id").split("-").pop();
 			var $item = $("[id^=item-" + id + "]");
 			$("html, body").animate({
 				"scrollTop": $item.offset().top
 			});
+		});
+
+		$(document).on("click", ".goto-top", function() {
+			$("html, body").animate({
+				"scrollTop": 0
+			})
 		});
 
 		$("#viewport-width-selector").on("change", function() {
