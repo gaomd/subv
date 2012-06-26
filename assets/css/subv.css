@@ -369,9 +369,9 @@ div[class^=page-] .comment-item:nth-child(even) {
 	width: 100%;
 }
 
-.btn-load-page {
+.js-load-page {
 	width: 100%;
-	margin-bottom: .5em;
+	margin: 0 0 .5em 0;
 }
 
 .item-toolbox {

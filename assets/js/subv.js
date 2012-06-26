@@ -341,8 +341,18 @@ var subv = {
 		});
 
 		$(document).on("click", ".js-load-page", function() {
-			var page = $(this).parent().attr("class").split("-").pop();
-			subv.log("loading page " + page);
+			var page = $(this).attr("id").split("-")[2];
+			var id = $(this).attr("id").split("-")[1];
+			// TODO: move in the html & css
+			var $container = $(this).parent().html("Loading page " + page + "...");
+			subv.api.v2ex.getItem(id, page, function(item) {
+				var i;
+				var template = doT.template( $("#comment-item-template").text() );
+				$container.html("");
+				for (i = 1; i < item.comments.length; i++) {
+					$container.append( template(item.comments[i]) );
+				}
+			});
 		});
 
 		$(document).on("click", ".goto-item", function() {
