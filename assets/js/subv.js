@@ -374,7 +374,7 @@ window.subv = subv;
 	applicationCache.addEventListener("updateready", function() {
 		subv.log("updateready, now swapCache()");
 		applicationCache.swapCache();
-		if (confirm("Refresh to use updated version?")) {
+		if (confirm("Refresh to use the updated version?")) {
 			location.reload();
 		}
 	}, false);

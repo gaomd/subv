@@ -205,13 +205,14 @@
 			</form>
 		</div>
 		-->
-		<!--
-		<div>
-			<button class="btn btn-success goto-item" id="goto-item-{{=it.id}}"><i class="icon-arrow-left"></i> Scroll back to the topic</button>
-			<button class="btn goto-top pull-right">TOP<sup><i class="icon-arrow-up"></i></sup></button>
-		</div>-->
-		<div class="end-of-item">
-			<a href="#" title="Toolbox, WIP">◆</a>
+		<div class="item-toolbox">
+			<div class="btn-group dropup">
+				<a href="#" class="dropdown-toggle square" data-toggle="dropdown">◆</a>
+				<ul class="dropdown-menu">
+					<li><a href="#" class="goto-item" id="goto-item-{{=it.id}}">Scroll back to the topic</a></li>
+					<li><a href="#" class="goto-top">Go to top of the page</a></li>
+				</ul>
+			</div>
 		</div>
 	</div>
 

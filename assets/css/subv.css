@@ -374,15 +374,19 @@ div[class^=page-] .comment-item:nth-child(even) {
 	margin-bottom: .5em;
 }
 
-.end-of-item {
-	margin-top: 1em;
+.item-toolbox {
 	text-align: center;
-	font-size: 3em;
-	color: #ccc;
+	margin-top: 1em;
 }
 
-.end-of-item a {
+.item-toolbox .btn-group {
+	display: inline-block;
+	text-align: left;
+}
+
+.item-toolbox .btn-group .square {
 	text-decoration: none;
+	font-size: 3em;
 }
 
 .item.outline.expanded,
