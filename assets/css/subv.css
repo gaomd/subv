@@ -387,6 +387,7 @@ div[class^=page-] .comment-item:nth-child(even) {
 .item-toolbox .btn-group .square {
 	text-decoration: none;
 	font-size: 3em;
+	line-height: 1.2;
 }
 
 .item.outline.expanded,
