@@ -7,7 +7,7 @@ Hacker News part is a work in progress.
 
 Screenshots
 -----------
-[](http://i.imgur.com/FPTt4.png)
+1. [Overview](http://i.imgur.com/FPTt4.png)
 
 Use
 ---
