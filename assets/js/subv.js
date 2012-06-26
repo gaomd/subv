@@ -16,6 +16,7 @@ $(document).on("mobileinit", function() {
 	$.mobile.autoInitializePage = false;
 });
 
+/*
 // http://webdesignerwall.com/tutorials/iphone-safari-viewport-scaling-bug
 // concept derived from: https://gist.github.com/901302
 // though i don't understand the true reason to do this.
@@ -27,6 +28,7 @@ window.document.addEventListener("gesturestart", function() {
 		console.log(meta.content);
 	}, 2000);
 }, false);
+*/
 
 var subv = {
 	currentPage: -1,
@@ -370,6 +372,10 @@ window.subv = subv;
 }(window));
 
 (function() {
+	// hot fix, ignore all IEs tmply
+	if ($.browser.msie) {
+		return;
+	}
 	subv.log("hooking updateready");
 	applicationCache.addEventListener("updateready", function() {
 		subv.log("updateready, now swapCache()");
