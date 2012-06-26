@@ -5,6 +5,10 @@ Subv is a redesigned unified [V2EX](http://www.v2ex.com) and [Hacker News](http:
 
 Hacker News part is a work in progress.
 
+Screenshots
+-----------
+[](http://i.imgur.com/FPTt4.png)
+
 Use
 ---
 Visit http://gdd.github.com/subv/
