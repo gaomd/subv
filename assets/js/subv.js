@@ -418,6 +418,7 @@ var subv = {
 
 		subv.awful.reloadButtonHotFix();
 	},
+	// awfully, full of hacks.
 	awful: {
 		reloadButtonHotFix: function() {
 			setTimeout(function() {
@@ -431,7 +432,7 @@ var subv = {
 				}
 				subv.log("calculated #reload-btn width is " + width);
 				$btnsOuter.width(width);
-			}, 1000);
+			}, $.browser.msie ? 8000 : 1000);
 		}
 	}
 };
