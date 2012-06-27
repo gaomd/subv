@@ -41,20 +41,21 @@
 		<div id="nav" class="btn-toolbar">
 			<div class="btn-group">
 				<a id="logo" class="btn btn-large" href="http://www.v2ex.com">V2EX</a>
-				<button class="btn btn-large dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-chevron-down"></i>
-				</button>
+				<!-- &nbsp; for Firefox otherwise in bold button the height is diff, wtf!! -->
+				<a class="btn btn-large dropdown-toggle" data-toggle="dropdown">
+					&nbsp;<i class="icon-chevron-down"></i>&nbsp;
+				</a>
 				<ul class="dropdown-menu">
 					<li><a href="#">nope</a></li>
 				</ul>
 			</div>
 			<div class="btn-group">
 				<a class="btn btn-large" href="http://news.ycombinator.com">HN</a>
-				<button class="btn btn-large dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-chevron-down"></i>
-				</button>
+				<a class="btn btn-large dropdown-toggle" data-toggle="dropdown">
+					&nbsp;<i class="icon-chevron-down"></i>&nbsp;
+				</a>
 				<ul class="dropdown-menu">
-					<li><a href="#">nope</a></li>
+					<li><a href="#">Hacker News is a work in progress ;-)</a></li>
 				</ul>
 			</div>
 			<div class="btn-group pull-right">
@@ -81,8 +82,8 @@
 			<div class="btn-toolbar">
 				<div class="btn-group">
 					<button class="btn js-expand-mode" id="js-expand-mode-inline">inline</button>
-					<button class="btn js-expand-mode" id="js-expand-mode-outline">outline (sidebar)</button>
-					<button class="btn js-expand-mode" id="js-expand-mode-stacked">stacked (sidebar)</button>
+					<button class="btn js-expand-mode" id="js-expand-mode-outline">sidebar</button>
+					<button class="btn js-expand-mode" id="js-expand-mode-stacked">stack in sidebar</button>
 				</div>
 			</div>
 			<label>Mobile (not working as expected currently):</label>
