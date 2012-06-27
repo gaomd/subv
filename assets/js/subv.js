@@ -42,7 +42,8 @@ var subv = {
 		subv.bindEvents();
 		subv.clearList();
 		subv.loadNextList();
-		subv.effectSettings(true);
+		subv.loadSettings();
+		subv.effectSettings();
 	},
 	log: function(context) {
 		if ( !window.console || !window.console.log ) {
@@ -54,14 +55,9 @@ var subv = {
 			console.log("LOG: " + context);
 		}
 	},
-	/* load settings form storage then sync to the UI */
-	effectSettings: function(deep) {
+	/* load settings form storage/or variable then sync to the UI */
+	effectSettings: function() {
 		var val, vleft, vright;
-
-		// Go deep and load settings from the storage.
-		if (deep) {
-			subv.loadSettings();
-		}
 
 		// MARGIN
 		// TODO: move the magic numbers
@@ -99,11 +95,13 @@ var subv = {
 		subv.settings.margin = 2;
 		subv.settings.splitter = 42;
 		subv.settings.expandMode = "outline";
+		subv.saveSettings();
 	},
 	setSettingsForiPhone: function() {
 		subv.settings.margin = 0;
 		subv.settings.splitter = 100;
 		subv.settings.expandMode = "inline";
+		subv.saveSettings();
 	},
 	// load settings from the storage into app
 	loadSettings: function() {
@@ -155,7 +153,7 @@ var subv = {
 		subv.clearList();
 		subv.currentPage = -1;
 		subv.loadNextList();
-		// TODO: auto collapse really good?
+		// TODO: is auto collapse settings area really good?
 		$("#prefs").slideUp();
 		// scroll to top
 		$("html, body").animate({
