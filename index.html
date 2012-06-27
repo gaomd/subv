@@ -70,12 +70,19 @@
 				</div>
 			</div>
 			-->
-			<label>Item expand (refresh needed after changed):</label>
+			<label>Preset modes:</label>
 			<div class="btn-toolbar">
 				<div class="btn-group">
-					<button class="btn js-btn-set-mode" id="btn-set-mode-inline">inline</button>
-					<button class="btn js-btn-set-mode" id="btn-set-mode-outline">outline</button>
-					<button class="btn js-btn-set-mode" id="btn-set-mode-stacked">stacked</button>
+					<button class="btn btn-large js-perset" id="js-preset-desktop">Desktop</button>
+					<button class="btn btn-large js-preset" id="js-preset-iphone">iPhone/touch</button>
+				</div>
+			</div>
+			<label>Item expands (refresh needed after changed):</label>
+			<div class="btn-toolbar">
+				<div class="btn-group">
+					<button class="btn js-expand-mode" id="js-expand-mode-inline">inline</button>
+					<button class="btn js-expand-mode" id="js-expand-mode-outline">outline</button>
+					<button class="btn js-expand-mode" id="js-expand-mode-stacked">stacked</button>
 				</div>
 			</div>
 			<label>Mobile (not working as expected currently):</label>
@@ -96,7 +103,7 @@
 			<label>Width controllers:</label>
 			<div class="btn-toolbar width-tb">
 				<div class="width-tb-margin">
-					<input id="width-adjuster" type="range" min="0" max="24" value="0" step="1" />
+					<input id="width-margin" type="range" min="0" max="24" value="0" step="1" />
 				</div>
 				<div class="width-tb-splitter">
 					<input id="width-splitter" type="range" min="30" max="100" value="100" step="1" />

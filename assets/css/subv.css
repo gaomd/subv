@@ -53,6 +53,7 @@ textarea {
 #banned-items-toggle {
 	text-align: left;
 }
+
 #items,
 #item {
 	height: 100%;
@@ -128,8 +129,8 @@ textarea {
 }
 
 #item .item {
-	margin-left: .5em;
-	border-left: 1px solid #eee;
+	margin-left: 1em;
+	_border-left: 1px solid #eee;
 }
 
 .width-tb-margin {
@@ -141,7 +142,7 @@ textarea {
 	width: 100%;
 }
 
-#width-adjuster,
+#width-margin,
 #width-splitter {
 	margin: 0;
 	padding: 0;

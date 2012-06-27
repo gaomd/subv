@@ -33,14 +33,16 @@ window.document.addEventListener("gesturestart", function() {
 var subv = {
 	currentPage: -1,
 	settings: {
-		expandMode: amplify.store("subv.settings.expandMode")
+		expandMode: undefined,
+		margin: undefined,
+		splitter: undefined
 	},
 	init: function() {
 		window.doT.templateSettings.strip = false;
 		subv.bindEvents();
 		subv.clearList();
 		subv.loadNextList();
-		subv.applySettings();
+		subv.effectSettings(true);
 	},
 	log: function(context) {
 		if ( !window.console || !window.console.log ) {
@@ -53,26 +55,67 @@ var subv = {
 		}
 	},
 	/* load settings form storage then sync to the UI */
-	applySettings: function() {
-		amplify.store("subv.settings.expandMode", subv.settings.expandMode);
+	effectSettings: function(deep) {
+		var val, vleft, vright;
 
-		var val;
-		val = amplify.store("width-splitter-value") || $("#width-splitter").val();
-		if (val) {
-			$("#width-splitter").val(val).trigger("change");
-		}
-		val = amplify.store("width-adjuster-value") || $("#width-adjuster").val();
-		if (val) {
-			$("#width-adjuster").val(val).trigger("change");
+		// Go deep and load settings from the storage.
+		if (deep) {
+			subv.loadSettings();
 		}
 
-		$(".js-btn-set-mode").removeClass("active");
-		if (!subv.settings.expandMode) {
-			amplify.store("subv.settings.expandMode", "inline");
-			subv.settings.expandMode = "inline";
+		// MARGIN
+		// TODO: move the magic numbers
+		val = subv.settings.margin;
+		if (subv.settings.margin != 0 && !subv.settings.margin) {
+			val = 2;
 		}
-		subv.log("current mode is " + subv.settings.expandMode);
-		$("#btn-set-mode-" + subv.settings.expandMode).addClass("active");
+		subv.log("margin is 0 " + val + "%");
+		(function(marginVal) {
+			setTimeout(function() {
+				$("#wrapper").css({
+					"margin-left": marginVal + "%",
+					"margin-right": marginVal + "%"
+				});
+			}, 1000);
+		})(val);
+		$("#width-margin").val(val);
+
+		// SPLITTER
+		vleft = subv.settings.splitter || 42;
+		vright = 100 - vleft;;
+		if (vright === 0) {
+			vright = 100;
+		}
+		$("#items").css({ "width": vleft + "%" });
+		$("#item").css({ "width": vright + "%" });
+		$("#width-splitter").val(vleft);
+
+		// EXPAND
+		val = subv.settings.expandMode || "inline";
+		$(".js-expand-mode").removeClass("active");
+		$("#js-expand-mode-" + val).addClass("active");
+	},
+	setSettingsForDesktop: function() {
+		subv.settings.margin = 2;
+		subv.settings.splitter = 42;
+		subv.settings.expandMode = "outline";
+	},
+	setSettingsForiPhone: function() {
+		subv.settings.margin = 0;
+		subv.settings.splitter = 100;
+		subv.settings.expandMode = "inline";
+	},
+	// load settings from the storage into app
+	loadSettings: function() {
+		subv.settings.splitter = amplify.store("subv.settings.splitter");
+		subv.settings.margin = amplify.store("subv.settings.margin");
+		subv.settings.expandMode = amplify.store("subv.settings.expandMode");
+	},
+	// save settings into the storage
+	saveSettings: function() {
+		amplify.store("subv.settings.margin", subv.settings.margin);
+        amplify.store("subv.settings.splitter", subv.settings.splitter);
+        amplify.store("subv.settings.expandMode", subv.settings.expandMode);
 	},
 	loadNextList: function() {
 		subv.currentPage++;
@@ -112,6 +155,8 @@ var subv = {
 		subv.clearList();
 		subv.currentPage = -1;
 		subv.loadNextList();
+		// TODO: auto collapse really good?
+		$("#prefs").slideUp();
 		// scroll to top
 		$("html, body").animate({
 			"scrollTop": 0
@@ -294,45 +339,43 @@ var subv = {
 			//});
 		});
 
-		$("#btn-set-mode-inline").on("click", function() {
+		$("#js-preset-iphone").on("click", function() {
+			subv.setSettingsForiPhone();
+			subv.effectSettings();
+			subv.refreshList();
+		});
+
+		$("#js-preset-desktop").on("click", function() {
+			subv.setSettingsForDesktop();
+			subv.effectSettings();
+			subv.refreshList();
+		});
+
+		$("#js-expand-mode-inline").on("click", function() {
 			subv.settings.expandMode = "inline";
-			subv.applySettings();
+			subv.effectSettings();
 		});
 
-		$("#btn-set-mode-outline").on("click", function() {
+		$("#js-expand-mode-outline").on("click", function() {
 			subv.settings.expandMode = "outline";
-			subv.applySettings();
+			subv.effectSettings();
 		});
 
-		$("#btn-set-mode-stacked").on("click", function() {
+		$("#js-expand-mode-stacked").on("click", function() {
 			subv.settings.expandMode = "stacked";
-			subv.applySettings();
+			subv.effectSettings();
 		});
 
 		$("#width-splitter").on("change", function() {
-			var val = $(this).val();
-			amplify.store("width-splitter-value", val);
-			var witem = 100-val;
-			if (witem === 0) {
-				witem = 100;
-			}
-			$("#items").css({
-				"width": val + "%"
-			});
-			$("#item").css({
-				"width": witem + "%"
-			});
+			subv.settings.splitter = $(this).val();
+			subv.saveSettings();
+			subv.effectSettings();
 		});
 
-		$("#width-adjuster").on("change", function() {
-			var val = $(this).val();
-			amplify.store("width-adjuster-value", val);
-			setTimeout(function() {
-				$("#wrapper").css({
-					"margin-left": val+"%",
-					"margin-right": val+"%"
-				});
-			}, 1000);
+		$("#width-margin").on("change", function() {
+			subv.settings.margin = $(this).val();
+			subv.saveSettings();
+			subv.effectSettings();
 		});
 
 		$(document).on("click", ".js-show-comment-box", function() {
@@ -390,7 +433,7 @@ window.subv = subv;
 	applicationCache.addEventListener("updateready", function() {
 		subv.log("updateready, now swapCache()");
 		applicationCache.swapCache();
-		if (confirm("Refresh to use the updated version?")) {
+		if (confirm("An updated version is available, reload to use?")) {
 			location.reload();
 		}
 	}, false);
