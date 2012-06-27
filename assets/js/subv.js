@@ -415,6 +415,21 @@ var subv = {
 			$("#viewport-width").attr("content", $(this).find("option:selected").val());
 			subv.log("viewport settings changed to " + $("#viewport-width").attr("content"));
 		});
+
+		subv.awful.reloadButtonHotFix();
+	},
+	awful: {
+		reloadButtonHotFix: function() {
+			var i;
+			var width = 0;
+			var $btnsOuter = $("#btn-reload").parent().parent();
+			var $btns = $("#btn-reload").parent().find(".btn");
+			for (i = 0; i < $btns.length; i++) {
+				width += $btns.eq(i).outerWidth();
+			}
+			subv.log("calculated #reload-btn width is " + width);
+			$btnsOuter.width(width);
+		}
 	}
 };
 
