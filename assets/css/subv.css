@@ -376,8 +376,8 @@ div[class^=page-] .comment-item:nth-child(even) {
 }
 
 .item-toolbox {
-	text-align: center;
-	margin-top: 1em;
+	_text-align: center;
+	margin-top: 2em;
 }
 
 .item-toolbox .btn-group {
@@ -385,15 +385,17 @@ div[class^=page-] .comment-item:nth-child(even) {
 	text-align: left;
 }
 
-.item-toolbox .btn-group .square {
-	text-decoration: none;
-	font-size: 3em;
-	line-height: 1.2;
+.item-toolbox .square {
+	font-size: 2em;
+	line-height: 1;
 	color: #888;
+	/*text-decoration: none;*/
 	/* override bootstrap, no need for that */
+	/*
 	box-shadow: none;
 	-moz-box-shadow: none;
 	-webkit-box-shadow: none;
+	*/
 }
 
 .item.outline.expanded,

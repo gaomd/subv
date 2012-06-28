@@ -7,3 +7,5 @@ LEGEND: *: TODO, D: Done, P: Partially
  P fix reload button line break in IE, Opera, Firefox
  * fix width controllers in browsers not support input[type=range] yet
  * hide already read comments
+ * hash tag change
+ * history support or better idea
