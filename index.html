@@ -10,8 +10,8 @@
 	<link rel="apple-touch-icon" href="assets/image/more_human_mind.png" />
 	<link rel="icon" type="image/png" href="assets/image/16x.png" />
 
-	<link rel="stylesheet" type="text/css" href="assets/third/css/bootstrap.css" />
-	<link rel="stylesheet" type="text/css" href="assets/third/css/bootstrap-responsive.css" />
+	<link rel="stylesheet" type="text/css" href="assets/third/css/bootstrap.min.css" />
+	<!--<link rel="stylesheet" type="text/css" href="assets/third/css/bootstrap-responsive.css" />-->
 	<link rel="stylesheet" type="text/css" href="assets/third/css/font-awesome.css" />
 	<link rel="stylesheet" type="text/css" href="assets/css/subv.css" />
 
@@ -19,7 +19,7 @@
 	<script type="text/javascript" src="assets/third/js/jquery.xdomainajax.js"></script>
 	<script type="text/javascript" src="assets/third/js/amplify.store.js"></script>
 	<script type="text/javascript" src="assets/third/js/doT.js"></script>
-	<script type="text/javascript" src="assets/third/js/bootstrap.js"></script>
+	<script type="text/javascript" src="assets/third/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="assets/js/subv.js"></script>
 	<script type="text/javascript" src="assets/js/subv.api.v2ex.js"></script>
 	<script>
@@ -214,7 +214,9 @@
 		</div>
 		-->
 		<div class="item-toolbox">
-			<button class="btn goto-item" id="goto-item-{{=it.id}}">Back to the topic title</button>
+			<button class="btn btn-success goto-item" id="goto-item-{{=it.id}}">
+				<i class="icon-circle-arrow-left"></i>
+				Back to the topic title</button>
 			<span class="pull-right square">◆</span>
 			<!--
 			<div class="btn-group dropup">
