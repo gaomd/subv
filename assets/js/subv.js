@@ -57,7 +57,7 @@ window.subv = {
 			if (subv.settings.margin !== 0 && !subv.settings.margin) {
 				val = 2;
 			}
-			subv.log("margin is 0 " + val + "%");
+			//subv.log("margin is 0 " + val + "%");
 			(function(marginVal) {
 				setTimeout(function() {
 					$("#wrapper").css({
@@ -87,7 +87,7 @@ window.subv = {
 			subv.settings.margin = 0;
 			subv.settings.splitter = 100;
 			subv.settings.expandMode = "inline";
-			subv.setting.save();
+			subv.settings.save();
 		},
 		presetDesktop: function() {
 			subv.settings.margin = 2;
@@ -402,22 +402,23 @@ window.subv = {
 
 		subv.awful.reloadButtonHotFix();
 	},
-	// awfully, full of hacks.
+	// some hacks.
 	awful: {
 		reloadButtonHotFix: function() {
-			// fix the width for various times,
+			// fix the width for various (8) times,
 			// I can't fix it through CSS yet
 			(function widthFix(times) {
 				var i;
 				var width = 0;
-				var $btnsOuter = $("#btn-reload").parent().parent();
-				var $btns = $("#btn-reload").parent().find(".btn");
+				var $btnsParent = $("#btn-reload").parent();
+				var $btns = $btnsParent.find(".btn");
 
+				// For the record: $btns.each(function() { width += $(this).width(); });
 				for (i = 0; i < $btns.length; i++) {
 					width += $btns.eq(i).outerWidth();
 				}
 				//subv.log("calculated #reload-btn width is " + width);
-				$btnsOuter.width(width);
+				$btnsParent.width(width);
 
 				if (times === 0) {
 					return;
@@ -429,8 +430,7 @@ window.subv = {
 		}
 	},
 	util: {
-		/** detect iPhone and iPod touch
-		 */
+		// detect iPhone && iPod touch
 		isIPhone: function() {
 			return !!(navigator.userAgent.match(/iPhone/i) ||
 					navigator.userAgent.match(/iPod/i));
@@ -459,7 +459,7 @@ window.subv = {
 // All set, let's go!
 $(function() {
 	"use strict";
-	subv.log("document ready");
+	//subv.log("document ready");
 	subv.init();
 });
 
