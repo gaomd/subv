@@ -408,26 +408,25 @@ window.subv = {
 		reloadButtonHotFix: function() {
 			// fix the width for various (8) times,
 			// I can't fix it through CSS yet
-			(function widthFix(times) {
-				var i;
-				var width = 0;
-				var $btnsParent = $("#btn-reload").parent();
-				var $btns = $btnsParent.find(".btn");
-
-				// For the record: $btns.each(function() { width += $(this).width(); });
-				for (i = 0; i < $btns.length; i++) {
-					width += $btns.eq(i).outerWidth();
+			(function widthFix(times, isFirst) {
+				if (!isFirst) {
+					var width = 0;
+					var $btnsParent = $("#btn-reload").parent();
+					var $btns = $btnsParent.find(".btn");
+	
+					$btns.each(function() { width += $(this).outerWidth(); });
+					$btnsParent.width(width);
+					//subv.log("calculated #reload-btn width is " + width);
 				}
-				//subv.log("calculated #reload-btn width is " + width);
-				$btnsParent.width(width);
 
 				if (times === 0) {
 					return;
 				}
+
 				setTimeout(function() {
-					widthFix(--times);
-				}, 1000);
-			})(8);
+					widthFix(--times, false);
+				}, 3000);
+			})(4, true);
 		}
 	},
 	util: {
