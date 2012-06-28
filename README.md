@@ -7,7 +7,8 @@ Hacker News part is a work in progress.
 
 Screenshots
 -----------
-1. [Overview](http://i.imgur.com/FPTt4.png)
+1. [Overview](http://i.imgur.com/yKNm9.png)
+2. [On iPhone/iPod touch](http://i.imgur.com/jFOTx.png);
 
 Use
 ---
