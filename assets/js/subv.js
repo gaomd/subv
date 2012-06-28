@@ -368,8 +368,9 @@ window.subv = {
 		$(document).on("click", ".js-load-page", function() {
 			var page = $(this).attr("id").split("-")[2];
 			var id = $(this).attr("id").split("-")[1];
-			// TODO: move in the html & css
-			var $container = $(this).parent().html("Loading page " + page + "...");
+			var $container = $(this).parent();
+			// TODO: move strings into the html & css?
+			$(this).text("Loading page " + page + "...");
 			subv.api.v2ex.getItem(id, page, function(item) {
 				var i;
 				var template = doT.template( $("#comment-item-template").text() );
