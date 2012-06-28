@@ -205,7 +205,8 @@ window.subv = {
 			});
 			subv.items.reset();
 		},
-		loadNext: function() {
+		// callback after completed
+		loadNext: function(callback) {
 			subv.currentPage++;
 			subv.api.v2ex.getItems(subv.currentPage, function(items) {
 				for (var i = 0; i < items.length; i++) {
@@ -215,7 +216,7 @@ window.subv = {
 						subv.log("skipped duplicated item: " + id);
 						continue;
 					}
-					
+
 					// safe to add
 					var templateText = $("#item-template").text();
 					var t = (doT.template(templateText))(items[i]);
@@ -230,6 +231,9 @@ window.subv = {
 				// update the #read/#banned counter
 				$("#read-items-counter").text($("#read > .item").length);
 				$("#banned-items-counter").text($("#banned > .item").length);
+				if (typeof callback === "function") {
+					callback();
+				}
 			});
 		},
 		_clear: function() {
@@ -280,8 +284,21 @@ window.subv = {
 			subv.items.reset();
 		});
 
+		// TODO: too messy
 		$("#more"/* <button/> */).on("click", function() {
-			subv.items.loadNext();
+		var
+			$this = $(this),
+			moreString = "more",
+			loadingString = "fetching more...";
+
+			if ($this.hasClass("disabled")) {
+				return;
+			}
+
+			$this.addClass("disabled").text(loadingString);
+			subv.items.loadNext(function() {
+				$this.removeClass("disabled").text(moreString);
+			});
 		});
 
 		$("#read-items-toggle").on("click", function() {
