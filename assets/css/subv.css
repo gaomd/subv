@@ -13,11 +13,6 @@ body {
 	padding: 0; /* override bs */
 }
 
-.btn i[class^="icon-"] {
-	/* match up with bootstrap's .btn line-height */
-	line-height: 18px;
-}
-
 *,
 p,
 input,
