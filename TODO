@@ -1,8 +1,9 @@
- * add more TODOs to TODO
+LEGEND: *: TODO, D: Done, P: Partially
  * highlight OP's comments
  * highlight one's comments when click @one
  * Ajax comment
  * escape < and > and &
- * avoid duplicated items
- * fix reload button line break in IE, Opera, Firefox
+ D avoid duplicated items
+ P fix reload button line break in IE, Opera, Firefox
  * fix width controllers in browsers not support input[type=range] yet
+ * hide already read comments
