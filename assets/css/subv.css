@@ -19,7 +19,7 @@ input,
 button,
 select,
 textarea {
-	font-family: "Verdana", "_ignore_Trebuchet MS", "Helvetica Neue", Helvetica, Arial, STHeiti, "Microsoft YaHei", "Droid Sans Fallback", "WenQuanYi Micro Hei", "WenQuanYi Zen Hei", sans-serif;
+	font-family: "Verdana", "ignore_Trebuchet MS", "Helvetica Neue", Helvetica, Arial, STHeiti, "Microsoft YaHei", "Droid Sans Fallback", "WenQuanYi Micro Hei", "WenQuanYi Zen Hei", sans-serif;
 }
 
 #wrapper {
@@ -27,16 +27,10 @@ textarea {
 }
 
 #content {
-	/*background-color: #f6f6ef;*/
-	_background-color: #f5f5f5;
 	min-height: 1024px;
 	padding-bottom: 100%;
 	overflow: auto; /* inner div is float */
 	margin-top: 1em;
-}
-
-#latest {
-	_border-bottom: 1px solid #eee;
 }
 
 #latest ~ .btn-toolbar {
@@ -61,16 +55,6 @@ textarea {
 	float: left;
 	margin-left: 0; /* override .span */
 }
-
-#item {
-	_border-left: 1px solid #eee;
-}
-
-/*
-#item .item {
-	background-color: #eee;
-}
-*/
 
 #items::-webkit-scrollbar,
 #item::-webkit-scrollbar {
@@ -110,11 +94,7 @@ textarea {
 
 #nav {
 	padding: .5em;
-	_background-color: #f5f5f5;
-	/*background-color: #f6f6b6;*/
-	/*background-color: #e9b96e;*/
 	margin: 0;
-	_border-bottom: 1px solid #eee;
 	margin-top: 1em;
 }
 
@@ -130,7 +110,6 @@ textarea {
 
 #item .item {
 	margin-left: 1em;
-	_border-left: 1px solid #eee;
 }
 
 .width-tb-margin {
@@ -188,7 +167,6 @@ textarea {
 	border-radius: 2px;
 	position: relative;
 	text-align: left;
-	_width: 100%;
 	padding: .5em;
 }
 
@@ -270,7 +248,6 @@ textarea {
  * COMMENTS
  * -------------------------- */
 .comment-item {
-	_background-color: #f5f5f5; /*#f6f6ef;*/
 	border-radius: 2px;
 	margin-bottom: 1em;
 	overflow: auto;
@@ -282,13 +259,11 @@ div[class^=page-] {
 }
 
 .op .comment-item {
-	_background-color: #f6f6b6;
-	_border: 1px dotted black;;
 	margin-bottom: 2em;
 }
 
 div[class^=page-] .comment-item:nth-child(odd) {
-	_background-color: #eeeeee;
+	/*background-color: #eeeeee;*/
 }
 
 div[class^=page-] .comment-item:nth-child(even) {
@@ -376,7 +351,6 @@ div[class^=page-] .comment-item:nth-child(even) {
 }
 
 .item-toolbox {
-	_text-align: center;
 	margin-top: 2em;
 }
 
