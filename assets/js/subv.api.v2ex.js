@@ -134,7 +134,7 @@ parseItem: function(html) {
 		"id": "0", // TODO
 		"path": "/t/0", // TODO
 		"title": $j.find(".header h1").text(),
-		"views_count": $j.find(".header small.gray").text().trim().replace(/.*?(\d+) 次点击.*/, "$1"),
+		"views_count": $.trim($j.find(".header small.gray").text()).replace(/.*?(\d+) 次点击.*/, "$1"),
 		"comments_count": Number($j.find("#Main > .box > .cell > .gray").text().split(" ")[0]),
 		"last_updated_time_ago": null, // nope
 		"pages": 1,

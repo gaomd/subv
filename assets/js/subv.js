@@ -157,7 +157,7 @@ window.subv = {
 			$item.addClass("expanding cached").addClass(subv.settings.expandMode);
 			$itemx.addClass("expanding");
 
-			var template = doT.template( $("#item-comments-template").text() );
+			var template = doT.template( $("#item-comments-template").html() );
 			var $comments = $( template({ "id": id}) );
 			$itemx.append($comments);
 
@@ -166,7 +166,7 @@ window.subv = {
 				subv.log(item);
 				// op
 				var $op = $comments.find(".op");
-				template = doT.template( $("#comment-item-template").text() );
+				template = doT.template( $("#comment-item-template").html() );
 				$op.append( template(item.comments[0]) );
 				// comments
 				for (i = 1; i <= item.pages; i++) {
@@ -174,7 +174,7 @@ window.subv = {
 				}
 				var $page = $comments.find(".page-" + item.current_page).empty();
 				for (i = 1; i < item.comments.length; i++) {
-					template = doT.template( $("#comment-item-template").text() );
+					template = doT.template( $("#comment-item-template").html() );
 					$page.append( template(item.comments[i]) );
 				}
 				$item.removeClass("expanding").addClass("expanded");
@@ -218,7 +218,7 @@ window.subv = {
 					}
 
 					// safe to add
-					var templateText = $("#item-template").text();
+					var templateText = $("#item-template").html();
 					var t = (doT.template(templateText))(items[i]);
 					if (subv.item.isBanned(items[i].id)) {
 						$("#banned").append(t);
@@ -390,7 +390,7 @@ window.subv = {
 			$(this).text("Loading page " + page + "...");
 			subv.api.v2ex.getItem(id, page, function(item) {
 				var i;
-				var template = doT.template( $("#comment-item-template").text() );
+				var template = doT.template( $("#comment-item-template").html() );
 				$container.html("");
 				for (i = 1; i < item.comments.length; i++) {
 					$container.append( template(item.comments[i]) );
