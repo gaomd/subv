@@ -32,23 +32,32 @@ window.subv = {
 		expandMode: undefined,
 		margin: undefined,
 		splitter: undefined,
+		notFirstRun: undefined,
 		/** load settings from the storage into app
 		 */
 		load: function() {
 			subv.settings.splitter = amplify.store("subv.settings.splitter");
 			subv.settings.margin = amplify.store("subv.settings.margin");
 			subv.settings.expandMode = amplify.store("subv.settings.expandMode");
+			subv.settings.notFirstRun = amplify.store("subv.settings.notFirstRun");
 		},
 		/** save settings into the storage
 		 */
 		save: function() {
 			amplify.store("subv.settings.margin", subv.settings.margin);
-	        amplify.store("subv.settings.splitter", subv.settings.splitter);
-	        amplify.store("subv.settings.expandMode", subv.settings.expandMode);
+			amplify.store("subv.settings.splitter", subv.settings.splitter);
+			amplify.store("subv.settings.expandMode", subv.settings.expandMode);
+			amplify.store("subv.settings.notFirstRun", subv.settings.notFirstRun);
 		},
 		/** make the UI reflects the settings, and effective these settings.
 		 */
 		effect: function() {
+			if (subv.settings.notFirstRun) {
+				;
+			} else {
+				subv.util.isIPhone ? subv.setting.presetIPhone : subv.settings.presetDesltop;
+			}
+			
 			var val, vleft, vright;
 	
 			// MARGIN
@@ -87,12 +96,14 @@ window.subv = {
 			subv.settings.margin = 0;
 			subv.settings.splitter = 100;
 			subv.settings.expandMode = "inline";
+			subv.settings.notFirstRun = true;
 			subv.settings.save();
 		},
 		presetDesktop: function() {
 			subv.settings.margin = 2;
 			subv.settings.splitter = 42;
 			subv.settings.expandMode = "outline";
+			subv.settings.notFirstRun = true;
 			subv.settings.save();
 		}
 	},
