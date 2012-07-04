@@ -61,7 +61,7 @@ window.subv = {
 					subv.settings.presetIPhone();
 				} else {
 					subv.log("presitting to Desktop mode");
-					subv.settings.presetDesltop();
+					subv.settings.presetDesktop();
 				}
 			}
 			
