@@ -55,7 +55,14 @@ window.subv = {
 			if (subv.settings.notFirstRun) {
 				;
 			} else {
-				subv.util.isIPhone ? subv.setting.presetIPhone : subv.settings.presetDesltop;
+				subv.log("running first time.");
+				if (subv.util.isIPhone()) {
+					subv.log("presetting to iPhone mode");
+					subv.settings.presetIPhone();
+				} else {
+					subv.log("presitting to Desktop mode");
+					subv.settings.presetDesltop();
+				}
 			}
 			
 			var val, vleft, vright;
