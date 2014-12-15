@@ -1,4 +1,5 @@
 #!/bin/bash
-ID=$(echo $RANDOM | base64)
-APPCACHE=subv.appcache
-sed -i "s/VERSION: \[[^\]*]/VERSION: [${ID}]/" ${APPCACHE}
+ID=$(git log --pretty=format:'%h' -n 1)
+TMP_FILE=`mktemp /tmp/config.XXXXXXXXXX`
+sed -e "s/^# VERSION: .*$/# VERSION: ${ID}/" subv.appcache > $TMP_FILE
+mv $TMP_FILE subv.appcache
