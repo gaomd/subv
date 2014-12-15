@@ -16,7 +16,7 @@ window.subv.api.v2ex = {
 	getItems: function(pageNo, callback) {
 		var url;
 		if (pageNo === 0) {
-			url = "/";
+			url = "/?tab=all";
 		} else {
 			url = "/recent?p=" + pageNo;
 		}
